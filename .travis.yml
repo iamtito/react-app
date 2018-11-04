@@ -6,4 +6,4 @@ before_install:
   - docker build -t bolatito/reatapp:latest -f Dockerfile.dev .
 
 script:
-  - docker run bolatito/reatapp npm run test -- --coverages
+  - docker run bolatito/reatapp npm run test -- --coverage
