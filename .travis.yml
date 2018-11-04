@@ -8,6 +8,7 @@ before_install:
 script:
   - docker run bolatito/reatapp npm run test -- --coverage
 
+
 deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
