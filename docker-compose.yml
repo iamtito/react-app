@@ -1,0 +1,21 @@
+version: '3'
+services:
+  node_app:
+    build: 
+      # Specify the file/folders for the build image to be built
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "80:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
