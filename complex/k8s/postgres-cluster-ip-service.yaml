@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-cluster-ip-service
+spec:
+  type: ClusterIP
+  # Apply the label created in postgres-deployment.yml
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
