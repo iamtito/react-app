@@ -2,7 +2,7 @@ version: '3'
 services:
   node_app:
     build: 
-      # Specify the file/folders for the build image to be built
+      # Specify the file/folders for the build image to be built ..
       context: .
       dockerfile: Dockerfile.dev
     ports:
