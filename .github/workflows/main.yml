@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Print a greeting
       env:
-        MY_VAR: Hi there! My name is 
+        MY_VAR: Hi there! My name is yobo 
         FIRST_NAME: Mona
         MIDDLE_NAME: The
         LAST_NAME: Octocat
