@@ -13,6 +13,6 @@ jobs:
         MY_VAR: Hi there! My name is yobo 
         FIRST_NAME: Mona
         MIDDLE_NAME: The
-        LAST_NAME: Octocat
+        LAST_NAME: Octoc
       run: |
         echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
