@@ -8,10 +8,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Print a greeting
+      env:
+        MY_VAR: Hi there! My name is
+        FIRST_NAME: Mona
+        MIDDLE_NAME: The
+        LAST_NAME: Octocat
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
