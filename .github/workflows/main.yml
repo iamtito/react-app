@@ -18,6 +18,10 @@ jobs:
         echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
         pwd
         ansible -m shell -a 'sudo service httpd stop' all
+        ansible -m shell -a 'sudo service httpd status' all
+        ansible -m shell -a 'sudo service httpd start' all
+        ansible -m shell -a 'sudo service httpd status' all
+        ansible -m shell -a 'sudo httpd -V' all
         echo GITHUB_REF=${GITHUB_REF}
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
         echo EXTRACT_GITHUB_REF_HEADS=$(echo ${GITHUB_REF#refs/heads/})
