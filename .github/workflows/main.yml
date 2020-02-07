@@ -17,7 +17,6 @@ jobs:
       run: |
         echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
         pwd
-        ansible -m shell -a 'sudo service httpd status' all
         ansible -m shell -a 'sudo service httpd start' all
         ansible -m shell -a 'sudo service httpd status' all
         ansible -m shell -a 'sudo httpd -V' all
