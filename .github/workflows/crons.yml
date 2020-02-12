@@ -1,7 +1,8 @@
 name: Crons
 
 on:
-  label: [created]
+  label: 
+    types: [created]
   release: 
     types: [published]
 
