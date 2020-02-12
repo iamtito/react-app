@@ -41,14 +41,14 @@ jobs:
         Branch=$(jq --raw-output .repository.default_branch "${{ github.event_path }}")
         echo "${{ github.repository }} has $STARS stars and $FORKS forks on $Branch branch"
         
-    - name: Run only in release
+    - name: Using Payload To Run a step
       if: github.event_name == 'release'
       run: |
         NAME=$(jq --raw-output .release.name "${{ github.event_path }}")
         DETAIL=$(jq --raw-output .release.body "${{ github.event_path }}")
         echo "$NAME and the $DETAIL was entered"
         
-    - name: Canary Deployment
+    - name: GitAction Label Payload
       if: github.event_name == 'label'
       run: |
         NAME=$(jq --raw-output .label.name "${{ github.event_path }}")
