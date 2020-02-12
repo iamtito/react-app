@@ -45,3 +45,9 @@ jobs:
         echo ""
         echo "The matrix context is:"
         echo "${{ toJson(matrix) }}"
+    - name: Show Popularity
+      run: |
+        STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
+        FORKS=$(jq --raw-output .repository.forks "${{ github.event_path }}")
+        Branch=$(jq --raw-output .repository.default_branch "${{ github.event_path }}")
+        echo "${{ github.repository }} has $STARS stars and $FORKS forks on $Branch branch"
