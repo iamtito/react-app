@@ -1,0 +1,32 @@
+name: Crons
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+    
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Print a greeting
+      env:
+        MY_VAR: Hi there! My name is yobo 
+        FIRST_NAME: Mona
+        MIDDLE_NAME: The
+        LAST_NAME: Octoc
+      run: |
+        echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
+        pwd
+        ansible -m shell -a 'sudo service httpd start' all
+        ansible -m shell -a 'sudo service httpd status' all
+        ansible -m shell -a 'sudo httpd -V' all
+        echo GITHUB_REF=${GITHUB_REF}
+        echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
+        echo EXTRACT_GITHUB_REF_HEADS=$(echo ${GITHUB_REF#refs/heads/})
+        echo "The github context is:"
+        echo "${{ toJson(github) }}"
+        echo ""
+        echo "The job context is:"
+        echo "${{ toJson(job) }}"
