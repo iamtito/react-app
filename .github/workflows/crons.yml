@@ -1,6 +1,8 @@
 name: Crons
 
 on:
+  push:
+    branches: master
   schedule:
     - cron: "*/5 * * * *"
 
@@ -23,8 +25,23 @@ jobs:
         echo GITHUB_REF=${GITHUB_REF}
         echo EXTRACT_GITHUB_REF=${GITHUB_REF##*/}
         echo EXTRACT_GITHUB_REF_HEADS=$(echo ${GITHUB_REF#refs/heads/})
+        
+    - name: Inspect contexts
+      run: |
         echo "The github context is:"
         echo "${{ toJson(github) }}"
         echo ""
         echo "The job context is:"
         echo "${{ toJson(job) }}"
+        echo ""
+        echo "The steps context is:"
+        echo "${{ toJson(steps) }}"
+        echo ""
+        echo "The runner context is:"
+        echo "${{ toJson(runner) }}"
+        echo ""
+        echo "The strategy context is:"
+        echo "${{ toJson(strategy) }}"
+        echo ""
+        echo "The matrix context is:"
+        echo "${{ toJson(matrix) }}"
