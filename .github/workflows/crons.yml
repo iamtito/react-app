@@ -54,5 +54,5 @@ jobs:
         NAME=$(jq --raw-output .label.name "${{ github.event_path }}")
         DEPLOY_TO=$(jq --raw-output .label.description "${{ github.event_path }}")
         if [ "$NAME" == "canary" ]; then
-          echo 'Triggering a "${DEPLOY_TO}" was entered'
+          echo "Triggering a \"$DEPLOY_TO\"" was entered"
         fi
