@@ -1,0 +1,39 @@
+name: Crons
+
+on:
+  label: 
+    types: [created]
+
+  push:
+    branches: master
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: pretask
+      run: |
+        echo "na me fvk up"
+        
+    - name: check pre
+      if: success()
+      run: |
+        echo "it was a success"
+        
+    - name: frst
+      id: tito
+      run: |
+        echo "how far na"
+    
+    - name: Show Popularity
+      if: steps.tito.outputs.status == 'success'
+      run: |
+        export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
+        echo "$STARS and ${{ steps.tito.outputs.status }}"
+        echo "::set-env name=STARS::$STARS"
+        
+    - name: Using Payload To Run a step
+      run: |
+        echo "this **** $STARS **** was parsed"
+        
