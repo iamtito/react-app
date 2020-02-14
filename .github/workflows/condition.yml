@@ -27,7 +27,7 @@ jobs:
         echo "how far na"
     
     - name: Show Popularity
-      if: steps.tito.outputs.status == 'success'
+#       if: steps.tito.outputs.status == 'success'
       run: |
         export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
         echo "$STARS and ${{ steps.tito.outputs.status }}"
