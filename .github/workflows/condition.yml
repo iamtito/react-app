@@ -1,4 +1,4 @@
-name: Crons
+name: condition
 
 on:
   label: 
