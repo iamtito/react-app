@@ -59,11 +59,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 #         COMMIT: $COMMIT_HASH
       with:
-        tag_name: sample
-        release_name: sample
+        tag_name: sample-81d6022
+        release_name: sample-81d6022
         body: |
           Changes in this Release
-          - First Change $COMMIT_HASH
+          - First Change sample-81d6022
         draft: false
         prerelease: true
         
