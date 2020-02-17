@@ -63,7 +63,7 @@ jobs:
         release_name: sample
         body: |
           Changes in this Release
-          - First Change $COMMIT_HASH ${{ COMMIT_HASH }}
+          - First Change $COMMIT_HASH
         draft: false
         prerelease: true
         
