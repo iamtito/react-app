@@ -25,17 +25,26 @@ jobs:
       id: tito
       run: |
         echo "how far na"
+  
+    - name: Checkout code
+      uses: actions/checkout@master
     
     - name: Show Popularity
 #       if: steps.tito.outputs.status == 'success'
       run: |
         export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
         echo "$STARS and ${{ steps.tito.outputs.status }}"
+        export COMMIT=$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
+        export COMMIT_HASH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
         echo "::set-env name=STARS::$STARS"
+        echo "::set-env name=COMMIT::$COMMIT"
+        echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
         
     - name: Using Payload To Run a step
       run: |
         echo "this **** $STARS **** was parsed"
+        echo "this **** $COMMIT **** was parsed"
+        echo "this **** $COMMIT_HASH **** was parsed"
         
   release-c:
     name: Create Release
