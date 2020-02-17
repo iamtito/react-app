@@ -66,6 +66,25 @@ jobs:
           - First Change sample-81d6022
         draft: false
         prerelease: true
+    - name: Notify slack success
+      if: success()
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      uses: voxmedia/github-action-slack-notify-build@v1
+      with:
+        channel: app-alerts
+        status: SUCCESS
+        color: good
+
+    - name: Notify slack fail
+      if: failure()
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      uses: voxmedia/github-action-slack-notify-build@v1
+      with:
+        channel: app-alerts
+        status: FAILED
+        color: danger
         
 #   release-c:
 #     name: Create Release
