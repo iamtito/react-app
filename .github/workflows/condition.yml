@@ -32,10 +32,14 @@ jobs:
     - name: Show Popularity
 #       if: steps.tito.outputs.status == 'success'
       run: |
+        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        GIT_TAGS=$(git tag -l --sort=-committerdate)  
+        TAGS=($GIT_TAGS)
+        export COMMIT_HASH=$(git tag -l --sort=committerdate |tail -1)-$(git rev-parse HEAD | cut -c 1-7)
         export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
         echo "$STARS and ${{ steps.tito.outputs.status }}"
         export COMMIT=$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
-        export COMMIT_HASH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
+        #export COMMIT_HASH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
         echo "::set-env name=STARS::$STARS"
         echo "::set-env name=COMMIT::$COMMIT"
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
@@ -59,8 +63,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: rc-${{ github..head_commit.id }}
-          release_name: rc-${{ github..head_commit.id }}
+          tag_name: rc-$COMMIT
+          release_name: rc-$COMMIT
           body: |
             Changes in this Release
             - First Change
