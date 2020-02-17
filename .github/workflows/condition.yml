@@ -59,8 +59,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: rc-${{ github.after }}
-          release_name: rc-${{ github.after }}
+          tag_name: rc-${{ github..head_commit.id }}
+          release_name: rc-${{ github..head_commit.id }}
           body: |
             Changes in this Release
             - First Change
