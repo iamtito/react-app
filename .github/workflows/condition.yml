@@ -49,9 +49,9 @@ jobs:
         echo "this **** $STARS **** was parsed"
         echo "this **** $COMMIT **** was parsed"
         echo "this **** $COMMIT_HASH **** was parsed"
-        echo "::set-env name=STARS::$STARS"
-        echo "::set-env name=COMMIT::$COMMIT"
-        echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
+        #echo "::set-env name=STARS::$STARS"
+        #echo "::set-env name=COMMIT::$COMMIT"
+        #echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
         
     - name: Create Release
       uses: actions/create-release@v1
@@ -59,7 +59,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 #         COMMIT: $COMMIT_HASH
       with:
-        tag_name: test
+        tag_name: sample
         release_name: sample
         body: |
           Changes in this Release
