@@ -33,7 +33,7 @@ jobs:
 #       if: steps.tito.outputs.status == 'success'
       run: |
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-        GIT_TAGS=$(git tag -l --sort=-committerdate)  
+        GIT_TAGS=$(git tag -l --sort=committerdate)  
         TAGS=($GIT_TAGS)
         export COMMIT_HASH=$(git tag -l --sort=committerdate |tail -1)-$(git rev-parse HEAD | cut -c 1-7)
         export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
@@ -63,7 +63,7 @@ jobs:
         release_name: sample
         body: |
           Changes in this Release
-          - First Change
+          - First Change $COMMIT_HASH ${{ COMMIT_HASH }}
         draft: false
         prerelease: true
         
