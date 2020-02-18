@@ -12,6 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
     - name: pretask
       run: |
         echo "na me fvk up."
@@ -94,6 +95,7 @@ jobs:
   notify:
     needs: [build]
     runs-on: ubuntu-latest
+    if: always()
     steps:
     - name: check pre
       if: success()
