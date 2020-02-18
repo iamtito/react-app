@@ -90,7 +90,18 @@ jobs:
         SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
         SLACK_COLOR: '#ff6347'
         SLACK_MESSAGE: 'FAILED'
-        
+
+  notify:
+      runs-on: ubuntu-latest
+      steps:
+      - name: check pre
+        if: success()
+        run: |
+          echo "it was a success"
+      - name: check pre
+        if: failure()
+        run: |
+          echo "it was a success"
 #   release-c:
 #     name: Create Release
 #     runs-on: ubuntu-latest
