@@ -36,25 +36,22 @@ jobs:
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         GIT_TAGS=$(git tag -l --sort=committerdate)  
         TAGS=($GIT_TAGS)
-        export COMMIT_HASH=rc-${TAGS[0]}-$(git tag -l --sort=committerdate |tail -1)-$(git rev-parse HEAD | cut -c 1-7)
+        export COMMIT_HASH=rc-$(git tag -l --sort=committerdate |tail -1)-$(git rev-parse HEAD | cut -c 1-7)
         export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
         echo "$STARS and ${{ steps.tito.outputs.status }}"
         export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
-        #export COMMIT_HASH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
-        export STATE=success
+        #export COMMIT_HASHH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
+        export STATET=success
         echo "::set-env name=STARS::$STARS"
         echo "::set-env name=COMMIT::$COMMIT"
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
-        echo "::set-env name=STATE::$STATE"
+        echo "::set-env name=STATET::$STATET"
         
     - name: Using Payload To Run a step
       run: |
         echo "this **** $STARS **** was parsed"
         echo "this **** $COMMIT **** was parsed"
         echo "this **** $COMMIT_HASH **** was parsed"
-        #echo "::set-env name=STARS::$STARS"
-        #echo "::set-env name=COMMIT::$COMMIT"
-        #echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
         
     - name: Create Release
       uses: actions/create-release@v1
@@ -72,7 +69,8 @@ jobs:
     - name: Suucess Slack Notification
       if: failure()
       run: |
-        echo "::set-env name=STATE::failed"
+        export STATET=failed
+        echo "::set-env name=STATET::$STATET"
 # #         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
 #       uses: rtCamp/action-slack-notify@master
 #       env:
@@ -102,14 +100,14 @@ jobs:
     steps:
     - name: check pre suucess
       env:
-          STATE: env.STATE
-      if: ${{ env.STATE }} == 'success'
+          STATE: env.STATET
+      if: ${{ env.STATET }} == 'success'
       run: |
-        echo "it was a success"
+        echo "it was a success ${{ env.STATET }}"
     - name: check pre failed
-      if: ${{ env.STATE }} == 'failed'
+      if: ${{ env.STATET }} == 'failed'
       run: |
-        echo "it was a falure"
+        echo "it was a falure ${{ env.STATET }}"
 #   release-c:
 #     name: Create Release
 #     runs-on: ubuntu-latest
