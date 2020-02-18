@@ -38,6 +38,7 @@ jobs:
     
     - name: Show Popularity
 #       if: steps.tito.outputs.status == 'success'
+      id: popular
       run: |
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         GIT_TAGS=$(git tag -l --sort=committerdate)  
@@ -122,6 +123,12 @@ jobs:
       if: ${{ env.STATET }} == 'failed'
       run: |
         echo "it was a falure ${{ env.STATET }}"
+    - name: test
+      with:
+        STATET: ${{ jobs.build.steps.popular.outputs.STATET }}
+    - name: testt
+      run: |
+        echo "we have ${{ env.STATET }} and $STATET"
 #   release-c:
 #     name: Create Release
 #     runs-on: ubuntu-latest
