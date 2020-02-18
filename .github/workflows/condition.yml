@@ -41,9 +41,11 @@ jobs:
         echo "$STARS and ${{ steps.tito.outputs.status }}"
         export COMMIT=$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
         #export COMMIT_HASH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
+        export STATE=success
         echo "::set-env name=STARS::$STARS"
         echo "::set-env name=COMMIT::$COMMIT"
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
+        echo "::set-env name=STATE::$STATE"
         
     - name: Using Payload To Run a step
       run: |
@@ -60,24 +62,25 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 #         COMMIT: $COMMIT_HASH
       with:
-        tag_name: $COMMIT_HASH
-        release_name: $COMMIT_HASH
+        tag_name: ${{ COMMIT_HASH }}
+        release_name: ${{ COMMIT_HASH }}
         body: |
-          Changes in this Release
-          - First Change sample-81d6022
+          Changes in this ${{ COMMIT_HASH }} 
+          - First Change ${{ COMMIT_HASH }}
         draft: false
         prerelease: true
     - name: Suucess Slack Notification
-      if: success()
-#       run: |
-#         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
-      uses: rtCamp/action-slack-notify@master
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
-        SLACK_CHANNEL: '#github-actions-alerts'
-        SLACK_USERNAME: Test
-        SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
-        SLACK_MESSAGE: 'SUCCESS'
+      if: failure()
+      run: |
+        export STATE=failed
+# #         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
+#       uses: rtCamp/action-slack-notify@master
+#       env:
+#         SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+#         SLACK_CHANNEL: '#github-actions-alerts'
+#         SLACK_USERNAME: Test
+#         SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
+#         SLACK_MESSAGE: 'SUCCESS'
 
 #     - name: Failure Slack Notification
 #       if: failure()
@@ -97,14 +100,14 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-    - name: check pre
-      if: success()
+    - name: check pre suucess
+      if: ${{ STATE }} == "success"
       run: |
         echo "it was a success"
-    - name: check pre
-      if: failure()
+    - name: check pre failed
+      if: ${{ STATE }} == "failed"
       run: |
-        echo "it was a success"
+        echo "it was a falure"
 #   release-c:
 #     name: Create Release
 #     runs-on: ubuntu-latest
