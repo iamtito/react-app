@@ -68,28 +68,28 @@ jobs:
         prerelease: true
     - name: Suucess Slack Notification
       if: success()
-      run: |
-        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
-#       uses: rtCamp/action-slack-notify@master
-#       env:
-#         SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
-#         SLACK_CHANNEL: '#github-actions-alerts'
-#         SLACK_USERNAME: Test
-#         SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
-#         SLACK_MESSAGE: 'SUCCESS'
+#       run: |
+#         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_CHANNEL: '#github-actions-alerts'
+        SLACK_USERNAME: Test
+        SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
+        SLACK_MESSAGE: 'SUCCESS'
 
     - name: Failure Slack Notification
       if: failure()
-      run: |
-        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
-#       uses: rtCamp/action-slack-notify@master
-#       env:
-#         SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
-#         SLACK_CHANNEL: '#github-actions-alerts'
-#         SLACK_USERNAME: Test
-#         SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
-#         SLACK_COLOR: '#ff6347'
-#         SLACK_MESSAGE: 'FAILED'
+#       run: |
+#         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_CHANNEL: '#github-actions-alerts'
+        SLACK_USERNAME: Test
+        SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
+        SLACK_COLOR: '#ff6347'
+        SLACK_MESSAGE: 'FAILED'
         
 #   release-c:
 #     name: Create Release
