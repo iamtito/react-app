@@ -62,11 +62,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 #         COMMIT: $COMMIT_HASH
       with:
-        tag_name: $COMMIT_HASH
-        release_name: $COMMIT_HASH
+        tag_name: env.COMMIT_HASH
+        release_name: env.COMMIT_HASH
         body: |
-          Changes in this $COMMIT_HASH
-          - First Change $COMMIT_HASH
+          Changes in this env.COMMIT_HASH
+          - First Change env.COMMIT_HASH
         draft: false
         prerelease: true
     - name: Suucess Slack Notification
@@ -101,11 +101,11 @@ jobs:
     if: always()
     steps:
     - name: check pre suucess
-      if: env.STATE == "success"
+      if: env.STATE == 'success'
       run: |
         echo "it was a success"
     - name: check pre failed
-      if: env.STATE == "failed"
+      if: env.STATE == 'failed'
       run: |
         echo "it was a falure"
 #   release-c:
