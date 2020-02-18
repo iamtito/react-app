@@ -53,19 +53,19 @@ jobs:
         echo "this **** $COMMIT **** was parsed"
         echo "this **** $COMMIT_HASH **** was parsed"
         
-    - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#         COMMIT: $COMMIT_HASH
-      with:
-        tag_name: ${{ env.COMMIT_HASH }}
-        release_name: ${{ env.COMMIT_HASH }}
-        body: |
-          Changes in this ${{ env.COMMIT_HASH }}
-          - First Change ${{ env.COMMIT_HASH }}
-        draft: false
-        prerelease: true
+#     - name: Create Release
+#       uses: actions/create-release@v1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+# #         COMMIT: $COMMIT_HASH
+#       with:
+#         tag_name: ${{ env.COMMIT_HASH }}
+#         release_name: ${{ env.COMMIT_HASH }}
+#         body: |
+#           Changes in this ${{ env.COMMIT_HASH }}
+#           - First Change ${{ env.COMMIT_HASH }}
+#         draft: false
+#         prerelease: true
     - name: Suucess Slack Notification
       if: failure()
       run: |
@@ -100,7 +100,7 @@ jobs:
     steps:
     - name: check pre suucess
       env:
-          STATE: env.STATET
+          STATET: ${{ env.STATET }}
       if: ${{ env.STATET }} == 'success'
       run: |
         echo "it was a success ${{ env.STATET }}"
