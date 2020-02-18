@@ -6,7 +6,8 @@ on:
 
   push:
     branches: master
-
+env:
+  STATET: "success"
 jobs:
 
   build:
