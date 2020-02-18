@@ -65,8 +65,8 @@ jobs:
         tag_name: $COMMIT_HASH
         release_name: $COMMIT_HASH
         body: |
-          Changes in this ${{ COMMIT_HASH }} 
-          - First Change ${{ COMMIT_HASH }}
+          Changes in this $COMMIT_HASH
+          - First Change $COMMIT_HASH
         draft: false
         prerelease: true
     - name: Suucess Slack Notification
@@ -101,11 +101,11 @@ jobs:
     if: always()
     steps:
     - name: check pre suucess
-      if: ${{ STATE }} == "success"
+      if: $STATE == "success"
       run: |
         echo "it was a success"
     - name: check pre failed
-      if: ${{ STATE }} == "failed"
+      if: $STATE == "failed"
       run: |
         echo "it was a falure"
 #   release-c:
