@@ -13,7 +13,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
+#     - name: set environment variables
+#       uses: allenevans/set-env@v1.0.0
+#       with:
+#         overwrite: true
+#         STATET: "success"
+      
     - name: pretask
       run: |
         echo "na me fvk up."
@@ -67,13 +72,19 @@ jobs:
 #           - First Change ${{ env.COMMIT_HASH }}
 #         draft: false
 #         prerelease: true
+#     - name: Suucess Slack Notification
+#       if: success()
+#       env:
+#         STATET: "failed"
+#       run: |
+#         export STATET=failed
+#         echo "::set-env name=STATET::$STATET"
     - name: Suucess Slack Notification
       if: success()
-      env:
-        STATET: "failed"
-      run: |
-        export STATET=failed
-        echo "::set-env name=STATET::$STATET"
+      uses: allenevans/set-env@v1.0.0
+      with:
+        overwrite: true
+        STATET: "failure"
 # #         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
 #       uses: rtCamp/action-slack-notify@master
 #       env:
