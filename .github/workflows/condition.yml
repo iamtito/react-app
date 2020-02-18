@@ -92,16 +92,17 @@ jobs:
         SLACK_MESSAGE: 'FAILED'
 
   notify:
-      runs-on: ubuntu-latest
-      steps:
-      - name: check pre
-        if: success()
-        run: |
-          echo "it was a success"
-      - name: check pre
-        if: failure()
-        run: |
-          echo "it was a success"
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: check pre
+      if: success()
+      run: |
+        echo "it was a success"
+    - name: check pre
+      if: failure()
+      run: |
+        echo "it was a success"
 #   release-c:
 #     name: Create Release
 #     runs-on: ubuntu-latest
