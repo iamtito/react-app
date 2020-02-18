@@ -125,9 +125,9 @@ jobs:
         echo "it was a falure ${{ env.STATET }}"
     - name: test
       env:
-        STATET: ${{ jobs.build.steps.popular.outputs.popular }}
+        STATET: ${{ steps.popular.outputs.popular }}
       run: |
-        echo "we have ${{ env.STATET }} and $STATET and ${{ jobs.build.steps.popular.outputs.popular }}"
+        echo "we have ${{ env.STATET }} and $STATET and ${{ steps.popular.outputs.popular }}"
 #   release-c:
 #     name: Create Release
 #     runs-on: ubuntu-latest
