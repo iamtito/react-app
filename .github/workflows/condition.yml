@@ -72,7 +72,7 @@ jobs:
     - name: Suucess Slack Notification
       if: failure()
       run: |
-        export STATE=failed
+        echo "::set-env name=STATE::failed"
 # #         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
 #       uses: rtCamp/action-slack-notify@master
 #       env:
@@ -101,11 +101,11 @@ jobs:
     if: always()
     steps:
     - name: check pre suucess
-      if: $STATE == "success"
+      if: env.STATE == "success"
       run: |
         echo "it was a success"
     - name: check pre failed
-      if: $STATE == "failed"
+      if: env.STATE == "failed"
       run: |
         echo "it was a falure"
 #   release-c:
