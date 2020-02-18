@@ -66,25 +66,26 @@ jobs:
           - First Change sample-81d6022
         draft: false
         prerelease: true
-    - name: Notify slack success
+    - name: Suucess Slack Notification
       if: success()
+      uses: rtCamp/action-slack-notify@master
       env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      uses: voxmedia/github-action-slack-notify-build@v1
-      with:
-        channel: app-alerts
-        status: SUCCESS
-        color: good
+        SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_CHANNEL: '#github-actions-alerts'
+        SLACK_USERNAME: Test
+        SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
+        SLACK_MESSAGE: 'SUCCESS'
 
-    - name: Notify slack fail
+    - name: Failure Slack Notification
       if: failure()
+      uses: rtCamp/action-slack-notify@master
       env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      uses: voxmedia/github-action-slack-notify-build@v1
-      with:
-        channel: app-alerts
-        status: FAILED
-        color: danger
+        SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_CHANNEL: '#github-actions-alerts'
+        SLACK_USERNAME: Test
+        SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
+        SLACK_COLOR: '#ff6347'
+        SLACK_MESSAGE: 'FAILED'
         
 #   release-c:
 #     name: Create Release
