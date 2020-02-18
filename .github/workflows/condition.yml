@@ -69,7 +69,7 @@ jobs:
     - name: Suucess Slack Notification
       if: success()
       run: |
-        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" https://hooks.slack.com/services/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
+        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
 #       uses: rtCamp/action-slack-notify@master
 #       env:
 #         SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -81,7 +81,7 @@ jobs:
     - name: Failure Slack Notification
       if: failure()
       run: |
-        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" https://hooks.slack.com/services/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
+        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
 #       uses: rtCamp/action-slack-notify@master
 #       env:
 #         SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
