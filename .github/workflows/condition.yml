@@ -42,11 +42,11 @@ jobs:
         echo "$STARS and ${{ steps.tito.outputs.status }}"
         export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
         #export COMMIT_HASHH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
-        export STATET=success
+        #export STATET=success
         echo "::set-env name=STARS::$STARS"
         echo "::set-env name=COMMIT::$COMMIT"
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
-        echo "::set-env name=STATET::$STATET"
+        #echo "::set-env name=STATET::$STATET"
         
     - name: Using Payload To Run a step
       run: |
@@ -68,7 +68,9 @@ jobs:
 #         draft: false
 #         prerelease: true
     - name: Suucess Slack Notification
-      if: failure()
+      if: success()
+      env:
+        STATET: "failed"
       run: |
         export STATET=failed
         echo "::set-env name=STATET::$STATET"
