@@ -36,10 +36,10 @@ jobs:
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         GIT_TAGS=$(git tag -l --sort=committerdate)  
         TAGS=($GIT_TAGS)
-        export COMMIT_HASH=$(git tag -l --sort=committerdate |tail -1)-$(git rev-parse HEAD | cut -c 1-7)
+        export COMMIT_HASH=rc-${TAGS[0]}-$(git tag -l --sort=committerdate |tail -1)-$(git rev-parse HEAD | cut -c 1-7)
         export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
         echo "$STARS and ${{ steps.tito.outputs.status }}"
-        export COMMIT=$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
+        export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
         #export COMMIT_HASH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
         export STATE=success
         echo "::set-env name=STARS::$STARS"
@@ -63,10 +63,10 @@ jobs:
 #         COMMIT: $COMMIT_HASH
       with:
         tag_name: ${{ env.COMMIT_HASH }}
-        release_name: env.COMMIT_HASH
+        release_name: ${{ env.COMMIT_HASH }}
         body: |
-          Changes in this env.COMMIT_HASH
-          - First Change env.COMMIT_HASH
+          Changes in this ${{ env.COMMIT_HASH }}
+          - First Change ${{ env.COMMIT_HASH }}
         draft: false
         prerelease: true
     - name: Suucess Slack Notification
@@ -103,11 +103,11 @@ jobs:
     - name: check pre suucess
       env:
           STATE: env.STATE
-      if: env.STATE == 'success'
+      if: ${{ env.STATE }} == 'success'
       run: |
         echo "it was a success"
     - name: check pre failed
-      if: env.STATE == 'failed'
+      if: ${{ env.STATE }} == 'failed'
       run: |
         echo "it was a falure"
 #   release-c:
