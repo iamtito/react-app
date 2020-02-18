@@ -62,7 +62,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 #         COMMIT: $COMMIT_HASH
       with:
-        tag_name: env.COMMIT_HASH
+        tag_name: ${{ env.COMMIT_HASH }}
         release_name: env.COMMIT_HASH
         body: |
           Changes in this env.COMMIT_HASH
@@ -101,6 +101,8 @@ jobs:
     if: always()
     steps:
     - name: check pre suucess
+      env:
+          STATE: env.STATE
       if: env.STATE == 'success'
       run: |
         echo "it was a success"
