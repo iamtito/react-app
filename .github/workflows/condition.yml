@@ -54,6 +54,7 @@ jobs:
         echo "::set-env name=COMMIT::$COMMIT"
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
         #echo "::set-env name=STATET::$STATET"
+        mkdir variable
         echo $COMMIT_HASH > variable/commit-hash.txt
         echo "success" > variable/status.txt
         
