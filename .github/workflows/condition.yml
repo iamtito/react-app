@@ -64,8 +64,8 @@ jobs:
     - name: check pre
       run: |
         echo "we have ${{ env.COMMIT_HASH }} or $COMMIT_HASH"
-    - shell: bash
-      if: failure()
+#     - shell: bash
+#       if: failure()
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
