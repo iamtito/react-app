@@ -125,7 +125,7 @@ jobs:
         echo "sleek"
         #curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
     - name: Post failure check
-      if: success()
+      continue-on-error: true
       run: |
         echo "me so nice"
     - name: P1
