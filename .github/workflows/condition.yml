@@ -57,7 +57,7 @@ jobs:
         #echo "::set-env name=STATET::$STATET"
         mkdir variable
         echo $COMMIT_HASH > variables.txt
-        echo $env.STATET >> variables.txt
+        echo ${{ env.STATET }} >> variables.txt
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
@@ -132,7 +132,7 @@ jobs:
     - shell: bash
       run: |
         cat envvar/variables.txt
-        echo $env.STATET
+        echo ${{ env.STATET }}
         sed -i '2s/.*/failurex/'  envvar/variables.txt
     - name: Upload math result for job 2
       uses: actions/upload-artifact@v1
