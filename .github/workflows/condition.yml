@@ -54,21 +54,21 @@ jobs:
         echo "::set-env name=COMMIT::$COMMIT"
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
         #echo "::set-env name=STATET::$STATET"
-        echo $COMMIT_HASH > env/commit-hash.txt
-        echo "success" > env/status.txt
+        echo $COMMIT_HASH > variable/commit-hash.txt
+        echo "success" > variable/status.txt
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
       with:
         name: envvar
-        path: env
+        path: variable
         
     - name: Using Payload To Run a step
       run: |
         echo "this **** $STARS **** was parsed"
         echo "this **** $COMMIT **** was parsed"
         echo "this **** $COMMIT_HASH **** was parsed"
-        cat env/status.txt
+        cat variable/status.txt
         
 #     - name: Create Release
 #       uses: actions/create-release@v1
@@ -144,8 +144,8 @@ jobs:
         name: envvar
     - shell: bash
       run: |
-        COMMIT=`cat envvar/env/commit-hash.txt`
-        STAT=`cat env/status.txt`
+        COMMIT=`cat envvar/variable/commit-hash.txt`
+        STAT=`cat envvar/variable/status.txt`
         echo $STAT
         echo "::set-env name=COMMIT_HASH::$COMMIT"
         echo "::set-env name=STAT::$STAT"
