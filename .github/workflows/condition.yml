@@ -7,7 +7,7 @@ on:
   push:
     branches: master
 env:
-  STATET: "success"
+  STATET: "successs"
 jobs:
 
   build:
@@ -57,10 +57,7 @@ jobs:
         #echo "::set-env name=STATET::$STATET"
         mkdir variable
         echo $COMMIT_HASH > variables.txt
-        echo "success" >> variables.txt
-    - name: Using Payload To Run a step
-      run: |
-        echo "sourcess" >> variables.txt
+        echo $env.STATET >> variables.txt
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
@@ -135,7 +132,8 @@ jobs:
     - shell: bash
       run: |
         cat envvar/variables.txt
-        sed -i '2s/.*/failure/'  envvar/variables.txt
+        echo $env.STATET
+        sed -i '2s/.*/failurex/'  envvar/variables.txt
     - name: Upload math result for job 2
       uses: actions/upload-artifact@v1
       with:
