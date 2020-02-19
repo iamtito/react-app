@@ -123,21 +123,21 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-    - name: check pre suucess
-      env:
-          STATET: ${{ env.STATET }}
-      if: ${{ env.STATET }} == 'success'
-      run: |
-        echo "it was a success ${{ env.STATET }}"
-    - name: check pre failed
-      if: ${{ env.STATET }} == 'failed'
-      run: |
-        echo "it was a falure ${{ env.STATET }}"
-    - name: test
-      env:
-        STATET: ${{ steps.popular.outputs.popular }}
-      run: |
-        echo "we have ${{ env.STATET }} and $STATET and ${{ steps.popular.outputs.popular }}"
+#     - name: check pre suucess
+#       env:
+#           STATET: ${{ env.STATET }}
+#       if: ${{ env.STATET }} == 'success'
+#       run: |
+#         echo "it was a success ${{ env.STATET }}"
+#     - name: check pre failed
+#       if: ${{ env.STATET }} == 'failed'
+#       run: |
+#         echo "it was a falure ${{ env.STATET }}"
+#     - name: test
+#       env:
+#         STATET: ${{ steps.popular.outputs.popular }}
+#       run: |
+#         echo "we have ${{ env.STATET }} and $STATET and ${{ steps.popular.outputs.popular }}"
     - name: Download Envvars
       uses: actions/download-artifact@v1
       with:
