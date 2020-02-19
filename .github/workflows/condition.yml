@@ -70,7 +70,7 @@ jobs:
         echo "this **** $STARS **** was parsed"
         echo "this **** $COMMIT **** was parsed"
         echo "this **** $COMMIT_HASH **** was parsed"
-        cat variable/status.txt
+        cat variables.txt
         
 #     - name: Create Release
 #       uses: actions/create-release@v1
@@ -119,9 +119,25 @@ jobs:
 #         SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
 #         SLACK_COLOR: '#ff6347'
 #         SLACK_MESSAGE: 'FAILED'
-
-  notify:
+  middle:
     needs: [build]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Download Envvars
+      uses: actions/download-artifact@v1
+      with:
+        name: envvar
+    - shell: bash
+      run: |
+        sed -i '2s/.*/failed/'  envvar/variables.txt
+    - name: Upload math result for job 2
+      uses: actions/upload-artifact@v1
+      with:
+        name: envvar
+        path: envvar/variables.txt
+  notify:
+    needs: [middle]
     runs-on: ubuntu-latest
     if: always()
     steps:
