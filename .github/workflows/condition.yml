@@ -58,6 +58,9 @@ jobs:
         mkdir variable
         echo $COMMIT_HASH > variables.txt
         echo ${{ env.STATET }} >> variables.txt
+        if [ "${{ github.event_name }}" == "push" ]; then
+          echo "this is the shit"
+        fi
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
