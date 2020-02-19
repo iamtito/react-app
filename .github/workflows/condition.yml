@@ -56,14 +56,14 @@ jobs:
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
         #echo "::set-env name=STATET::$STATET"
         mkdir variable
-        echo $COMMIT_HASH > variable/commit-hash.txt
-        echo "success" > variable/status.txt
+        echo $COMMIT_HASH > variables.txt
+        echo "success" >> variables.txt
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
       with:
         name: envvar
-        path: variable
+        path: variables
         
     - name: Using Payload To Run a step
       run: |
@@ -148,8 +148,8 @@ jobs:
       run: |
         set -exv
         ls
-        COMMIT=`cat envvar/variable/commit-hash.txt`
-        STAT=`cat envvar/variable/status.txt`
+        COMMIT=`sed -n '1p' < envvar/variables.txt`
+        STAT=`sed -n '2p' < envvar/variables.txt`
         echo $STAT
         echo "::set-env name=COMMIT_HASH::$COMMIT"
         echo "::set-env name=STAT::$STAT"
