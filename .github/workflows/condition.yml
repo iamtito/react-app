@@ -54,6 +54,13 @@ jobs:
         echo "::set-env name=COMMIT::$COMMIT"
         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
         #echo "::set-env name=STATET::$STATET"
+        echo $COMMIT_HASH > commit-hash.txt
+        
+    - name: Upload math result for job 1
+      uses: actions/upload-artifact@v1
+      with:
+        name: homework
+        path: commit-hash.txt
         
     - name: Using Payload To Run a step
       run: |
@@ -129,6 +136,19 @@ jobs:
         STATET: ${{ steps.popular.outputs.popular }}
       run: |
         echo "we have ${{ env.STATET }} and $STATET and ${{ steps.popular.outputs.popular }}"
+    - name: Download commit hash
+      uses: actions/download-artifact@v1
+      with:
+        name: homework
+    - shell: bash
+      run: |
+        value=`cat homework/commit-hash.txt`
+        echo $value
+        echo "::set-env name=COMMIT_HASH::$value"
+    - name: echo eet
+      run: |
+        echo "the new meow ${{ COMMIT_HASH }}"
+
 #   release-c:
 #     name: Create Release
 #     runs-on: ubuntu-latest
