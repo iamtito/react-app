@@ -64,6 +64,8 @@ jobs:
     - name: check pre
       run: |
         echo "we have ${{ env.COMMIT_HASH }} or $COMMIT_HASH"
+    - shell: bash
+      if: failure()
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
@@ -99,12 +101,12 @@ jobs:
 #       run: |
 #         export STATET=failed
 #         echo "::set-env name=STATET::$STATET"
-    - name: Suucess Slack Notification
-      if: success()
-      uses: allenevans/set-env@v1.0.0
-      with:
-        overwrite: true
-        STATET: "failure"
+#     - name: Suucess Slack Notification
+#       if: success()
+#       uses: allenevans/set-env@v1.0.0
+#       with:
+#         overwrite: true
+#         STATET: "failure"
 # #         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"success\" , \"text\": \"SUCCESS\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
 #       uses: rtCamp/action-slack-notify@master
 #       env:
@@ -114,10 +116,16 @@ jobs:
 #         SLACK_ICON: 'https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2017-12-19/288981919427_f45f04edd92902a96859_192.png'
 #         SLACK_MESSAGE: 'SUCCESS'
 
-#     - name: Failure Slack Notification
-#       if: failure()
-# #       run: |
-# #         curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
+    - name: Failure Slack Notification
+      run: |
+        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
+    - name: Failure Slack Notification
+      if: failure()
+      run: |
+        curl -s -d "payload={\"channel\": \"D9PGVDWMQ\", \"username\":\"github-actions-alerts\", \"icon_emoji\":\"rocket\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"FAILED\"}]}" ${{ secrets.SLACK_BOT_TOKEN }}
+    - name: Failure Slack Notification
+      run: |
+        echo "me so nice"
 #       uses: rtCamp/action-slack-notify@master
 #       env:
 #         SLACK_WEBHOOK: ${{ secrets.SLACK_BOT_TOKEN }}
