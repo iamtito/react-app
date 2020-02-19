@@ -63,7 +63,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: envvar
-        path: variables
+        path: variables.txt
         
     - name: Using Payload To Run a step
       run: |
