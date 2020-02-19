@@ -145,9 +145,9 @@ jobs:
         value=`cat homework/commit-hash.txt`
         echo $value
         echo "::set-env name=COMMIT_HASH::$value"
-    - name: echo eet
-      run: |
-        echo "the new meow ${{ COMMIT_HASH }}"
+#     - name: echo eet
+#       run: |
+#         echo "the new meow ${{ COMMIT_HASH }}"
 
 #   release-c:
 #     name: Create Release
