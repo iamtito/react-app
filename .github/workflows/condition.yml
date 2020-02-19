@@ -58,6 +58,9 @@ jobs:
         mkdir variable
         echo $COMMIT_HASH > variables.txt
         echo "success" >> variables.txt
+    - name: Using Payload To Run a step
+      run: |
+        echo "sourcess" >> variables.txt
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
@@ -71,6 +74,7 @@ jobs:
         echo "this **** $COMMIT **** was parsed"
         echo "this **** $COMMIT_HASH **** was parsed"
         cat variables.txt
+        echo "sussess" >> variables.txt
         
 #     - name: Create Release
 #       uses: actions/create-release@v1
@@ -130,7 +134,8 @@ jobs:
         name: envvar
     - shell: bash
       run: |
-        sed -i '2s/.*/failed/'  envvar/variables.txt
+        cat envvar/variables.txt
+        sed -i '2s/.*/failure/'  envvar/variables.txt
     - name: Upload math result for job 2
       uses: actions/upload-artifact@v1
       with:
@@ -172,6 +177,10 @@ jobs:
     - name: echo eet
       run: |
         echo "the new meow is this duded $COMMIT_HASH and then $STAT"
+    - name: check failure
+      if: ${{ env.STAT }} == 'failure'
+      run: |
+        echo "FAILED BAJE"
 
 #   release-c:
 #     name: Create Release
