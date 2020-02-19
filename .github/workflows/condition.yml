@@ -158,10 +158,17 @@ jobs:
       with:
         name: envvar
         path: envvar/variables.txt
+  exitis:
+    if: "!github.event.release.prerelease"
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: step1 
+        run: |
+          echo "chill pill"
   notify:
     needs: [middle]
     runs-on: ubuntu-latest
-    if: always()
+    if: always() && !github.event.release.prerelease
     steps:
 #     - name: check pre suucess
 #       env:
