@@ -178,7 +178,7 @@ jobs:
       run: |
         echo "the new meow is this duded $COMMIT_HASH and then $STAT"
     - name: check failure
-      if: $STAT == 'failure'
+      if: env.STAT == 'failure'
       run: |
         echo "FAILED BAJE"
 
