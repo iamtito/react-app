@@ -61,6 +61,9 @@ jobs:
         if [ "${{ github.event_name }}" == "push" ]; then
           echo "this is the shit"
         fi
+    - name: check pre
+      run: |
+        echo "we have ${{ env.COMMIT_HASH }} or $COMMIT_HASH"
         
     - name: Upload Envvars
       uses: actions/upload-artifact@v1
