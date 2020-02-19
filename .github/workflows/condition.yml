@@ -41,6 +41,7 @@ jobs:
 #       if: steps.tito.outputs.status == 'success'
       id: popular
       run: |
+        set -exv
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         GIT_TAGS=$(git tag -l --sort=committerdate)  
         TAGS=($GIT_TAGS)
@@ -145,6 +146,8 @@ jobs:
         name: envvar
     - shell: bash
       run: |
+        set -exv
+        ls
         COMMIT=`cat envvar/variable/commit-hash.txt`
         STAT=`cat envvar/variable/status.txt`
         echo $STAT
