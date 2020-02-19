@@ -147,7 +147,7 @@ jobs:
         echo "::set-env name=COMMIT_HASH::$COMMIT"
     - name: echo eet
       run: |
-        echo "the new meow is this duded $COMMIT"
+        echo "the new meow is this duded $COMMIT_HASH"
 
 #   release-c:
 #     name: Create Release
