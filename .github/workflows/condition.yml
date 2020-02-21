@@ -94,6 +94,14 @@ jobs:
 #           - First Change ${{ env.COMMIT_HASH }}
 #         draft: false
 #         prerelease: true
+
+    - uses: actions/checkout@v2
+    - name: Update Pre-release notes
+      uses: release-drafter/release-drafter@v5.3.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with: 
+        prerelease: true
 #     - name: Suucess Slack Notification
 #       if: success()
 #       env:
