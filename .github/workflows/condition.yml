@@ -166,6 +166,9 @@ jobs:
       with:
         name: envvar
         path: envvar/variables.txt
+    - name: status
+      run: |
+        echo " this status ${{ job.status }}"
   exitis:
     if: "!github.event.release.prerelease"
     runs-on: [ubuntu-latest]
