@@ -4,8 +4,8 @@ on:
   label: 
     types: [created]
 
-  push:
-    branches: master
+#   push:
+#     branches: master
 env:
   STATET: "successs"
 jobs:
