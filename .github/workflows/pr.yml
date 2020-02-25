@@ -18,11 +18,28 @@ jobs:
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         GIT_TAGS=$(git tag -l --sort=committerdate)  
         TAGS=($GIT_TAGS)
-        echo "${{ github.event_path }}"
+        echo "${{ toJson(github.event_path) }}"
         export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
         export COMMIT_HASHH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
         echo $COMMIT_HASHH
         echo $COMMIT
+        echo "The github context is:"
+        echo "${{ toJson(github) }}"
+        echo ""
+        echo "The job context is:"
+        echo "${{ toJson(job) }}"
+        echo ""
+        echo "The steps context is:"
+        echo "${{ toJson(steps) }}"
+        echo ""
+        echo "The runner context is:"
+        echo "${{ toJson(runner) }}"
+        echo ""
+        echo "The strategy context is:"
+        echo "${{ toJson(strategy) }}"
+        echo ""
+        echo "The matrix context is:"
+        echo "${{ toJson(matrix) }}"
 
   exitis:
     if: "!github.event.release.prerelease"
