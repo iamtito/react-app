@@ -20,9 +20,12 @@ jobs:
         TAGS=($GIT_TAGS)
         echo "${{ toJson(github.event_path) }}"
         export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
-        export COMMIT_HASHH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
+        export COMMIT_HASHH=$(jq --raw-output .sha "${{ github.event_path }}" | cut -c1-7)
+        echo "******************************"
         echo $COMMIT_HASHH
+        echo "********"
         echo $COMMIT
+        echo "******************************"
         echo "The github context is:"
         echo "${{ toJson(github) }}"
         echo ""
