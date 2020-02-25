@@ -13,7 +13,8 @@ jobs:
     
     runs-on: ubuntu-latest
     steps:
-    - if: ${{ github.event_name }} == "push"
+#     - if: ${{ github.event_name }} == "push"
+    - name: Firsttest
       run: |
         set -exv
         echo "yelp"
