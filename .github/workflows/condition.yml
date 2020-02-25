@@ -16,6 +16,7 @@ jobs:
     steps:
 #     - if: ${{ github.event_name }} == "push"
     - name: Firsttest
+      if: ${{ github.event_name }} == "pushh"
       run: |
         set -exv
         echo "yelp"
