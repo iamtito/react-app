@@ -20,7 +20,7 @@ jobs:
         TAGS=($GIT_TAGS)
         echo "${{ toJson(github.sha) }}"
         export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github }}" | cut -c1-7)
-        export COMMIT_HASHH=$(${{ toJson(github.sha) }} | cut -c1-7)
+        export COMMIT_HASHH=$(echo ${{ toJson(github.sha) }} | cut -c1-7)
         echo "******************************"
         echo $COMMIT_HASHH
         echo "********"
