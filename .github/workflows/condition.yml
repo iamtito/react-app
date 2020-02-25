@@ -12,6 +12,7 @@ jobs:
   pre-release:
     
     runs-on: ubuntu-latest
+    if: ${{ github.event_name }} == "push"
     steps:
 #     - if: ${{ github.event_name }} == "push"
     - name: Firsttest
