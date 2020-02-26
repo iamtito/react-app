@@ -51,4 +51,25 @@ jobs:
       - name: step1 
         run: |
           echo "chill pill"
+          
+  deploy:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - name: get tag
+      run: |
+        set -exv
+        export GG="${GITHUB_REF/refs\/tags\/}"
+        echo $GG
+        
+    - uses: actions/checkout@v2
+      with:
+        repository: iamtito/bvify
+        token: ${{ secrets.GITHUB_SECRET }}
+
+    - name: Deploy
+      run: |
+        set -exv
+        export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
+        echo $GITHUB_TAG
   
