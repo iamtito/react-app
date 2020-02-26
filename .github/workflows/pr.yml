@@ -53,7 +53,7 @@ jobs:
           echo "chill pill"
           
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: get tag
@@ -74,7 +74,7 @@ jobs:
         echo $GITHUB_TAG
         
   ploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: get tag
@@ -84,7 +84,7 @@ jobs:
         echo $GG
         
   loy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       with:
