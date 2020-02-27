@@ -55,3 +55,19 @@ jobs:
       - name: success
         run: |
           echo "its a success"
+          
+  out:
+    runs-on: ubuntu-latest
+    needs: [fail]
+    steps:
+      - name: success
+        run: |
+          echo "its a out"
+          exit 1
+  last:
+    runs-on: ubuntu-latest
+    needs: [out]
+    steps:
+      - name: success
+        run: |
+          echo "its a success"
