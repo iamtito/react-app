@@ -1,0 +1,19 @@
+name: Release
+on:
+  release:
+    types: [published]
+
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    steps:
+    - name: testing this
+      run: |
+        set -exv
+        echo ${{ github.event.release.name }}
+        echo ${{ github.event.release.body }}
+        if [ ${{ github.event.release.name }} == *"anary"* ]; then
+          echo "this is canry"
+         else
+          echo "this is not a canary"
+        fi
