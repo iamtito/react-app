@@ -6,6 +6,7 @@ on:
       - if-condition
 jobs:
   one:
+    if: "!github.event.release.prerelease" && 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -34,11 +35,11 @@ jobs:
         name: envvar
         path: variables.txt
     - name: failure 
-      if: failure()
+      if: failure() && "!github.event.push.repository.fork"
       run: |
         echo "its a failure"
     - name: success 
-      if: success()
+      if: success() 
       run: |
         echo "its a success"
         
