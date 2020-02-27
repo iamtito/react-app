@@ -12,6 +12,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: env if statment
       run: |
+        set -exv
         echo "::set-env name=EXTRA_MSG::' '"  
         if [ ${{ github.event_name }} == "push" ]; then
           MSG='*tbola/test:${GITHUB_TAG}*'
@@ -19,6 +20,7 @@ jobs:
         fi
     - name: Checkout code
       run: |
+        set -exv
         echo "${EXTRA_MSG}"
         exit 1
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
