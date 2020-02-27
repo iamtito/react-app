@@ -6,7 +6,7 @@ on:
       - if-condition
 jobs:
   one:
-    if: github.event.push.repository.fork && github.event.push.repository.archived
+    if: "!github.event.push.repository.fork" && success()
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
