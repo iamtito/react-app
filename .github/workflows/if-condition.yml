@@ -11,7 +11,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@master
     
-    - name: Upload Envvars
+    - name: This should fail
       uses: actions/upload-artifact@v1
       with:
         name: envvar
@@ -24,3 +24,16 @@ jobs:
       if: success()
       run: |
         echo "its a success"
+        
+    - name: This should pass
+      run: |
+       echo "This passed"
+    - name: failure 2
+      if: failure()
+      run: |
+        echo "its a failure"
+    - name: success 2 
+      if: success()
+      run: |
+        echo "its a success"
+
