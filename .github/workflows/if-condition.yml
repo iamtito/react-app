@@ -1,0 +1,26 @@
+name: pr
+
+on:
+  push:
+    branches:
+      - if-condition
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@master
+    
+    - name: Upload Envvars
+      uses: actions/upload-artifact@v1
+      with:
+        name: envvar
+        path: variables.txt
+    - name: failure 
+      if: failure()
+      run: |
+        echo "its a failure"
+    - name: success 
+      if: success()
+      run: |
+        echo "its a success"
