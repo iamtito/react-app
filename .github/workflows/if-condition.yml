@@ -63,7 +63,7 @@ jobs:
       - name: success
         run: |
           echo "its a out"
-          exit 1
+        
   last:
     runs-on: ubuntu-latest
     needs: [out]
