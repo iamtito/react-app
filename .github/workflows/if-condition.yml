@@ -10,8 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: env if statment
+      run: |
+        echo "::set-env name=EXTRA_MSG::' '"  
+        if [ ${{ github.event_name }} == "push" ]; then
+          MSG='*tbola/test:${GITHUB_TAG}*'
+          echo "::set-env name=EXTRA_MSG::$MSG"
+        fi
     - name: Checkout code
       run: |
+        echo "${EXTRA_MSG}"
         exit 1
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         export GITHUB_TAG=rc-$(git tag -l --sort=committerdate |tail -1 | cut -f2 -d"-")-$(git rev-parse HEAD | cut -c 1-7)
