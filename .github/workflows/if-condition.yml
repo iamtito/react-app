@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@master
+#     - name: Checkout code
+#       uses: actions/checkout@master
     
     - name: This should fail
       uses: actions/upload-artifact@v1
@@ -37,4 +37,19 @@ jobs:
       if: success()
       run: |
         echo "its a success"
-
+  
+  fail:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail
+        run: |
+          echo "its a failure"
+          
+  success:
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: success
+        run: |
+          echo "its a success"
