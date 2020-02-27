@@ -1,4 +1,4 @@
-name: pr
+name: If Condition
 
 on:
   push:
@@ -26,6 +26,7 @@ jobs:
         echo "its a success"
         
     - name: This should pass
+      if: always()
       run: |
        echo "This passed"
     - name: failure 2
