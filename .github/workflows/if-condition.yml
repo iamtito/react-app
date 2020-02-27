@@ -14,6 +14,11 @@ jobs:
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         export GITHUB_TAG=rc-$(git tag -l --sort=committerdate |tail -1 | cut -f2 -d"-")-$(git rev-parse HEAD | cut -c 1-7)
         echo $GITHUB_TAG
+        echo "::set-env name=GITHUB_TAG::$GITHUB_TAG"
+        
+    - name: get it
+      run: |
+        echo "this is it ${{ env.GITHUB_TAG}} or this ${GITHUB_TAG} tabi this $GITHUB_TAG"
   build:
     runs-on: ubuntu-latest
     steps:
