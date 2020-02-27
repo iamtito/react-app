@@ -16,7 +16,7 @@ jobs:
         export GITHUB_TAG=1.2.3
         echo "::set-env name=EXTRA_MSG::' '"  
         if [ ${{ github.event_name }} == "push" ]; then
-          echo "::set-env name=EXTRA_MSG::'*tbola/test:${{ env.GITHUB_TAG }}*'"
+          echo "::set-env name=EXTRA_MSG::'*tbola/test:${GITHUB_TAG}*'"
         fi
     - name: Checkout code
       run: |
