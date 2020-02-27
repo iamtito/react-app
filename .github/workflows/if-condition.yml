@@ -41,6 +41,7 @@ jobs:
   fail:
     if: failure()
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: fail
         run: |
@@ -49,6 +50,7 @@ jobs:
   success:
     if: success()
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: success
         run: |
