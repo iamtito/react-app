@@ -27,4 +27,6 @@ jobs:
           echo "The matrix context is:"
           echo "${{ toJson(matrix) }}"
           echo "URL TO ACTION"
-          echo "https://github.com/iamtito/react-app/commit/$(echo ${{ toJson(github.sha) }})/checks"
+          export URL="https://github.com/iamtito/react-app/commit/$(echo ${{ toJson(github.sha) }})/checks"
+          echo $URL
+          curl -s -d "payload={ \"username\":\"RPPrefresh Job\", \"attachments\":[{\"color\":\"#E01E5A\" , \"text\": \"Test Ignore <${URL}>\"}]}" https://hooks.slack.com/services/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
