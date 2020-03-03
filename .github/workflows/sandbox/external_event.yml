@@ -1,8 +1,7 @@
 name: Dispatch Job
 on:
   repository_dispatch:
-    push:
-      types: sandbox
+    types: sandbox
 
 env:
   ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
