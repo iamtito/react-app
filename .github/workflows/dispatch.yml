@@ -10,15 +10,16 @@ jobs:
   run-this:
     runs-on: ubuntu-latest
     steps:
-    - name: run here
+    - name: Get text value from payload
       run: |
-          set -x
-          echo "The below is the context"
-          echo "${{ toJson(github) }}"
           echo "Action url is ${{ env.ACTION_URL }}"
-          echo "payload"
-          echo "Event text: ${{ github.event.client_payload.text }} "
+          echo "Event Payload"
+          echo "${{ github.event.client_payload.text }} "
           
-    - name: Payload context
+    - name: Get All Sent Payload
       run: |
         echo "Event payload ${{ toJson(github.event.client_payload) }}"
+        
+    - name: Get Workflow payload
+      run: |
+        echo "${{ toJson(github) }}"
