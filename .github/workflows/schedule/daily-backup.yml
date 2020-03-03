@@ -1,0 +1,17 @@
+name: Dispatch Job
+on:
+  repository_dispatch:
+    types: schedule
+
+jobs:
+  run-this:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get text value from payload
+      run: |
+          echo "Action url is ${{ env.ACTION_URL }}"
+          echo "Event Payload"
+          echo "${{ github.event.client_payload.text }} "
+          pwd
+          ls
+          
