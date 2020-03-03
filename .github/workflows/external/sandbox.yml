@@ -1,4 +1,4 @@
-name: Dispatch Job
+name: sandbox Job
 on:
   repository_dispatch:
     types: sandbox
