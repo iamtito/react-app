@@ -1,6 +1,8 @@
 name: Dispatch Job
 on:
   repository_dispatch:
+  push:
+    types: test
 
 env:
   ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
@@ -14,3 +16,9 @@ jobs:
           echo "The below is the context"
           echo "${{ toJson(github) }}"
           echo "Action url is ${{ env.ACTION_URL }}"
+          echo "payload"
+          echo "Event text: ${{ github.event.client_payload.text }} "
+          
+    - name: Payload context
+      run: |
+        echo "Event payload ${{ toJson(github.event.client_payload) }}"
