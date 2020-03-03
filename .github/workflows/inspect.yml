@@ -3,7 +3,7 @@ name: Inspect Contexts
 on: [push]
 
 env:
-  ACTION_URL: "https://github.com/${{ toJson(github.repository)/commit/$(echo ${{ toJson(github.sha) }})/checks"
+  ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/$(echo ${{ toJson(github.sha) }})/checks"
 jobs:
   build:
     name: Inspect contexts
