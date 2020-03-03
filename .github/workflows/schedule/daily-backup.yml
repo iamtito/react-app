@@ -1,4 +1,4 @@
-name: Dispatch Job
+name: Daily Backup Job
 on:
   repository_dispatch:
     types: schedule
