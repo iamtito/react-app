@@ -26,3 +26,5 @@ jobs:
           echo ""
           echo "The matrix context is:"
           echo "${{ toJson(matrix) }}"
+          echo "URL TO ACTION"
+          echo "https://github.com/iamtito/react-app/commit/$(echo ${{ toJson(github.sha) }})/checks"
