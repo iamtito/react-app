@@ -29,4 +29,4 @@ jobs:
           echo "URL TO ACTION"
           export URL="https://github.com/iamtito/react-app/commit/$(echo ${{ toJson(github.sha) }})/checks"
           echo $URL
-          curl -s -d "payload={ \"username\":\"RPPrefresh Job\", \"attachments\":[{\"color\":\"#E01E5A\" , \"text\": \"Test Ignore <${URL}>\"}]}" ${{ env.BVITY_SLACK_WEBHOOK }}
+          curl -s -d "payload={ \"username\":\"RPPrefresh Job\", \"attachments\":[{\"color\":\"#E01E5A\" , \"text\": \"Test Ignore <${URL}>\"}]}" ${{ secrets.BVITY_SLACK_WEBHOOK }}
