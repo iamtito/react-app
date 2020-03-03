@@ -5,7 +5,7 @@ on:
 env:
   ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
 jobs:
-  dev-db-refresh:
+  run-this:
     runs-on: ubuntu-latest
     steps:
     - name: run here
