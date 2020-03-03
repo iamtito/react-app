@@ -1,0 +1,16 @@
+name: sandbox II Job
+on:
+  repository_dispatch:
+    types: test
+
+env:
+  ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
+jobs:
+  run-this:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get text value from payload
+      run: |
+          echo "Action url is ${{ env.ACTION_URL }}"
+          echo "Event Payload"
+          echo "${{ github.event.client_payload.text }} "
