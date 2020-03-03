@@ -36,4 +36,4 @@ jobs:
           echo $URL
           curl -X POST -H 'Content-type: application/json' --data '{"blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Slack payload test"}},{"type": "section","fields": [{"type": "mrkdwn","text": "*Event* \n ${event}"},{"type": "mrkdwn","text": "*Action URL* \n < ${{ env.URL }} |link>"}]}]}'  ${{ secrets.BVITY_SLACK_WEBHOOK }}
           
-          curl -s -d "payload={ \"username\":\"RPPrefresh Job\", \"attachments\":[{\"color\":\"#E01E5A\" , \"text\": \"Test $(echo ${{ toJson(github.event_name) }}) Ignore <${URL}|linking>\"}]}" ${{ secrets.BVITY_SLACK_WEBHOOK }}
+          curl -s -d "payload={ \"username\":\"RPPrefresh Job\", \"attachments\":[{\"color\":\"#E01E5A\" , \"text\": \"Test $(echo ${{ toJson(github.event_name) }}) Ignore <${URL}|linking> and the main link <${{ env.ACTION_URL }}|Main>\"}]}" ${{ secrets.BVITY_SLACK_WEBHOOK }}
