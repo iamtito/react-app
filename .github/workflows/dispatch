@@ -1,0 +1,16 @@
+name: Dispatch Job
+on:
+  repository_dispatch:
+
+env:
+  ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
+jobs:
+  dev-db-refresh:
+    runs-on: ubuntu-latest
+    steps:
+    - name: run here
+      run: |
+          set -x
+          echo "The below is the context"
+          echo "${{ toJson(github) }}"
+          echo "Action url is ${{ env.ACTION_URL }}"
