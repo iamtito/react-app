@@ -29,6 +29,6 @@ jobs:
           echo "URL TO ACTION"
           export URL="https://github.com/iamtito/react-app/commit/$(echo ${{ toJson(github.sha) }})/checks"
           echo $URL
-          curl -X POST -H 'Content-type: application/json' --data '{"blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Slack payload test"}},{"type": "section","fields": [{"type": "mrkdwn","text": "*Event* \n $(echo ${{ toJson(github.event_name) }})"},{"type": "mrkdwn","text": "*Action URL* \n <https://github.com/iamtito/react-app/commit/$(echo ${{ toJson(github.sha) }})/checks|link>"}]}]}'  ${{ secrets.BVITY_SLACK_WEBHOOK }}
+          curl -X POST -H 'Content-type: application/json' --data '{"blocks": [{"type": "section","text": {"type": "mrkdwn","text": "Slack payload test"}},{"type": "section","fields": [{"type": "mrkdwn","text": "*Event* \n $(echo ${{ toJson(github.event_name) }})"},{"type": "mrkdwn","text": "*Action URL* \n <${URL}|link>"}]}]}'  ${{ secrets.BVITY_SLACK_WEBHOOK }}
           
           curl -s -d "payload={ \"username\":\"RPPrefresh Job\", \"attachments\":[{\"color\":\"#E01E5A\" , \"text\": \"Test $(echo ${{ toJson(github.event_name) }}) Ignore <${URL}|linking>\"}]}" ${{ secrets.BVITY_SLACK_WEBHOOK }}
