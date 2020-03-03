@@ -1,0 +1,22 @@
+name: List AWS S3 buckets
+on: 
+  push:
+    branches:
+      - master
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
+jobs:
+  dev-db-refresh:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Dev DB Refresh
+      run: |
+          set -x
+          cd build
+          ls
+          aws s3 ls
+          curl -s -d "payload={\"username\":\"List Job\",  \"attachments\":[{\"color\":\"#2EB67D\" , \"text\": \" Job Completed. <${{ env.ACTION_URL }}| link>\"}]}" ${{ secrets.BVITY_SLACK_WEBHOOK }}
