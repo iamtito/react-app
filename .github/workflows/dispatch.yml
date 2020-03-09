@@ -23,3 +23,12 @@ jobs:
     - name: Get Workflow payload
       run: |
         echo "${{ toJson(github) }}"
+  get-value:
+    if: github.event.event_type == 'the-value'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get text value from payload
+      run: |
+          echo "Action url is ${{ env.ACTION_URL }}"
+          echo "Event Payload"
+          echo "${{ github.event.client_payload.text }} "
