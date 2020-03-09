@@ -24,10 +24,10 @@ jobs:
       run: |
         echo "${{ toJson(github) }}"
   get-value:
-    if: github.event.event_type == 'the-value'
+    if: github.event.action == 'the-value'
     runs-on: ubuntu-latest
     steps:
-    - name: Get text value from payload
+    - name: This is the get value section
       run: |
           echo "Action url is ${{ env.ACTION_URL }}"
           echo "Event Payload"
