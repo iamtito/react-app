@@ -15,7 +15,7 @@ jobs:
         echo ${{ github.event.release.name }}
         echo ${{ github.event.release.body }}
         ###if [ ${{ github.event.release.name }} == *"anary"* ]; then
-        if [[ ${{ github.event.release.name }} =~ *"anary"* ]]; then
+        if [[ "${{ github.event.release.name }}" =~ *"anary"* ]]; then
           echo "this is canry"
          else
           echo "this is not a canary"
