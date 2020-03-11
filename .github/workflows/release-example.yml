@@ -22,10 +22,12 @@ jobs:
         echo "Release github event payload"
         echo "${{ toJson(github) }}" 
         
+    - uses: actions/checkout@v2    
     - name: second
       run: |
         set -exv
         cd ${{ github.workspace }}
+        ls
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
         echo $PREVIOUS_TAG
