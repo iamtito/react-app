@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: pre
-      if: ${{ github.event.release.name }} != 'canary'
+      if: github.event.release.name != 'canary'
       run: |
         echo "not canary atall"
     - name: testing this
