@@ -14,7 +14,7 @@ jobs:
         set -exv
         echo ${{ github.event.release.name }}
         echo ${{ github.event.release.body }}
-        if [ "${{ github.event.release.name }}" == 'canary' ]; then
+        if [[ "${{ github.event.release.name }}" == 'canary' ]]; then
         ##if [[ "${{ github.event.release.name }}" =~ *"anary"* ]]; then
           echo "this is canry"
          else
