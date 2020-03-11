@@ -17,3 +17,5 @@ jobs:
          else
           echo "this is not a canary"
         fi
+        echo "Release github event payload"
+        echo "${{ toJson(github) }}" 
