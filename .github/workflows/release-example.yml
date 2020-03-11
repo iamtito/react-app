@@ -1,7 +1,9 @@
 name: Release
 on:
   release:
-    types: [published]
+    types: 
+      - published
+      - edited
 
 jobs:
   one:
@@ -19,3 +21,9 @@ jobs:
         fi
         echo "Release github event payload"
         echo "${{ toJson(github) }}" 
+        
+    - name: second
+      run: |
+        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
+        echo $PREVIOUS_TAG
