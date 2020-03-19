@@ -4,7 +4,7 @@ on: [push]
 
 env:
   ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
-  ACTION_U: "https://github.com/$(echo ${{ toJson(github.repository) }})/commit/$(echo ${{ toJson(github.sha) }})/checks"
+  ACTION_U: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}/checks"
 jobs:
   build:
     name: Inspect contexts
