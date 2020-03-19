@@ -4,6 +4,7 @@ on: [push]
 
 env:
   ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
+  ACTION_U: "https://github.com/$(echo ${{ toJson(github.repository) }})/commit/$(echo ${{ toJson(github.sha) }})/checks"
 jobs:
   build:
     name: Inspect contexts
@@ -30,6 +31,7 @@ jobs:
           echo "${{ toJson(matrix) }}"
           echo "URL TO ACTION"
           echo "We have this ${{ env.ACTION_URL }} and below"
+          echo "and this too ${{ env.ACTION_U }}"
           export URL="https://github.com/iamtito/react-app/commit/$(echo ${{ toJson(github.sha) }})/checks"
           echo "::set-env name=URL::${URL}"
           export event=$(echo ${{ toJson(github.event_name) }})
