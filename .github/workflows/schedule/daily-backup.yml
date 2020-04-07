@@ -1,7 +1,7 @@
-name: Daily Backup Job
+name: Daily Backup Job Inner
 on:
   schedule: 
-    - cron: '15 11 7 4 *'
+    - cron: '25 11 * * 1-5'
   repository_dispatch:
     types: schedule
 
