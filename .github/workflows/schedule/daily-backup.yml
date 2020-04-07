@@ -1,5 +1,7 @@
 name: Daily Backup Job
 on:
+  schedule: 
+    - cron: '15 11 7 4 *'
   repository_dispatch:
     types: schedule
 
@@ -9,6 +11,8 @@ jobs:
     steps:
     - name: Get text value from payload
       run: |
+          echo "The github context is:"
+          echo "${{ toJson(github) }}"
           echo "Action url is ${{ env.ACTION_URL }}"
           echo "Event Payload"
           echo "${{ github.event.client_payload.text }} "
