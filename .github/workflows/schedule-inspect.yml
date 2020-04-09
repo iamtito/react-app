@@ -19,3 +19,18 @@ jobs:
           pwd
           ls
           
+  checker:
+    if: github.event_name == 'schedule' || github.event.client_payload.action == 'checker'
+    runs-on: [ubuntu-latest]
+    steps:
+    - name: checker
+      run: |
+        echo "checker"
+        
+  check:
+    if: github.event_name == 'schedule'
+    runs-on: [ubuntu-latest]
+    steps:
+    - name: check
+      run: |
+        echo "check"  
