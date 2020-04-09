@@ -24,6 +24,14 @@ jobs:
     - name: Get Workflow payload
       run: |
         echo "${{ toJson(github) }}"
+        
+  middle:
+    if: github.event.client_payload.action == 'oom':
+    runs-on: ubuntu-latest
+    steps:
+    - name: show value
+      run: |
+        echo "${{ github.event.client_payload.action }}"
   get-value:
     if: github.event.action == 'the-value'
     runs-on: ubuntu-latest
