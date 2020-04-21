@@ -4,6 +4,10 @@ on:
     types: 
       - published
       - edited
+  repository_dispatch:
+    types: 
+      - rcanary
+      - rtrigger
 
 jobs:
   one:
@@ -16,6 +20,7 @@ jobs:
     - name: testing this
       run: |
         set -exv
+        echo ${{ github.event_type }}
         echo ${{ github.event.release.name }}
         echo ${{ github.event.release.body }}
         if [ ${{ github.event.release.name }} == 'canary' ]; then
