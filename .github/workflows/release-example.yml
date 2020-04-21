@@ -41,3 +41,30 @@ jobs:
         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
         PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
         echo $PREVIOUS_TAG
+  two:
+    if: github.event.action != 'deploy'
+    runs-on: ubuntu-latest
+    steps:
+      - name: two steps
+        run: |
+          echo ${{ github.event.client_payload }}
+          
+  three:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'deploy'
+    steps:
+      - name: three steps
+        run: |
+          echo ${{ github.event.client_payload }}
+          echo ${{ github.event.client_payload.version }}
+          echo "${{ toJson(github) }}" 
+          
+  fourth:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'deploy'
+    steps:
+      - name: fourth steps
+        run: |
+          echo ${{ github.event.client_payload }}
+          echo ${{ github.event.client_payload.version }}
+          echo "${{ toJson(github) }}" 
