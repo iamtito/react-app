@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: pre
-      if: github.event.release.name != 'canary'
+      if: github.event.release.name != 'canary' && "!github.event.release.prerelease"
       run: |
         echo "not canary atall"
     - name: testing this
@@ -42,7 +42,7 @@ jobs:
         PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
         echo $PREVIOUS_TAG
   two:
-    if: github.event.action != 'rtrigger'
+    if: github.event.action != 'rtrigger' && "!github.event.release.prerelease"
     runs-on: ubuntu-latest
     steps:
       - name: two steps
@@ -51,7 +51,7 @@ jobs:
           
   three:
     runs-on: ubuntu-latest
-    if: github.event.action == 'rtrigger'
+    if: github.event.action == 'rtrigger' && "!github.event.release.prerelease"
     steps:
       - name: three steps
         run: |
@@ -61,7 +61,7 @@ jobs:
           
   fourth:
     runs-on: ubuntu-latest
-    if: github.event.action == 'rtrigger'
+    if: github.event.action == 'rtrigger' && "!github.event.release.prerelease"
     steps:
       - name: fourth steps
         run: |
