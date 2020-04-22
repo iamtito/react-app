@@ -51,7 +51,7 @@ jobs:
           
   three:
     runs-on: ubuntu-latest
-    if: github.event.action == 'rcanary' || !github.event.release.prerelease
+    if: github.event.action != 'rcanary' || !github.event.release.prerelease
     steps:
       - name: three steps
         run: |
@@ -61,7 +61,7 @@ jobs:
           
   fourth:
     runs-on: ubuntu-latest
-    if: github.event.action == 'rcanary' && !github.event.release.prerelease
+    if: github.event.action != 'rcanary' && !github.event.release.prerelease
     steps:
       - name: fourth steps
         run: |
