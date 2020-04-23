@@ -42,10 +42,11 @@ jobs:
         PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
         echo $PREVIOUS_TAG
   two:
-    if: github.event.action != 'rtrigger' && !github.event.release.prerelease
+    if: "!github.event.release.prerelease"
     runs-on: ubuntu-latest
     steps:
       - name: two steps
+        if: github.event.action != 'rtrigger'
         run: |
           echo ${{ github.event.client_payload }}
           
