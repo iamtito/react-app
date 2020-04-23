@@ -59,6 +59,14 @@ jobs:
         run: |
           echo "success"
           
+  two-mid:
+    needs: [two]
+    runs-on: ubuntu-latest
+    steps:
+      - name: run it
+        run: |
+          echo "mid two"
+          
   three:
     runs-on: ubuntu-latest
     if: github.event.action != 'rcanary' || !github.event.release.prerelease
