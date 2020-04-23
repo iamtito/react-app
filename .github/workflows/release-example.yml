@@ -13,6 +13,7 @@ jobs:
   one:
     runs-on: ubuntu-latest
     steps:
+    
     - name: pre
       if: github.event.release.name != 'rcanary' && !github.event.release.prerelease
       run: |
@@ -42,11 +43,13 @@ jobs:
         PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
         echo $PREVIOUS_TAG
   two:
-    if: github.event.action != 'rtrigger' && !github.event.release.prerelease
+    if: "!github.event.release.prerelease"
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        if: github.event.action != 'rtrigger'
       - name: two steps
-#         if: github.event.action != 'rtrigger'
+        if: github.event.action != 'rtrigger'
         run: |
           echo ${{ github.event.client_payload }}
           
@@ -54,10 +57,10 @@ jobs:
         if: failure()
         run: |
           echo "failure"
-      - name: success
-        if: success()
-        run: |
-          echo "success"
+#       - name: success
+#         if: success()
+#         run: |
+#           echo "success"
           
   two-mid:
     needs: [two]
