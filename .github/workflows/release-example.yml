@@ -49,6 +49,15 @@ jobs:
         run: |
           echo ${{ github.event.client_payload }}
           
+      - name: failure
+        if: failure()
+        run: |
+          echo "failure"
+      - name: success
+        if: success()
+        run: |
+          echo "success"
+          
   three:
     runs-on: ubuntu-latest
     if: github.event.action != 'rcanary' || !github.event.release.prerelease
