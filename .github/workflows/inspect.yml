@@ -11,12 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: plan
-        run: echo sunny
+        run: echo "sunny"
         continue-on-error: true
       - name: Inspect contexts
         continue-on-error: true
         run: |
+          set -exv
           echo ${{ job.steps.plan.status }}
+          echo ${{ steps.plan.status }}
       - name: Inspect contexts
         run: |
           echo "The github context is:"
