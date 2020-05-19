@@ -10,15 +10,20 @@ jobs:
     name: Inspect contexts
     runs-on: ubuntu-latest
     steps:
-      - id: plan
+      - id: sunny
         run: echo "sunny"
         continue-on-error: true
       - name: Inspect contexts
         continue-on-error: true
         run: |
           set -exv
-          echo ${{ job.steps.plan.status }}
-          echo ${{ steps.plan.status }}
+          echo ${{ job.steps.sunny.status }}
+          echo ${{ steps.sunny.status }}
+          echo "${{ toJson(steps.sunny) }}"
+          echo "${{ toJson(steps.sunny.outcome) }}"
+      - id: nixit
+        run: ./${{env.TWAT}}
+        continue-on-error: true
       - name: Inspect contexts
         run: |
           echo "The github context is:"
