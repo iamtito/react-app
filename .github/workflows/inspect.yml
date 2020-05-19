@@ -16,14 +16,20 @@ jobs:
       - name: Inspect contexts
         continue-on-error: true
         run: |
-          set -exv
           echo ${{ job.steps.sunny.status }}
           echo ${{ steps.sunny.status }}
           echo "${{ toJson(steps.sunny) }}"
-          echo "${{ toJson(steps.sunny.outcome) }}"
+          echo ${{ toJson(steps.sunny.outcome) }}
+          
       - id: nixit
         run: ./${{env.TWAT}}
         continue-on-error: true
+        
+      - name: Sunny status
+        continue-on-error: true
+        run: |
+          echo "${{ toJson(steps.sunny.outcome) }} and Nixit is ${{ toJson(steps.nixit.outcome) }}"
+          
       - name: Inspect contexts
         run: |
           echo "The github context is:"
