@@ -1,6 +1,6 @@
 name: Inspect Contexts
 
-on: [push]
+on: [push, pull_request]
 
 env:
   ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
