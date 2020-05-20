@@ -10,6 +10,7 @@ jobs:
     name: Inspect contexts
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - id: sunny
         run: echo "sunny"
         continue-on-error: true
