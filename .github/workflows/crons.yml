@@ -10,8 +10,8 @@ on:
 #     branches: master
 
   schedule:
-    - cron: "*/3 * * * *"
-    - cron: "*/7 * * * *"
+    - cron: "3,6 * * * *"
+
 
 
 jobs:
