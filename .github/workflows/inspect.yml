@@ -30,6 +30,11 @@ jobs:
         run: |
           echo "${{ toJson(steps.sunny.outcome) }} and Nixit is ${{ toJson(steps.nixit.outcome) }}"
           
+      - name: show all changed files
+        continue-on-error: true
+        run: |
+          git show --pretty="" --name-only ${{ github.sha }}
+          
       - uses: actions/github-script@0.9.0
         continue-on-error: true
         with:
