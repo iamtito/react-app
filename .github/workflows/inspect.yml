@@ -19,7 +19,7 @@ jobs:
           echo ${{ job.steps.sunny.status }}
           echo ${{ steps.sunny.status }}
           echo "${{ toJson(steps.sunny) }}"
-          echo ${{ toJson(steps.sunny.outcome) }}
+          echo ${{ steps.sunny.outcome }}
           
       - id: nixit
         run: ./${{env.TWAT}}
