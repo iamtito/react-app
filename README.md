@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 [![Coverage Status](https://coveralls.io/repos/github/iamtito/react-app/badge.svg?branch=master)](https://coveralls.io/github/iamtito/react-app?branch=master)
-
+  
 In the project directory, you can run:
 
 ### `npm start`
