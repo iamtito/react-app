@@ -10,6 +10,7 @@ jobs:
     name: Inspect contexts
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - id: sunny
         run: echo "sunny"
         continue-on-error: true
@@ -29,6 +30,40 @@ jobs:
         continue-on-error: true
         run: |
           echo "${{ toJson(steps.sunny.outcome) }} and Nixit is ${{ toJson(steps.nixit.outcome) }}"
+          
+      - name: show all changed files
+        continue-on-error: true
+        run: |
+          git show --pretty="" --name-only ${{ github.event.pull_request.head.sha }}
+          
+      - name: show all another sha
+        continue-on-error: true
+        run: |
+          git show --pretty="" --name-only ${{ github.event.after }}
+          
+      - uses: actions/github-script@0.9.0
+        continue-on-error: true
+        with:
+          script: |
+            require 'sinatra'
+            require 'json'
+
+            post '/payload' do
+              push = JSON.parse(request.body.read) # parse the JSON
+
+              # gather the data we're looking for
+              pusher = push["pusher"]["name"]
+              branch = push["ref"]
+
+              # get a list of all the files touched
+              files = push["commits"].map do |commit|
+                commit['added'] + commit['modified'] + commit['removed']
+              end
+              files = files.flatten.uniq
+
+              echo "Here are the list of files:"
+              echo $files
+            end
           
       - name: Inspect contexts
         run: |
