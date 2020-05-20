@@ -30,6 +30,19 @@ jobs:
         continue-on-error: true
         run: |
           echo "${{ toJson(steps.sunny.outcome) }} and Nixit is ${{ toJson(steps.nixit.outcome) }}"
+          
+      - name: show id results
+        continue-on-error: true
+        run: |
+          echo ${{ job.steps.sunny.status }}
+          echo ${{ steps.sunny.status }}
+          echo "${{ toJson(steps.sunny) }}"
+          echo ${{ steps.sunny.outcome }}
+          echo "----nixit---"
+          echo ${{ job.steps.nixit.status }}
+          echo ${{ steps.nixit.status }}
+          echo "${{ toJson(steps.nixit) }}"
+          echo ${{ steps.nixit.outcome }}
            
       - name: show all changed files
         continue-on-error: true
