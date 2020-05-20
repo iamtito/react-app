@@ -11,7 +11,7 @@ on:
 
   schedule:
     - cron: "*/2 * * * *"
-    - cron: "*/4 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   build_now:
@@ -29,9 +29,9 @@ jobs:
           echo "${{ toJson(job) }}"
           
       - name: Inspect contexts
-        if: github.event.schedule == '*/4 * * * *'
+        if: github.event.schedule == '*/5 * * * *'
         run: |
-          echo "this is the 4"
+          echo "this is the 5"
           
       - name: Inspect contexts
         if: github.event.schedule == '*/2 * * * *'
