@@ -29,12 +29,12 @@ jobs:
           echo "${{ toJson(job) }}"
           
       - name: Inspect contexts
-        if: ${{ github.event.schedule }} == '*/4 * * * *'
+        if: github.event.schedule == '*/4 * * * *'
         run: |
           echo "this is the 4"
           
       - name: Inspect contexts
-        if: ${{ github.event.schedule }} == '*/2 * * * *'
+        if: github.event.schedule == '*/2 * * * *'
         run: |
           echo "this is the 2"
           
