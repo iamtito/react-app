@@ -34,7 +34,12 @@ jobs:
       - name: show all changed files
         continue-on-error: true
         run: |
-          git show --pretty="" --name-only ${{ github.sha }}
+          git show --pretty="" --name-only ${{ github.event.pull_request.head.sha }}
+          
+      - name: show all another sha
+        continue-on-error: true
+        run: |
+          git show --pretty="" --name-only ${{ github.event.after }}
           
       - uses: actions/github-script@0.9.0
         continue-on-error: true
