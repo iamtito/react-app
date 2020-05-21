@@ -34,15 +34,17 @@ jobs:
       - name: show id results
         continue-on-error: true
         run: |
-          echo ${{ job.steps.sunny.status }}
-          echo ${{ steps.sunny.status }}
-          echo "${{ toJson(steps.sunny) }}"
-          echo ${{ steps.sunny.outcome }}
+          echo "1 - ${{ job.steps.sunny.status }}"
+          echo "2 - ${{ steps.sunny.status }}"
+          echo "3 - ${{ toJson(steps.sunny) }}"
+          echo "4 - ${{ steps.sunny.outcome }}"
+          echo "5 - ${{ steps.sunny.outputs.stdout }}"
           echo "----nixit---"
-          echo ${{ job.steps.nixit.status }}
-          echo ${{ steps.nixit.status }}
-          echo "${{ toJson(steps.nixit) }}"
-          echo ${{ steps.nixit.outcome }}
+          echo "1 - ${{ job.steps.nixit.status }}"
+          echo "2 - ${{ steps.nixit.status }}"
+          echo "3 - ${{ toJson(steps.nixit) }}"
+          echo "4 - ${{ steps.nixit.outcome }}"
+          echo "5 - ${{ steps.nixit.outputs.stdout }}"
            
       - name: show all changed files
         continue-on-error: true
