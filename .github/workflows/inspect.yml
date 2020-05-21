@@ -14,9 +14,13 @@ jobs:
       - id: sunny
         run: ls
         continue-on-error: true
+      - id: validate
+        run: echo "this is lame" && echo "whatever"
+        
       - name: Inspect contexts
         continue-on-error: true
         run: |
+          echo "do this ${{ steps.validate.outputs.stdout }}"
           echo ${{ job.steps.sunny.status }}
           echo ${{ steps.sunny.status }}
           echo "${{ toJson(steps.sunny) }}"
