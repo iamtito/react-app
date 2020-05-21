@@ -9,9 +9,9 @@ on:
 #   push:
 #     branches: master
 
-  schedule:
-    - cron: "*/2 * * * *"
-    - cron: "*/5 * * * *"
+#   schedule:
+#     - cron: "*/2 * * * *"
+#     - cron: "*/5 * * * *"
 
 jobs:
   build_now:
