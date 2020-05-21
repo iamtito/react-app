@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: sunny
-        run: ps -ealf |grep java
+        run: ls
         continue-on-error: true
       - name: Inspect contexts
         continue-on-error: true
@@ -21,6 +21,7 @@ jobs:
           echo ${{ steps.sunny.status }}
           echo "${{ toJson(steps.sunny) }}"
           echo ${{ steps.sunny.outcome }}
+          echo ${{ steps.sunny }}
           
       - id: nixit
         run: ./${{env.TWAT}}
