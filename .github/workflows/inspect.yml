@@ -12,15 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: sunny
-        run: echo "sunny"
+        run: ls
         continue-on-error: true
+      - id: validate
+        run: echo "this is lame" && echo "whatever"
+        
       - name: Inspect contexts
         continue-on-error: true
         run: |
+          echo "do this ${{ steps.validate.outputs.stdout }}"
           echo ${{ job.steps.sunny.status }}
           echo ${{ steps.sunny.status }}
           echo "${{ toJson(steps.sunny) }}"
           echo ${{ steps.sunny.outcome }}
+          echo ${{ steps.sunny }}
           
       - id: nixit
         run: ./${{env.TWAT}}
@@ -30,6 +35,21 @@ jobs:
         continue-on-error: true
         run: |
           echo "${{ toJson(steps.sunny.outcome) }} and Nixit is ${{ toJson(steps.nixit.outcome) }}"
+          
+      - name: show id results
+        continue-on-error: true
+        run: |
+          echo "1 - ${{ job.steps.sunny.status }}"
+          echo "2 - ${{ steps.sunny.status }}"
+          echo "3 - ${{ toJson(steps.sunny) }}"
+          echo "4 - ${{ steps.sunny.outcome }}"
+          echo "5 - ${{ steps.sunny.outputs.stdout }}"
+          echo "----nixit---"
+          echo "1 - ${{ job.steps.nixit.status }}"
+          echo "2 - ${{ steps.nixit.status }}"
+          echo "3 - ${{ toJson(steps.nixit) }}"
+          echo "4 - ${{ steps.nixit.outcome }}"
+          echo "5 - ${{ steps.nixit.outputs.stdout }}"
            
       - name: show all changed files
         continue-on-error: true
