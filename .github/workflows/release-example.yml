@@ -13,6 +13,14 @@ jobs:
   always:
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: iamtito/weatherApp
+          path: weatherApp
+          token: ${{ secrets.GIT_TOKEN }}
+      - uses: actions/checkout@v2
+        with:
+          path: react-app
       - name: payload
         run: |
           set -exv
@@ -21,6 +29,45 @@ jobs:
           ls ${{ github.workspace }}
           cd ${{ github.workspace }}
           ls
+      - name: Get Info
+        run: |
+          set -exv
+          export DATE=$(TZ=EST date +%m/%d/%Y)
+          export REPO=${{ github.event.repository.name }}
+          export URL=${{ github.event.repository.html_url }}
+          export STATUS='SUCCESS'
+          cd react-app
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          export PREVIOUS_TAG=$(GIT_TAG=$(git describe --tags $(git rev-list --tags --max-count=2) | cut -f2 -d"-") && TAGS=($GIT_TAG) && echo ${TAGS[1]})
+          
+          if [ ${{ github.event.release.name }} == 'canary' ]; then
+            export STATUS='CANARY-SUCCESS'
+          fi
+          if [ ${{ github.event.action }} == 'deploy' ]; then
+            export LATEST_TAG=${{ github.event.client_payload.version }}
+          else
+            export LATEST_TAG="${GITHUB_REF/refs\/tags\/}"
+          fi
+          echo "$STATUS - $DATE - $REPO - $PREVIOUS_TAG - $LATEST_TAG - $URL"
+
+          generate_post_data()
+          {
+            cat <<EOF
+          {
+            "event_type": "hitMe", 
+            "client_payload": 
+              { 
+                "STATUS": "$STATUS", 
+                "DATE" : "$DATE", 
+                "REPO" : "$REPO", 
+                "PREVIOUS_TAG": "$PREVIOUS_TAG", 
+                "LATEST_TAG" : "$LATEST_TAG", 
+                "URL" : "$URL" 
+              }
+          }
+          EOF
+          }
+          echo $(generate_post_data)
   one:
     runs-on: ubuntu-latest
     steps:
