@@ -10,6 +10,17 @@ on:
       - rtrigger
 
 jobs:
+  always:
+    runs-on: self-hosted
+    steps:
+      - name: payload
+        run: |
+          set -exv
+          echo "${{ toJson(github) }}"
+          pwd
+          ls ${{ github.workspace }}
+          cd ${{ github.workspace }}
+          ls
   one:
     runs-on: ubuntu-latest
     steps:
