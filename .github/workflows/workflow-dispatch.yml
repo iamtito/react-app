@@ -24,7 +24,7 @@ on:
   repository_dispatch:
     types: dispatch
   push:
-    types: master
+    branches: master
 
 env:
   ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
