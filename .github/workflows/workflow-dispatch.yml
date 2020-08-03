@@ -1,0 +1,37 @@
+name: Dispatch Job
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy to all env?'
+        required: false
+        default: 'all'
+      staging:
+        description: 'Deploy to staging? Option yes/no'
+        required: false
+      prod:
+        description: 'Profile'
+        required: false
+        default: 'aim'
+      profile:
+        description: 'Prvphyle'
+        required: false
+        default: 'mytrik'
+      user:
+        description: 'wlpy'
+        required: false
+        default: 'wl'
+  repository_dispatch:
+    types: dispatch
+  push:
+    types: test
+
+env:
+  ACTION_URL: "https://github.com/${{ toJson(github.repository) }}/commit/${{ toJson(github.sha) }}/checks"
+jobs:
+  run-this:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Workflow payload
+      run: |
+        echo "${{ toJson(github) }}"
