@@ -69,7 +69,7 @@ jobs:
           set -exv
           echo "hobo"
       - name: Failed
-        if: failure() && github.event.inputs.renew != 'all' || failure() && github.event.inputs.renew != 'tlv'
+        if: failure() && github.event.inputs.renew == 'all' || failure() && github.event.inputs.renew == 'tlv'
         run: |
           echo "Dang it it failed"
           
