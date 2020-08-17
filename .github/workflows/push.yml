@@ -113,3 +113,5 @@ jobs:
         continue-on-error: true
       - run: sudo apt install php-bz2 -y
         continue-on-error: true
+      - run: sudo php --ini
+        continue-on-error: true
