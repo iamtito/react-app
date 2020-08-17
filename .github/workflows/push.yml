@@ -94,3 +94,20 @@ jobs:
         if: failure() ||  github.event.inputs.renew == 'all' ||  github.event.inputs.renew == 'tlv'
         run: |
           echo "Dang it it failed"
+  php:
+    name: First
+    runs-on: ubuntu-latest
+    steps:
+      - run: php --version
+        continue-on-error: true
+#       - run: apt install update -y
+      - run: apt-get update
+        continue-on-error: true
+      - run: apt-get install curl -y
+        continue-on-error: true
+      - run: curl -s https://getcomposer.org/installer | php
+        continue-on-error: true
+      - run: mv composer.phar /usr/local/bin/composer
+        continue-on-error: true
+      - run: composer --version
+        continue-on-error: true
