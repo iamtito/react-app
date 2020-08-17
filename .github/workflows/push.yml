@@ -1,0 +1,86 @@
+name: Push Workflow
+
+on: [push, pull_request]
+
+workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy to all env? Options: all, staging, prod'
+        required: true
+        default: 'all'
+      account:
+        description: 'Specify which aws account to deploy into. Options: lord, zanki, kepa'
+        required: false
+      renew:
+        description: 'Renew ssl certs only and not deploy? Options: all, tlv, hobo'
+        required: false
+        default: 'all'
+
+jobs:
+  first:
+    name: First
+    runs-on: ubuntu-latest
+    steps:
+      - name: yolo
+        run: |
+          exit 0
+      - id: sunny
+        run: echo "sunny"
+        continue-on-error: true
+      - name: Inspect contexts
+        continue-on-error: true
+        run: |
+          set -exv
+          echo "hobo"
+          
+  second:
+    name: Second
+    runs-on: ubuntu-latest
+    steps:
+      - name: yolo
+        run: |
+          exit 1
+      - id: sunny
+        run: echo "sunny"
+        continue-on-error: true
+      - name: Inspect contexts
+        continue-on-error: true
+        run: |
+          set -exv
+          echo "hobo"
+          
+  sec:
+    name: Sec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Renewal Checker
+        run: |
+          if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.renew }} != 'tlv' ]; then
+            exit 1
+          fi
+      - id: sunny
+        run: echo "sunny"
+        continue-on-error: true
+      - name: Inspect contexts
+        continue-on-error: true
+        run: |
+          set -exv
+          echo "hobo"
+          
+  stec:
+    name: Stec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Renewal Checker
+        run: |
+          if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.renew }} != 'tlv' ]; then
+            exit 0
+          fi
+      - id: sunny
+        run: echo "sunny"
+        continue-on-error: true
+      - name: Inspect contexts
+        continue-on-error: true
+        run: |
+          set -exv
+          echo "hobo"
