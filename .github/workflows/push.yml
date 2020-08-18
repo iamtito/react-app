@@ -98,6 +98,7 @@ jobs:
     name: php
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: php7.1
         continue-on-error: true
         uses: shivammathur/setup-php@v2
@@ -120,10 +121,14 @@ jobs:
         continue-on-error: true
       - run: sudo php --ini
         continue-on-error: true
+      - name: Run composer
+        continue-on-error: true
+        uses: php-actions/composer@v2
       
   php7-1:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: get php 7.1
         continue-on-error: true
         uses: shivammathur/setup-php@v2
@@ -136,10 +141,14 @@ jobs:
         continue-on-error: true
       - run: sudo php --ini
         continue-on-error: true
-      
+      - name: Run composer
+        continue-on-error: true
+        uses: php-actions/composer@v2
+        
   php71:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: get php 7.1
         continue-on-error: true
         uses: shivammathur/setup-php@v2
@@ -154,3 +163,6 @@ jobs:
         continue-on-error: true
       - run: sudo php --ini
         continue-on-error: true
+      - name: Run composer
+        continue-on-error: true
+        uses: php-actions/composer@v2
