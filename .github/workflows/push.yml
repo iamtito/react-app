@@ -129,7 +129,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.1'
-          tools: composer:v2
+#           tools: composer:v2
       - run: php --version
         continue-on-error: true
       - run: composer --version
