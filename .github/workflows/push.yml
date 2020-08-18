@@ -137,7 +137,7 @@ jobs:
       - run: sudo php --ini
         continue-on-error: true
       
-  php7.1:
+  php71:
     runs-on: ubuntu-latest
     steps:
       - name: get php 7.1
