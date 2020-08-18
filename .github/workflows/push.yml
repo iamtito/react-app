@@ -146,7 +146,11 @@ jobs:
         continue-on-error: true
       - run: sudo npm install -g bower
         continue-on-error: true
+      - run: sudo npm install -g gulp
+        continue-on-error: true
       - run: npm --version
+        continue-on-error: true
+      - run: node --version
         continue-on-error: true
       - run: bower version
         continue-on-error: true
@@ -155,6 +159,14 @@ jobs:
       - run: $(which bower) version
         continue-on-error: true
       - run: sudo $(which bower) version
+        continue-on-error: true
+      - run: gulp version
+        continue-on-error: true
+      - run: which gulp
+        continue-on-error: true
+      - run: $(which gulp) version
+        continue-on-error: true
+      - run: sudo $(which gulp) version
         continue-on-error: true
         
   php71:
