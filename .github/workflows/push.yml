@@ -144,11 +144,11 @@ jobs:
         continue-on-error: true
       - run: npm install
         continue-on-error: true
-      - run: npm install -g bower
+      - run: sudo npm install -g bower
         continue-on-error: true
       - run: npm --version
         continue-on-error: true
-      - run: bower --version
+      - run: which bower
         continue-on-error: true
         
   php71:
@@ -172,5 +172,11 @@ jobs:
 #       - name: Run composer
 #         continue-on-error: true
 #         uses: php-actions/composer@v2
-      - name: Install dependencies
-        run: composer install --prefer-dist
+      - run: npm install
+        continue-on-error: true
+      - run: sudo npm i bower
+        continue-on-error: true
+      - run: npm --version
+        continue-on-error: true
+      - run: which bower
+        continue-on-error: true
