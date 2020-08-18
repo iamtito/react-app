@@ -1,0 +1,31 @@
+{
+    "require": {
+        "slim/slim": "^3.0.0",
+        "illuminate/database": "4.2.17",
+        "marcoazn89/booboo": "^2.0",
+        "monolog/monolog": "1.17.1",
+        "marcoazn89/slim-booboo": "dev-master",
+        "robmorgan/phinx": "0.5.1",
+        "vlucas/phpdotenv": "2.0.1",
+        "whichbrowser/parser": "^1.0",
+        "slim/twig-view": "^2.1",
+        "jakoch/phantomjs-installer": "2.1.1-p08",
+        "jonnyw/php-phantomjs": "*",
+        "jenssegers/proxy": "^3.0",
+        "maknz/slack": "^1.7"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "platform": {
+            "php": "5.6.40"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    }
+}
