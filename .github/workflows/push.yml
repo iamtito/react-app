@@ -142,6 +142,14 @@ jobs:
         continue-on-error: true
       - run: composer install
         continue-on-error: true
+      - run: npm install
+        continue-on-error: true
+      - run: npm install -g bower
+        continue-on-error: true
+      - run: npm --version
+        continue-on-error: true
+      - run: bower --version
+        continue-on-error: true
         
   php71:
     runs-on: ubuntu-latest
