@@ -98,6 +98,11 @@ jobs:
     name: php
     runs-on: ubuntu-latest
     steps:
+      - name: php7.1
+        continue-on-error: true
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.1'
       - run: php --version
         continue-on-error: true
 #       - run: apt install update -y
@@ -107,7 +112,41 @@ jobs:
 #         continue-on-error: true
       - run: curl -s https://getcomposer.org/installer | php
         continue-on-error: true
-      - run: mv composer.phar /usr/local/bin/composer
+#       - run: mv composer.phar /usr/local/bin/composer
+#         continue-on-error: true
+      - run: composer --version
+        continue-on-error: true
+      - run: sudo apt install php-bz2 -y
+        continue-on-error: true
+      - run: sudo php --ini
+        continue-on-error: true
+      
+  php7-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get php 7.1
+        continue-on-error: true
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.1'
+          tools: composer:v2
+      - run: php --version
+        continue-on-error: true
+      - run: composer --version
+        continue-on-error: true
+      - run: sudo php --ini
+        continue-on-error: true
+      
+  php7.1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get php 7.1
+        continue-on-error: true
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.1'
+          tools: composer:v2
+      - run: php --version
         continue-on-error: true
       - run: composer --version
         continue-on-error: true
