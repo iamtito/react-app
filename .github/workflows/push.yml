@@ -148,6 +148,8 @@ jobs:
         continue-on-error: true
       - run: npm --version
         continue-on-error: true
+      - run: bower version
+        continue-on-error: true
       - run: which bower
         continue-on-error: true
       - run: $(which bower) version
@@ -181,6 +183,8 @@ jobs:
       - run: sudo npm i bower
         continue-on-error: true
       - run: npm --version
+        continue-on-error: true
+      - run: bower version
         continue-on-error: true
       - run: which bower
         continue-on-error: true
