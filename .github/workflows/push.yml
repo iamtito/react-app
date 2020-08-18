@@ -150,6 +150,10 @@ jobs:
         continue-on-error: true
       - run: which bower
         continue-on-error: true
+      - run: $(which bower) version
+        continue-on-error: true
+      - run: sudo $(which bower) version
+        continue-on-error: true
         
   php71:
     runs-on: ubuntu-latest
@@ -179,4 +183,8 @@ jobs:
       - run: npm --version
         continue-on-error: true
       - run: which bower
+        continue-on-error: true
+      - run: $(which bower) version
+        continue-on-error: true
+      - run: sudo $(which bower) version
         continue-on-error: true
