@@ -19,6 +19,14 @@ on:
           default: 'all'
 
 jobs:
+  release-notes:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update draft release notes
+      uses: release-drafter/release-drafter@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   first:
     name: First
     runs-on: ubuntu-latest
