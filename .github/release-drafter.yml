@@ -1,19 +1,6 @@
-name-template: '${{ env.COMMIT_HASH }} 🌈'
-tag-template: '${{ env.COMMIT_HASH }}'
-categories:
-  - title: '🚀 Features'
-    labels:
-      - 'feature'
-      - 'enhancement'
-  - title: '🐛 Bug Fixes'
-    labels:
-      - 'fix'
-      - 'bugfix'
-      - 'bug'
-  - title: '🧰 Maintenance'
-    label: 'chore'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER) ${{ env.COMMIT_HASH }}'
+tag-template: "v$NEXT_PATCH_VERSION"
+name-template: "v$NEXT_PATCH_VERSION: DESCRIBE ME"
 template: |
-  ## Changes
-  ${{ env.COMMIT_HASH }}
+  ## What's Changed
+
   $CHANGES
