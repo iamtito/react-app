@@ -1,6 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e38f995b955b4b4098075794010b868b)](https://www.codacy.com/app/tbola45/react-app?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iamtito/react-app&amp;utm_campaign=Badge_Grade)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bofotstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
