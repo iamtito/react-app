@@ -29,14 +29,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   slobo:
     runs-on: ubuntu-latest
-    if:  ${{ github.event.inputs.deploy }} == 'all' && ${{ github.event.inputs.renew }} == 'staging' 
+    if: github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'staging' 
     steps:
       - name: Renewal Checker
         run: |
           echo "hobo"
   sloboo:
     runs-on: ubuntu-latest
-    if:  ${{ github.event.inputs.deploy }} == 'all' && ${{ github.event.inputs.renew }} == 'prod' 
+    if: github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'prod' 
     steps:
       - name: Renewal Checker
         run: |
