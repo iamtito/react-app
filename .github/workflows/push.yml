@@ -27,6 +27,20 @@ jobs:
       uses: release-drafter/release-drafter@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  slobo:
+    runs-on: ubuntu-latest
+    if:  ${{ github.event.inputs.account }} == 'all' || (${{ github.event.inputs.deploy }} == 'all' && ${{ github.event.inputs.renew }} == 'staging' )
+    steps:
+      - name: Renewal Checker
+        run: |
+          echo "hobo
+  sloboo:
+    runs-on: ubuntu-latest
+    if:  ${{ github.event.inputs.account }} == 'all' || (${{ github.event.inputs.deploy }} == 'all' && ${{ github.event.inputs.renew }} == 'prod' )
+    steps:
+      - name: Renewal Checker
+        run: |
+          echo "hobo
   first:
     name: First
     runs-on: ubuntu-latest
