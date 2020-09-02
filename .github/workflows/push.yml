@@ -29,8 +29,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   slobo:
     runs-on: ubuntu-latest
-    if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'staging')
+#     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'staging')
     steps:
+      - name: chck
+        run: |
+          set -exv
+          if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'staging' ]; then
+            exit 1
+          fi
       - name: Renewal Checker
         run: |
           echo "hobo"
@@ -39,8 +45,14 @@ jobs:
           echo ${{ github.event.inputs.account }}
   sloboo:
     runs-on: ubuntu-latest
-    if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'prod')
+#     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'prod')
     steps:
+      - name: chck
+        run: |
+          set -exv
+          if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'prod' ]; then
+            exit 1
+          fi
       - name: Renewal Checker
         run: |
           echo "hobo"
