@@ -49,12 +49,12 @@ jobs:
         continue-on-error: true
         run: |
           set -exv
-          echo ${"${{github.event.inputs.test}}":-"yelp"}
+          echo ${'${{github.event.inputs.test}}':-"yelp"}
       - name: chck4
         continue-on-error: true
         run: |
           set -exv
-          echo ${"${{github.event.inputs.test}}":-"lab"}
+          echo ${'${{github.event.inputs.test}}':-"lab"}
 #       - name: chck3
 #         continue-on-error: true
 #         run: |
