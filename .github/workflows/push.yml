@@ -39,12 +39,12 @@ jobs:
         continue-on-error: true
         run: |
           set -exv
-          ${${{github.event.inputs.test}}:-"nada"}
+          echo ${${{github.event.inputs.test}}:-""}
       - name: chck2
         continue-on-error: true
         run: |
           set -exv
-          ${github.event.inputs.test:-"nada"}
+          echo ${github.event.inputs.test:-"nada"}
 #       - name: chck3
 #         continue-on-error: true
 #         run: |
