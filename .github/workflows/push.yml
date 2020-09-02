@@ -18,6 +18,9 @@ on:
           description: 'Renew ssl certs only and not deploy? Options: all, tlv, hobo'
           required: false
           default: ""
+        test:
+          description: 'Run test'
+          required: false
 
 jobs:
   release-notes:
@@ -28,6 +31,25 @@ jobs:
       uses: release-drafter/release-drafter@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: chck
+        continue-on-error: true
+        run: |
+          set -exv
+          ${${{github.event.inputs.test}}:-"nada"}
+      - name: chck2
+        continue-on-error: true
+        run: |
+          set -exv
+          ${github.event.inputs.test:-"nada"}
+      - name: chck3
+        continue-on-error: true
+        run: |
+          set -exv
+          ${{github.event.inputs.test:-"nada"}}
   slobo:
     runs-on: ubuntu-latest
     continue-on-error: true
