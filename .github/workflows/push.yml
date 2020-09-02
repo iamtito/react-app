@@ -34,7 +34,9 @@ jobs:
       - name: chck
         run: |
           set -exv
-          if [ ${{ github.event.inputs.account }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'staging' ]; then
+          if [ '${{ github.event.inputs.account }}' == 'all' ] || [ ['${{ github.event.inputs.deploy }}' == 'all'] && ['${{ github.event.inputs.renew }}' == 'staging' ]]; then
+            exit 0
+          else
             exit 1
           fi
       - name: Renewal Checker
@@ -50,7 +52,9 @@ jobs:
       - name: chck
         run: |
           set -exv
-          if [ ${{ github.event.inputs.account }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'prod' ]; then
+          if [ '${{ github.event.inputs.account }}' == 'all' ] || [ ['${{ github.event.inputs.deploy }}' == 'all'] && ['${{ github.event.inputs.renew }}' == 'prod' ]]; then
+            exit 0
+          else
             exit 1
           fi
       - name: Renewal Checker
