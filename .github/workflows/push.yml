@@ -9,14 +9,15 @@ on:
         deploy:
           description: 'Deploy to all env? Options: all, staging, prod'
           required: true
-          default: 'all'
+          default: "all"
         account:
           description: 'Specify which aws account to deploy into. Options: lord, zanki, kepa'
           required: false
+          default: ""
         renew:
           description: 'Renew ssl certs only and not deploy? Options: all, tlv, hobo'
           required: false
-          default: 'all'
+          default: ""
 
 jobs:
   release-notes:
@@ -34,7 +35,7 @@ jobs:
       - name: chck
         run: |
           set -exv
-          if [ "${{ github.event.inputs.account }}" == "all" ] || (( "${{ github.event.inputs.deploy }}" == "all" && "${{ github.event.inputs.renew }}" == "staging" )); then
+          if [ ${{ github.event.inputs.account }} == "all" ] || (( ${{ github.event.inputs.deploy }} == "all" && ${{ github.event.inputs.renew }} == "staging" )); then
             echo "run slo"
           else
             echo "exit slo"
@@ -52,7 +53,7 @@ jobs:
       - name: chck
         run: |
           set -exv
-          if [ "${{ github.event.inputs.account }}" == "all" ] || (( "${{ github.event.inputs.deploy }}" == "all" && "${{ github.event.inputs.renew }}" == "prod" )); then
+          if [ ${{ github.event.inputs.account }} == "all" ] || (( ${{ github.event.inputs.deploy }} == "all" && ${{ github.event.inputs.renew }} == "prod" )); then
             echo "run sloboo"
           else
             echo "exit sloboo"
