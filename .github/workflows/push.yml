@@ -45,11 +45,11 @@ jobs:
         run: |
           set -exv
           ${github.event.inputs.test:-"nada"}
-      - name: chck3
-        continue-on-error: true
-        run: |
-          set -exv
-          ${{github.event.inputs.test:-"nada"}}
+#       - name: chck3
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           ${{github.event.inputs.test:-"nada"}}
   slobo:
     runs-on: ubuntu-latest
     continue-on-error: true
