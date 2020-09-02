@@ -39,7 +39,8 @@ jobs:
         continue-on-error: true
         run: |
           set -exv
-          echo ${${{github.event.inputs.test}}:-"yelp"}
+          if [ ${{github.event.inputs.test}} ]; then test="dry --reun"; fi
+          echo $test
       - name: chck2
         continue-on-error: true
         run: |
