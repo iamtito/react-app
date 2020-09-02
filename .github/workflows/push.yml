@@ -34,7 +34,7 @@ jobs:
       - name: chck
         run: |
           set -exv
-          if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'staging' ]; then
+          if [ ${{ github.event.inputs.account }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'staging' ]; then
             exit 1
           fi
       - name: Renewal Checker
@@ -50,7 +50,7 @@ jobs:
       - name: chck
         run: |
           set -exv
-          if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'prod' ]; then
+          if [ ${{ github.event.inputs.account }} != 'all' ] || [ ${{ github.event.inputs.deploy }} != 'all' && ${{ github.event.inputs.renew }} != 'prod' ]; then
             exit 1
           fi
       - name: Renewal Checker
@@ -140,113 +140,113 @@ jobs:
         if: failure() ||  github.event.inputs.renew == 'all' ||  github.event.inputs.renew == 'tlv'
         run: |
           echo "Dang it it failed"
-  php:
-    name: php
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: php7.1
-        continue-on-error: true
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.1'
-      - run: php --version
-        continue-on-error: true
-#       - run: apt install update -y
-#       - run: apt-get update
+#   php:
+#     name: php
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: php7.1
 #         continue-on-error: true
-#       - run: apt-get install curl -y
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '7.1'
+#       - run: php --version
 #         continue-on-error: true
-      - run: curl -s https://getcomposer.org/installer | php
-        continue-on-error: true
-#       - run: mv composer.phar /usr/local/bin/composer
+# #       - run: apt install update -y
+# #       - run: apt-get update
+# #         continue-on-error: true
+# #       - run: apt-get install curl -y
+# #         continue-on-error: true
+#       - run: curl -s https://getcomposer.org/installer | php
 #         continue-on-error: true
-      - run: composer --version
-        continue-on-error: true
-      - run: sudo apt install php-bz2 -y
-        continue-on-error: true
-      - run: sudo php --ini
-        continue-on-error: true
-      - run: $(which composer) install
-        continue-on-error: true
+# #       - run: mv composer.phar /usr/local/bin/composer
+# #         continue-on-error: true
+#       - run: composer --version
+#         continue-on-error: true
+#       - run: sudo apt install php-bz2 -y
+#         continue-on-error: true
+#       - run: sudo php --ini
+#         continue-on-error: true
+#       - run: $(which composer) install
+#         continue-on-error: true
       
-  php7-1:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: get php 7.1
-        continue-on-error: true
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.1'
-#           tools: composer:v2
-      - run: php --version
-        continue-on-error: true
-      - run: composer --version
-        continue-on-error: true
-      - run: sudo php --ini
-        continue-on-error: true
-      - run: composer install
-        continue-on-error: true
-      - run: npm install
-        continue-on-error: true
-      - run: sudo npm install -g bower
-        continue-on-error: true
-      - run: sudo npm install -g gulp
-        continue-on-error: true
-      - run: npm --version
-        continue-on-error: true
-      - run: node --version
-        continue-on-error: true
-      - run: bower version
-        continue-on-error: true
-      - run: which bower
-        continue-on-error: true
-      - run: $(which bower) version
-        continue-on-error: true
-      - run: sudo $(which bower) version
-        continue-on-error: true
-      - run: gulp version
-        continue-on-error: true
-      - run: which gulp
-        continue-on-error: true
-      - run: $(which gulp) version
-        continue-on-error: true
-      - run: sudo $(which gulp) version
-        continue-on-error: true
-        
-  php71:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: get php 7.1
-        continue-on-error: true
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.1'
-          tools: composer:v2
-      - run: php --version
-        continue-on-error: true
-      - run: composer --version
-        continue-on-error: true
-      - run: sudo apt install php-bz2 -y
-        continue-on-error: true
-      - run: sudo php --ini
-        continue-on-error: true
-#       - name: Run composer
+#   php7-1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: get php 7.1
 #         continue-on-error: true
-#         uses: php-actions/composer@v2
-      - run: npm install
-        continue-on-error: true
-      - run: sudo npm i bower
-        continue-on-error: true
-      - run: npm --version
-        continue-on-error: true
-      - run: bower version
-        continue-on-error: true
-      - run: which bower
-        continue-on-error: true
-      - run: $(which bower) version
-        continue-on-error: true
-      - run: sudo $(which bower) version
-        continue-on-error: true
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '7.1'
+# #           tools: composer:v2
+#       - run: php --version
+#         continue-on-error: true
+#       - run: composer --version
+#         continue-on-error: true
+#       - run: sudo php --ini
+#         continue-on-error: true
+#       - run: composer install
+#         continue-on-error: true
+#       - run: npm install
+#         continue-on-error: true
+#       - run: sudo npm install -g bower
+#         continue-on-error: true
+#       - run: sudo npm install -g gulp
+#         continue-on-error: true
+#       - run: npm --version
+#         continue-on-error: true
+#       - run: node --version
+#         continue-on-error: true
+#       - run: bower version
+#         continue-on-error: true
+#       - run: which bower
+#         continue-on-error: true
+#       - run: $(which bower) version
+#         continue-on-error: true
+#       - run: sudo $(which bower) version
+#         continue-on-error: true
+#       - run: gulp version
+#         continue-on-error: true
+#       - run: which gulp
+#         continue-on-error: true
+#       - run: $(which gulp) version
+#         continue-on-error: true
+#       - run: sudo $(which gulp) version
+#         continue-on-error: true
+        
+#   php71:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: get php 7.1
+#         continue-on-error: true
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '7.1'
+#           tools: composer:v2
+#       - run: php --version
+#         continue-on-error: true
+#       - run: composer --version
+#         continue-on-error: true
+#       - run: sudo apt install php-bz2 -y
+#         continue-on-error: true
+#       - run: sudo php --ini
+#         continue-on-error: true
+# #       - name: Run composer
+# #         continue-on-error: true
+# #         uses: php-actions/composer@v2
+#       - run: npm install
+#         continue-on-error: true
+#       - run: sudo npm i bower
+#         continue-on-error: true
+#       - run: npm --version
+#         continue-on-error: true
+#       - run: bower version
+#         continue-on-error: true
+#       - run: which bower
+#         continue-on-error: true
+#       - run: $(which bower) version
+#         continue-on-error: true
+#       - run: sudo $(which bower) version
+#         continue-on-error: true
