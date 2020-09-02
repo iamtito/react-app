@@ -33,14 +33,14 @@ jobs:
     steps:
       - name: Renewal Checker
         run: |
-          echo "hobo
+          echo "hobo"
   sloboo:
     runs-on: ubuntu-latest
     if:  ${{ github.event.inputs.account }} == 'all' || (${{ github.event.inputs.deploy }} == 'all' && ${{ github.event.inputs.renew }} == 'prod' )
     steps:
       - name: Renewal Checker
         run: |
-          echo "hobo
+          echo "hobo"
   first:
     name: First
     runs-on: ubuntu-latest
