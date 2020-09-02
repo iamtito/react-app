@@ -35,9 +35,9 @@ jobs:
         run: |
           set -exv
           if [ "${{ github.event.inputs.account }}" == "all" ] || (( "${{ github.event.inputs.deploy }}" == "all" && "${{ github.event.inputs.renew }}" == "staging" )); then
-            exit 0
+            echo "run slo"
           else
-            exit 1
+            echo "exit slo"
           fi
       - name: Renewal Checker
         run: |
@@ -53,9 +53,9 @@ jobs:
         run: |
           set -exv
           if [ "${{ github.event.inputs.account }}" == "all" ] || (( "${{ github.event.inputs.deploy }}" == "all" && "${{ github.event.inputs.renew }}" == "prod" )); then
-            exit 0
+            echo "run sloboo"
           else
-            exit 1
+            echo "exit sloboo"
           fi
       - name: Renewal Checker
         run: |
