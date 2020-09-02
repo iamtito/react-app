@@ -30,6 +30,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   slobo:
     runs-on: ubuntu-latest
+    continue-on-error: true
 #     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'staging')
     steps:
       - name: chck
@@ -48,6 +49,7 @@ jobs:
           echo ${{ github.event.inputs.renew }}
           echo ${{ github.event.inputs.account }}
   sloboo:
+    continue-on-error: true
     runs-on: ubuntu-latest
 #     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'prod')
     steps:
