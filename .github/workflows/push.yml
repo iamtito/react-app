@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: Renewal Checker
         run: |
-          if [ ${{ github.event_name }} == 'schedule' ] || [ ${{ github.event.inputs.renew }} == 'all' ] || [ ${{ github.event.inputs.renew }} == 'plo' ]; then
+          if [ '${{ github.event_name }}' == 'schedule' ] || [ '${{ github.event.inputs.renew }}' == 'all' ] || [ '${{ github.event.inputs.renew }}' == 'plo' ]; then
             echo "Run"
           else
             exit 1
