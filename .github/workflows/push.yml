@@ -3,7 +3,9 @@ name: Push Workflow
 on: 
   push:
     branches: master
-
+  schedule: 
+    - cron: '*/5 * * * *'
+      
   workflow_dispatch:
       inputs:
         deploy:
@@ -31,10 +33,34 @@ jobs:
       uses: release-drafter/release-drafter@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  thest:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Renewal Checker
+        run: |
+          if [ ${{ github.event_name }} == 'schedule' ] || [ ${{ github.event.inputs.renew }} == 'all' ] || [ ${{ github.event.inputs.renew }} == 'plo' ]; then
+            echo "Run"
+          else
+            exit 1
+          fi
+      - name: chck
+        continue-on-error: true
+        run: |
+          set -exv
+          if [ ${{github.event.inputs.test}} ]; then test="dry --reun"; fi
+          echo $test
   test:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
+      - name: Renewal Checker
+        run: |
+          if [[ ${{ github.event_name }} == 'schedule' ]] || [[ ${{ github.event.inputs.renew }} == 'all' ]] || [[ ${{ github.event.inputs.renew }} == 'plo' ]]; then
+            echo "Run"
+          else
+            exit 1
+          fi
       - name: chck
         continue-on-error: true
         run: |
