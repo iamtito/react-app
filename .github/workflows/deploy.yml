@@ -82,18 +82,18 @@ jobs:
               body: output
             })
 
-      # - name: Apply
-      #   if: github.event.client_payload.terraform == 'apply'
-      #   id: apply
-      #   run: terraform apply -auto-approve -no-color
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Apply
+        if: github.event.client_payload.terraform == 'apply'
+        id: apply
+        run: terraform apply -auto-approve -no-color
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       # - name: Destroy
       #   if: github.event.client_payload.terraform == 'destroy'
       #   id: apply
       #   run: terraform destroy -auto-approve -no-color
       #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_RR }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_RR }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
