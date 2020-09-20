@@ -26,6 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
+      - run: ls
       - name: Check for proper format and style
         id: fmt
         run: terraform fmt
