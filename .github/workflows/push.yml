@@ -25,6 +25,28 @@ on:
           required: false
 
 jobs:
+  lhci:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get PHP 7.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.1'
+      
+      - name: Get Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10'
+
+      - name: run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.4.x
+
+          lhci autorun --collect.numberOfRuns=5 --collect.url=https://bvity.com 
+
   release-notes:
     runs-on: 'ubuntu-latest'
     steps:
