@@ -31,25 +31,20 @@ jobs:
   hot:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{github.event.inputs.hot}}
-        continue-on-error: true
-      - run: echo "${{github.event.inputs.hot}}"
+      - run: echo "${{github.event.inputs.hot}} == jst like that?"
         if: ${{github.event.inputs.hot}}
         continue-on-error: true
-      - run: echo "${{github.event.inputs.hot}}"
-        if: ${{github.event.inputs.hot}}
-        continue-on-error: true
-      - run: echo "${{github.event.inputs.hot}}"
+      - run: echo "${{github.event.inputs.hot}} == True?"
         if: ${{github.event.inputs.hot}} == 'True'
         continue-on-error: true
-      - run: echo "${{github.event.inputs.hot}}"
+      - run: echo "${{github.event.inputs.hot}} == true?"
         if: ${{github.event.inputs.hot}} == 'true'
         continue-on-error: true
-      - run: echo "${{github.event.inputs.hot}}"
+      - run: echo "${{github.event.inputs.hot}} == False?"
         if: ${{github.event.inputs.hot}} == 'False'
         continue-on-error: true
-      - run: echo "${{github.event.inputs.hot}}"
-        if: ${{github.event.inputs.hot}} == 'false
+      - run: echo "${{github.event.inputs.hot}} == false?"
+        if: ${{github.event.inputs.hot}} == 'false'
         continue-on-error: true
 #   lhci:
 #     name: Lighthouse
