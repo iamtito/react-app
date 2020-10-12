@@ -3,8 +3,8 @@ name: Push Workflow
 on: 
   push:
     branches: master
-  schedule: 
-    - cron: '*/5 * * * *'
+#   schedule: 
+#     - cron: '*/5 * * * *'
       
   workflow_dispatch:
       inputs:
@@ -23,8 +23,34 @@ on:
         test:
           description: 'Run test'
           required: false
+        hot:
+          description: 'Run test'
+          required: false
 
 jobs:
+  hot:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{github.event.inputs.hot}}
+        continue-on-error: true
+      - run: echo "yes"
+        if: ${{github.event.inputs.hot}}
+        continue-on-error: true
+      - run: echo "no"
+        if: ${{github.event.inputs.hot}}
+        continue-on-error: true
+      - run: echo "yesssss"
+        if: ${{github.event.inputs.hot}} == 'True'
+        continue-on-error: true
+      - run: echo "yes"
+        if: ${{github.event.inputs.hot}} == 'true'
+        continue-on-error: true
+      - run: echo "yes"
+        if: ${{github.event.inputs.hot}} == 'False'
+        continue-on-error: true
+      - run: echo "yes"
+        if: ${{github.event.inputs.hot}} == 'false
+        continue-on-error: true
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
