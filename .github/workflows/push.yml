@@ -24,7 +24,7 @@ on:
           description: 'Run test'
           required: false
         hot:
-          description: 'Run test'
+          description: 'Run hot'
           required: false
 
 jobs:
@@ -33,336 +33,336 @@ jobs:
     steps:
       - run: echo ${{github.event.inputs.hot}}
         continue-on-error: true
-      - run: echo "yes"
+      - run: echo "${{github.event.inputs.hot}}"
         if: ${{github.event.inputs.hot}}
         continue-on-error: true
-      - run: echo "no"
+      - run: echo "${{github.event.inputs.hot}}"
         if: ${{github.event.inputs.hot}}
         continue-on-error: true
-      - run: echo "yesssss"
+      - run: echo "${{github.event.inputs.hot}}"
         if: ${{github.event.inputs.hot}} == 'True'
         continue-on-error: true
-      - run: echo "yes"
+      - run: echo "${{github.event.inputs.hot}}"
         if: ${{github.event.inputs.hot}} == 'true'
         continue-on-error: true
-      - run: echo "yes"
+      - run: echo "${{github.event.inputs.hot}}"
         if: ${{github.event.inputs.hot}} == 'False'
         continue-on-error: true
-      - run: echo "yes"
+      - run: echo "${{github.event.inputs.hot}}"
         if: ${{github.event.inputs.hot}} == 'false
         continue-on-error: true
-  lhci:
-    name: Lighthouse
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+#   lhci:
+#     name: Lighthouse
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
 
-      - name: Get PHP 7.1
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.1'
+#       - name: Get PHP 7.1
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '7.1'
       
-      - name: Get Node.js 10.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10'
+#       - name: Get Node.js 10.x
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: '10'
 
-      - name: run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.4.x
+#       - name: run Lighthouse CI
+#         run: |
+#           npm install -g @lhci/cli@0.4.x
 
-          lhci autorun --collect.numberOfRuns=5 --collect.url=https://bvity.com 
+#           lhci autorun --collect.numberOfRuns=5 --collect.url=https://bvity.com 
 
-  release-notes:
-    runs-on: 'ubuntu-latest'
-    steps:
-    - uses: actions/checkout@v2
-    - name: Update draft release notes
-      uses: release-drafter/release-drafter@v5
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  thest:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - name: Renewal Checker
-        run: |
-          if [ '${{ github.event_name }}' == 'schedule' ] || [ '${{ github.event.inputs.renew }}' == 'all' ] || [ '${{ github.event.inputs.renew }}' == 'plo' ]; then
-            echo "Run"
-          else
-            exit 1
-          fi
-      - name: chck
-        continue-on-error: true
-        run: |
-          set -exv
-          if [ ${{github.event.inputs.test}} ]; then test="dry --reun"; fi
-          echo $test
-  test:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - name: Renewal Checker
-        run: |
-          if [[ ${{ github.event_name }} == 'schedule' ]] || [[ ${{ github.event.inputs.renew }} == 'all' ]] || [[ ${{ github.event.inputs.renew }} == 'plo' ]]; then
-            echo "Run"
-          else
-            exit 1
-          fi
-      - name: chck
-        continue-on-error: true
-        run: |
-          set -exv
-          if [ ${{github.event.inputs.test}} ]; then test="dry --reun"; fi
-          echo $test
-      - name: chck2
-        continue-on-error: true
-        run: |
-          set -exv
-          echo ${${{github.event.inputs.test}}:-"lab"}
-      - name: chck3
-        continue-on-error: true
-        run: |
-          set -exv
-          echo ${'${{github.event.inputs.test}}':-'yelp'}
-      - name: chck4
-        continue-on-error: true
-        run: |
-          set -exv
-          echo ${'${{github.event.inputs.test}}':-'lab'}
+#   release-notes:
+#     runs-on: 'ubuntu-latest'
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Update draft release notes
+#       uses: release-drafter/release-drafter@v5
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#   thest:
+#     runs-on: ubuntu-latest
+#     continue-on-error: true
+#     steps:
+#       - name: Renewal Checker
+#         run: |
+#           if [ '${{ github.event_name }}' == 'schedule' ] || [ '${{ github.event.inputs.renew }}' == 'all' ] || [ '${{ github.event.inputs.renew }}' == 'plo' ]; then
+#             echo "Run"
+#           else
+#             exit 1
+#           fi
+#       - name: chck
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           if [ ${{github.event.inputs.test}} ]; then test="dry --reun"; fi
+#           echo $test
+#   test:
+#     runs-on: ubuntu-latest
+#     continue-on-error: true
+#     steps:
+#       - name: Renewal Checker
+#         run: |
+#           if [[ ${{ github.event_name }} == 'schedule' ]] || [[ ${{ github.event.inputs.renew }} == 'all' ]] || [[ ${{ github.event.inputs.renew }} == 'plo' ]]; then
+#             echo "Run"
+#           else
+#             exit 1
+#           fi
+#       - name: chck
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           if [ ${{github.event.inputs.test}} ]; then test="dry --reun"; fi
+#           echo $test
+#       - name: chck2
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           echo ${${{github.event.inputs.test}}:-"lab"}
 #       - name: chck3
 #         continue-on-error: true
 #         run: |
 #           set -exv
-#           ${{github.event.inputs.test:-"nada"}}
-  slobo:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-#     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'staging')
-    steps:
-      - name: chck
-        run: |
-          set -exv
-          if [[ '${{ github.event.inputs.account }}' == 'all' ]] || [[ '${{ github.event.inputs.deploy }}' == 'all' && '${{ github.event.inputs.renew }}' == 'staging' ]]; then
-            echo "run slo"
-          else
-            echo "exit slo"
-            exit 1
-          fi
-      - name: Renewal Checker
-        run: |
-          echo "hobo"
-          echo ${{ github.event.inputs.deploy }}
-          echo ${{ github.event.inputs.renew }}
-          echo ${{ github.event.inputs.account }}
-  sloboo:
-    continue-on-error: true
-    runs-on: ubuntu-latest
-#     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'prod')
-    steps:
-      - name: chck
-        run: |
-          set -exv
-          if [[ '${{ github.event.inputs.account }}' == 'all' ]] || [[ '${{ github.event.inputs.deploy }}' == 'all' && '${{ github.event.inputs.renew }}' == 'prod' ]]; then
-            echo "run sloboo"
-          else
-            echo "exit sloboo"
-            exit 1
-          fi
-      - name: Renewal Checker
-        run: |
-          echo "hobo"
-          echo ${{ github.event.inputs.deploy }}
-          echo ${{ github.event.inputs.renew }}
-          echo ${{ github.event.inputs.account }}
+#           echo ${'${{github.event.inputs.test}}':-'yelp'}
+#       - name: chck4
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           echo ${'${{github.event.inputs.test}}':-'lab'}
+# #       - name: chck3
+# #         continue-on-error: true
+# #         run: |
+# #           set -exv
+# #           ${{github.event.inputs.test:-"nada"}}
+#   slobo:
+#     runs-on: ubuntu-latest
+#     continue-on-error: true
+# #     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'staging')
+#     steps:
+#       - name: chck
+#         run: |
+#           set -exv
+#           if [[ '${{ github.event.inputs.account }}' == 'all' ]] || [[ '${{ github.event.inputs.deploy }}' == 'all' && '${{ github.event.inputs.renew }}' == 'staging' ]]; then
+#             echo "run slo"
+#           else
+#             echo "exit slo"
+#             exit 1
+#           fi
+#       - name: Renewal Checker
+#         run: |
+#           echo "hobo"
+#           echo ${{ github.event.inputs.deploy }}
+#           echo ${{ github.event.inputs.renew }}
+#           echo ${{ github.event.inputs.account }}
+#   sloboo:
+#     continue-on-error: true
+#     runs-on: ubuntu-latest
+# #     if: github.event.inputs.account == 'all' || (github.event.inputs.deploy == 'all' && github.event.inputs.renew == 'prod')
+#     steps:
+#       - name: chck
+#         run: |
+#           set -exv
+#           if [[ '${{ github.event.inputs.account }}' == 'all' ]] || [[ '${{ github.event.inputs.deploy }}' == 'all' && '${{ github.event.inputs.renew }}' == 'prod' ]]; then
+#             echo "run sloboo"
+#           else
+#             echo "exit sloboo"
+#             exit 1
+#           fi
+#       - name: Renewal Checker
+#         run: |
+#           echo "hobo"
+#           echo ${{ github.event.inputs.deploy }}
+#           echo ${{ github.event.inputs.renew }}
+#           echo ${{ github.event.inputs.account }}
           
-  slobee:
-    runs-on: ubuntu-latest
-    needs: [slobo, sloboo]
-    steps:
-      - run: echo "${{ github.event.inputs.deploy }} - ${{ github.event.inputs.renew }} - ${{ github.event.inputs.account }}"
-  first:
-    name: First
-    runs-on: ubuntu-latest
-    steps:
-      - name: yolo
-        run: |
-          exit 0
-      - id: sunny
-        run: echo "sunny"
-        continue-on-error: true
-      - name: Inspect contexts
-        continue-on-error: true
-        run: |
-          set -exv
-          echo "hobo"
-          
-  second:
-    name: Second
-    runs-on: ubuntu-latest
-    steps:
-      - name: yolo
-        run: |
-          exit 1
-      - id: sunny
-        run: echo "sunny"
-        continue-on-error: true
-      - name: Inspect contexts
-        continue-on-error: true
-        run: |
-          set -exv
-          echo "hobo"
-          
-  sec:
-    name: Sec
-    runs-on: ubuntu-latest
-    steps:
-      - name: Renewal Checker
-        run: |
-          if [ ${{ github.event.inputs.renew }} = 'all' ] || [ ${{ github.event.inputs.renew }} != 'tlv' ]; then
-            exit 1
-          fi
-      - id: sunny
-        run: echo "sunny"
-        continue-on-error: true
-      - name: Inspect contexts
-        continue-on-error: true
-        run: |
-          set -exv
-          echo "hobo"
-      - name: Failed
-        if: failure() && github.event.inputs.renew == 'all' || failure() && github.event.inputs.renew == 'tlv'
-        run: |
-          echo "Dang it it failed"
-          
-  stec:
-    name: Stec
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checker
-        run: |
-          if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.renew }} != 'tlv' ]; then
-            exit 0
-          fi
-      - id: sunny
-        run: echo "sunny"
-        continue-on-error: true
-      - name: Inspect contexts
-        continue-on-error: true
-        run: |
-          set -exv
-          echo "hobo"
-      - name: Failed
-        if: failure() ||  github.event.inputs.renew == 'all' ||  github.event.inputs.renew == 'tlv'
-        run: |
-          echo "Dang it it failed"
-#   php:
-#     name: php
+#   slobee:
+#     runs-on: ubuntu-latest
+#     needs: [slobo, sloboo]
+#     steps:
+#       - run: echo "${{ github.event.inputs.deploy }} - ${{ github.event.inputs.renew }} - ${{ github.event.inputs.account }}"
+#   first:
+#     name: First
 #     runs-on: ubuntu-latest
 #     steps:
-#       - uses: actions/checkout@v2
-#       - name: php7.1
+#       - name: yolo
+#         run: |
+#           exit 0
+#       - id: sunny
+#         run: echo "sunny"
 #         continue-on-error: true
-#         uses: shivammathur/setup-php@v2
-#         with:
-#           php-version: '7.1'
-#       - run: php --version
+#       - name: Inspect contexts
 #         continue-on-error: true
-# #       - run: apt install update -y
-# #       - run: apt-get update
+#         run: |
+#           set -exv
+#           echo "hobo"
+          
+#   second:
+#     name: Second
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: yolo
+#         run: |
+#           exit 1
+#       - id: sunny
+#         run: echo "sunny"
+#         continue-on-error: true
+#       - name: Inspect contexts
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           echo "hobo"
+          
+#   sec:
+#     name: Sec
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Renewal Checker
+#         run: |
+#           if [ ${{ github.event.inputs.renew }} = 'all' ] || [ ${{ github.event.inputs.renew }} != 'tlv' ]; then
+#             exit 1
+#           fi
+#       - id: sunny
+#         run: echo "sunny"
+#         continue-on-error: true
+#       - name: Inspect contexts
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           echo "hobo"
+#       - name: Failed
+#         if: failure() && github.event.inputs.renew == 'all' || failure() && github.event.inputs.renew == 'tlv'
+#         run: |
+#           echo "Dang it it failed"
+          
+#   stec:
+#     name: Stec
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checker
+#         run: |
+#           if [ ${{ github.event.inputs.renew }} != 'all' ] || [ ${{ github.event.inputs.renew }} != 'tlv' ]; then
+#             exit 0
+#           fi
+#       - id: sunny
+#         run: echo "sunny"
+#         continue-on-error: true
+#       - name: Inspect contexts
+#         continue-on-error: true
+#         run: |
+#           set -exv
+#           echo "hobo"
+#       - name: Failed
+#         if: failure() ||  github.event.inputs.renew == 'all' ||  github.event.inputs.renew == 'tlv'
+#         run: |
+#           echo "Dang it it failed"
+# #   php:
+# #     name: php
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v2
+# #       - name: php7.1
 # #         continue-on-error: true
-# #       - run: apt-get install curl -y
+# #         uses: shivammathur/setup-php@v2
+# #         with:
+# #           php-version: '7.1'
+# #       - run: php --version
 # #         continue-on-error: true
-#       - run: curl -s https://getcomposer.org/installer | php
-#         continue-on-error: true
-# #       - run: mv composer.phar /usr/local/bin/composer
+# # #       - run: apt install update -y
+# # #       - run: apt-get update
+# # #         continue-on-error: true
+# # #       - run: apt-get install curl -y
+# # #         continue-on-error: true
+# #       - run: curl -s https://getcomposer.org/installer | php
 # #         continue-on-error: true
-#       - run: composer --version
-#         continue-on-error: true
-#       - run: sudo apt install php-bz2 -y
-#         continue-on-error: true
-#       - run: sudo php --ini
-#         continue-on-error: true
-#       - run: $(which composer) install
-#         continue-on-error: true
+# # #       - run: mv composer.phar /usr/local/bin/composer
+# # #         continue-on-error: true
+# #       - run: composer --version
+# #         continue-on-error: true
+# #       - run: sudo apt install php-bz2 -y
+# #         continue-on-error: true
+# #       - run: sudo php --ini
+# #         continue-on-error: true
+# #       - run: $(which composer) install
+# #         continue-on-error: true
       
-#   php7-1:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: get php 7.1
-#         continue-on-error: true
-#         uses: shivammathur/setup-php@v2
-#         with:
-#           php-version: '7.1'
-# #           tools: composer:v2
-#       - run: php --version
-#         continue-on-error: true
-#       - run: composer --version
-#         continue-on-error: true
-#       - run: sudo php --ini
-#         continue-on-error: true
-#       - run: composer install
-#         continue-on-error: true
-#       - run: npm install
-#         continue-on-error: true
-#       - run: sudo npm install -g bower
-#         continue-on-error: true
-#       - run: sudo npm install -g gulp
-#         continue-on-error: true
-#       - run: npm --version
-#         continue-on-error: true
-#       - run: node --version
-#         continue-on-error: true
-#       - run: bower version
-#         continue-on-error: true
-#       - run: which bower
-#         continue-on-error: true
-#       - run: $(which bower) version
-#         continue-on-error: true
-#       - run: sudo $(which bower) version
-#         continue-on-error: true
-#       - run: gulp version
-#         continue-on-error: true
-#       - run: which gulp
-#         continue-on-error: true
-#       - run: $(which gulp) version
-#         continue-on-error: true
-#       - run: sudo $(which gulp) version
-#         continue-on-error: true
-        
-#   php71:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: get php 7.1
-#         continue-on-error: true
-#         uses: shivammathur/setup-php@v2
-#         with:
-#           php-version: '7.1'
-#           tools: composer:v2
-#       - run: php --version
-#         continue-on-error: true
-#       - run: composer --version
-#         continue-on-error: true
-#       - run: sudo apt install php-bz2 -y
-#         continue-on-error: true
-#       - run: sudo php --ini
-#         continue-on-error: true
-# #       - name: Run composer
+# #   php7-1:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v2
+# #       - name: get php 7.1
 # #         continue-on-error: true
-# #         uses: php-actions/composer@v2
-#       - run: npm install
-#         continue-on-error: true
-#       - run: sudo npm i bower
-#         continue-on-error: true
-#       - run: npm --version
-#         continue-on-error: true
-#       - run: bower version
-#         continue-on-error: true
-#       - run: which bower
-#         continue-on-error: true
-#       - run: $(which bower) version
-#         continue-on-error: true
-#       - run: sudo $(which bower) version
-#         continue-on-error: true
+# #         uses: shivammathur/setup-php@v2
+# #         with:
+# #           php-version: '7.1'
+# # #           tools: composer:v2
+# #       - run: php --version
+# #         continue-on-error: true
+# #       - run: composer --version
+# #         continue-on-error: true
+# #       - run: sudo php --ini
+# #         continue-on-error: true
+# #       - run: composer install
+# #         continue-on-error: true
+# #       - run: npm install
+# #         continue-on-error: true
+# #       - run: sudo npm install -g bower
+# #         continue-on-error: true
+# #       - run: sudo npm install -g gulp
+# #         continue-on-error: true
+# #       - run: npm --version
+# #         continue-on-error: true
+# #       - run: node --version
+# #         continue-on-error: true
+# #       - run: bower version
+# #         continue-on-error: true
+# #       - run: which bower
+# #         continue-on-error: true
+# #       - run: $(which bower) version
+# #         continue-on-error: true
+# #       - run: sudo $(which bower) version
+# #         continue-on-error: true
+# #       - run: gulp version
+# #         continue-on-error: true
+# #       - run: which gulp
+# #         continue-on-error: true
+# #       - run: $(which gulp) version
+# #         continue-on-error: true
+# #       - run: sudo $(which gulp) version
+# #         continue-on-error: true
+        
+# #   php71:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v2
+# #       - name: get php 7.1
+# #         continue-on-error: true
+# #         uses: shivammathur/setup-php@v2
+# #         with:
+# #           php-version: '7.1'
+# #           tools: composer:v2
+# #       - run: php --version
+# #         continue-on-error: true
+# #       - run: composer --version
+# #         continue-on-error: true
+# #       - run: sudo apt install php-bz2 -y
+# #         continue-on-error: true
+# #       - run: sudo php --ini
+# #         continue-on-error: true
+# # #       - name: Run composer
+# # #         continue-on-error: true
+# # #         uses: php-actions/composer@v2
+# #       - run: npm install
+# #         continue-on-error: true
+# #       - run: sudo npm i bower
+# #         continue-on-error: true
+# #       - run: npm --version
+# #         continue-on-error: true
+# #       - run: bower version
+# #         continue-on-error: true
+# #       - run: which bower
+# #         continue-on-error: true
+# #       - run: $(which bower) version
+# #         continue-on-error: true
+# #       - run: sudo $(which bower) version
+# #         continue-on-error: true
