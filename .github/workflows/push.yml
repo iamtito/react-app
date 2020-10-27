@@ -36,6 +36,7 @@ jobs:
        uses: shivammathur/setup-php@v2
        with:
          php-version: '7.1'
+         tools: composer:v1
     
      - name: Get Node.js 10.x
        uses: actions/setup-node@v1
@@ -51,13 +52,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.1'
+          tools: composer:v1
     
       - name: Get Node.js 10.x
         uses: actions/setup-node@v1
         with:
           node-version: '10'
       - name: Install dependencies
-        uses: php-actions/composer@v1
+        uses: php-actions/composer@v2
       - run: pwd
 #       - run: echo "${{github.event.inputs.hot}} == jst like that?"
 #         if: github.event.inputs.hot
