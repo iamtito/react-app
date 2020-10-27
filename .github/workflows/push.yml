@@ -28,6 +28,13 @@ on:
           required: false
 
 jobs:
+  test:
+   runs-on: ubuntu-latest
+   continue-on-error: true
+   steps:
+     - name: Install dependencies
+       uses: php-actions/composer@v2
+     - run: pwd
   hot:
     runs-on: ubuntu-latest
     steps:
