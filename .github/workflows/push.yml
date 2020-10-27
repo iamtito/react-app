@@ -32,12 +32,30 @@ jobs:
    runs-on: ubuntu-latest
    continue-on-error: true
    steps:
+     - name: Get PHP 7.1
+       uses: shivammathur/setup-php@v2
+       with:
+         php-version: '7.1'
+    
+     - name: Get Node.js 10.x
+       uses: actions/setup-node@v1
+       with:
+         node-version: '10'
      - name: Install dependencies
        uses: php-actions/composer@v2
      - run: pwd
   hot:
     runs-on: ubuntu-latest
     steps:
+      - name: Get PHP 7.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.1'
+    
+      - name: Get Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10'
       - name: Install dependencies
         uses: php-actions/composer@v1
       - run: pwd
