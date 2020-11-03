@@ -36,11 +36,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "its me ms"
-        if: github.event.inputs.application != 'crons' || github.event.inputs.application != 'goms'
+        if: github.event_name == 'push' || github.event.inputs.application == 'ms' || github.event.inputs.application == 'all'
       - run: echo "its me gs"
-        if: github.event.inputs.application != 'crons' || github.event.inputs.application != 'ms'
+        if: github.event_name == 'push' || github.event.inputs.application == 'gs' || github.event.inputs.application == 'all'
       - run: echo "its me crons"
-        if: github.event.inputs.application != 'gs' || github.event.inputs.application != 'ms'
+        if: github.event_name == 'push' || github.event.inputs.application == 'crons' || github.event.inputs.application == 'all'
 
 #   test:
 #    runs-on: ubuntu-latest
