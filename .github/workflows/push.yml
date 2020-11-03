@@ -35,6 +35,7 @@ jobs:
   jobler:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "${{ toJson(github) }}"
       - run: echo "its me ms"
         if: github.event_name == 'push' || github.event.inputs.application == 'ms' || github.event.inputs.application == 'all'
       - run: echo "its me gs"
