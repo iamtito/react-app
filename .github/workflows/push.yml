@@ -27,9 +27,9 @@ on:
           description: 'Run hot'
           required: false
         application:
-        description: 'Deploy to a target application. Options, all, ms, gs, s. Default: all'
-        required: true
-        default: 'all'
+          description: 'Deploy to a target application. Options, all, ms, gs, s. Default: all'
+          required: true
+          default: 'all'
 
 jobs:
   jobler:
