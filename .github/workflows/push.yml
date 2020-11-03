@@ -35,6 +35,12 @@ jobs:
   jobler:
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ github.event.repository.sender.login }}
+      - name: runit
+        run: |
+          export Actor="${{ github.event.repository.sender.login }}"
+          echo "$Actor --"
+          echo "${Actor} **"
       - run: echo "${{ toJson(github) }}"
       - run: echo "its me ms"
         if: github.event_name == 'push' || github.event.inputs.application == 'ms' || github.event.inputs.application == 'all'
