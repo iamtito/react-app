@@ -35,10 +35,10 @@ jobs:
   jobler:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.repository.sender.login }}
+      - run: echo ${{ github.event.sender.login }}
       - name: runit
         run: |
-          export Actor="${{ github.event.repository.sender.login }}"
+          export Actor="${{ github.event.sender.login }}"
           echo "$Actor --"
           echo "${Actor} **"
       - run: echo "${{ toJson(github) }}"
