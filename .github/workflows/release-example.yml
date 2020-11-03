@@ -8,142 +8,158 @@ on:
     types: 
       - rcanary
       - rtrigger
+  workflow_dispatch:
+    application:
+          description: 'Deploy to a target application. Options, all, ms, gs, s. Default: all'
+          required: true
+          default: 'all'
 
 jobs:
-  always:
-    runs-on: self-hosted
+  jobler:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: iamtito/weatherApp
-          path: weatherApp
-          token: ${{ secrets.GIT_TOKEN }}
-      - uses: actions/checkout@v2
-        with:
-          path: react-app
-      - name: payload
-        run: |
-          set -exv
-          echo "${{ toJson(github) }}"
-          pwd
-          ls ${{ github.workspace }}
-          cd ${{ github.workspace }}
-          ls
-      - name: Get Info
-        run: |
-          set -exv
-          export DATE=$(TZ=EST date +%m/%d/%Y)
-          export REPO=${{ github.event.repository.name }}
-          export URL=${{ github.event.repository.html_url }}
-          export STATUS='SUCCESS'
-          cd react-app
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-          export PREVIOUS_TAG=$(GIT_TAG=$(git describe --tags $(git rev-list --tags --max-count=2) | cut -f2 -d"-") && TAGS=($GIT_TAG) && echo ${TAGS[1]})
-          
-          if [ ${{ github.event.release.name }} == 'canary' ]; then
-            export STATUS='CANARY-SUCCESS'
-          fi
-          if [ ${{ github.event.action }} == 'deploy' ]; then
-            export LATEST_TAG=${{ github.event.client_payload.version }}
-          else
-            export LATEST_TAG="${GITHUB_REF/refs\/tags\/}"
-          fi
-          echo "$STATUS - $DATE - $REPO - $PREVIOUS_TAG - $LATEST_TAG - $URL"
+      - run: echo "its me ms"
+        if: github.event_name == 'release' || github.event_name == 'repository_dispatch' || github.event.inputs.application == 'ms' || github.event.inputs.application == 'all'
+      - run: echo "its me gs"
+        if: github.event_name == 'release' || github.event_name == 'repository_dispatch' || github.event.inputs.application == 'gs' || github.event.inputs.application == 'all'
+      - run: echo "its me crons"
+        if: github.event_name == 'release' || github.event_name == 'repository_dispatch' || github.event.inputs.application == 'crons' || github.event.inputs.application == 'all'
 
-          generate_post_data()
-          {
-            cat <<EOF
-          {
-            "event_type": "hitMe", 
-            "client_payload": 
-              { 
-                "STATUS": "$STATUS", 
-                "DATE" : "$DATE", 
-                "REPO" : "$REPO", 
-                "PREVIOUS_TAG": "$PREVIOUS_TAG", 
-                "LATEST_TAG" : "$LATEST_TAG", 
-                "URL" : "$URL" 
-              }
-          }
-          EOF
-          }
-          echo $(generate_post_data)
-  one:
-    runs-on: ubuntu-latest
-    steps:
-    
-    - name: pre
-      if: github.event.release.name != 'rcanary' && !github.event.release.prerelease
-      run: |
-        echo "not canary atall"
-    - name: testing this
-      run: |
-        set -exv
-        echo ${{ github.event_type }}
-        echo ${{ github.event.release.name }}
-        echo ${{ github.event.release.body }}
-        if [ ${{ github.event.release.name }} == 'canary' ]; then
-        ##if [[ "${{ github.event.release.name }}" =~ *"anary"* ]]; then
-          echo "this is canry"
-         else
-          echo "this is not a canary"
-        fi
-        echo "Release github event payload"
-        echo "${{ toJson(github) }}" 
-        
-    - uses: actions/checkout@v2    
-    - name: second
-      run: |
-        set -exv
-        cd ${{ github.workspace }}
-        ls
-        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-        PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
-        echo $PREVIOUS_TAG
-  two:
-    if: "!github.event.release.prerelease"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        if: github.event.action != 'rtrigger'
-      - name: two steps
-        if: github.event.action != 'rtrigger'
-        run: |
-          echo ${{ github.event.client_payload }}
-          
-      - name: failure
-        if: failure()
-        run: |
-          echo "failure"
-#       - name: success
-#         if: success()
+# jobs:
+#   always:
+#     runs-on: self-hosted
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           repository: iamtito/weatherApp
+#           path: weatherApp
+#           token: ${{ secrets.GIT_TOKEN }}
+#       - uses: actions/checkout@v2
+#         with:
+#           path: react-app
+#       - name: payload
 #         run: |
-#           echo "success"
+#           set -exv
+#           echo "${{ toJson(github) }}"
+#           pwd
+#           ls ${{ github.workspace }}
+#           cd ${{ github.workspace }}
+#           ls
+#       - name: Get Info
+#         run: |
+#           set -exv
+#           export DATE=$(TZ=EST date +%m/%d/%Y)
+#           export REPO=${{ github.event.repository.name }}
+#           export URL=${{ github.event.repository.html_url }}
+#           export STATUS='SUCCESS'
+#           cd react-app
+#           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+#           export PREVIOUS_TAG=$(GIT_TAG=$(git describe --tags $(git rev-list --tags --max-count=2) | cut -f2 -d"-") && TAGS=($GIT_TAG) && echo ${TAGS[1]})
           
-  two-mid:
-    needs: [two]
-    runs-on: ubuntu-latest
-    steps:
-      - name: run it
-        run: |
-          echo "mid two"
+#           if [ ${{ github.event.release.name }} == 'canary' ]; then
+#             export STATUS='CANARY-SUCCESS'
+#           fi
+#           if [ ${{ github.event.action }} == 'deploy' ]; then
+#             export LATEST_TAG=${{ github.event.client_payload.version }}
+#           else
+#             export LATEST_TAG="${GITHUB_REF/refs\/tags\/}"
+#           fi
+#           echo "$STATUS - $DATE - $REPO - $PREVIOUS_TAG - $LATEST_TAG - $URL"
+
+#           generate_post_data()
+#           {
+#             cat <<EOF
+#           {
+#             "event_type": "hitMe", 
+#             "client_payload": 
+#               { 
+#                 "STATUS": "$STATUS", 
+#                 "DATE" : "$DATE", 
+#                 "REPO" : "$REPO", 
+#                 "PREVIOUS_TAG": "$PREVIOUS_TAG", 
+#                 "LATEST_TAG" : "$LATEST_TAG", 
+#                 "URL" : "$URL" 
+#               }
+#           }
+#           EOF
+#           }
+#           echo $(generate_post_data)
+#   one:
+#     runs-on: ubuntu-latest
+#     steps:
+    
+#     - name: pre
+#       if: github.event.release.name != 'rcanary' && !github.event.release.prerelease
+#       run: |
+#         echo "not canary atall"
+#     - name: testing this
+#       run: |
+#         set -exv
+#         echo ${{ github.event_type }}
+#         echo ${{ github.event.release.name }}
+#         echo ${{ github.event.release.body }}
+#         if [ ${{ github.event.release.name }} == 'canary' ]; then
+#         ##if [[ "${{ github.event.release.name }}" =~ *"anary"* ]]; then
+#           echo "this is canry"
+#          else
+#           echo "this is not a canary"
+#         fi
+#         echo "Release github event payload"
+#         echo "${{ toJson(github) }}" 
+        
+#     - uses: actions/checkout@v2    
+#     - name: second
+#       run: |
+#         set -exv
+#         cd ${{ github.workspace }}
+#         ls
+#         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+#         PREVIOUS_TAG=$(GIT_TAGS=$(git tag -l --sort=-committerdate | cut -f2 -d"-") && TAGS=($GIT_TAGS) && echo ${TAGS[1]} | xargs)
+#         echo $PREVIOUS_TAG
+#   two:
+#     if: "!github.event.release.prerelease"
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         if: github.event.action != 'rtrigger'
+#       - name: two steps
+#         if: github.event.action != 'rtrigger'
+#         run: |
+#           echo ${{ github.event.client_payload }}
           
-  three:
-    runs-on: ubuntu-latest
-    if: github.event.action != 'rcanary' || !github.event.release.prerelease
-    steps:
-      - name: three steps
-        run: |
-          echo ${{ github.event.client_payload }}
-          echo ${{ github.event.client_payload.version }}
-          echo "${{ toJson(github) }}" 
+#       - name: failure
+#         if: failure()
+#         run: |
+#           echo "failure"
+# #       - name: success
+# #         if: success()
+# #         run: |
+# #           echo "success"
           
-  fourth:
-    runs-on: ubuntu-latest
-    if: github.event.action != 'rcanary' && !github.event.release.prerelease
-    steps:
-      - name: fourth steps
-        run: |
-          echo ${{ github.event.client_payload }}
-          echo ${{ github.event.client_payload.version }}
-          echo "${{ toJson(github) }}" 
+#   two-mid:
+#     needs: [two]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: run it
+#         run: |
+#           echo "mid two"
+          
+#   three:
+#     runs-on: ubuntu-latest
+#     if: github.event.action != 'rcanary' || !github.event.release.prerelease
+#     steps:
+#       - name: three steps
+#         run: |
+#           echo ${{ github.event.client_payload }}
+#           echo ${{ github.event.client_payload.version }}
+#           echo "${{ toJson(github) }}" 
+          
+#   fourth:
+#     runs-on: ubuntu-latest
+#     if: github.event.action != 'rcanary' && !github.event.release.prerelease
+#     steps:
+#       - name: fourth steps
+#         run: |
+#           echo ${{ github.event.client_payload }}
+#           echo ${{ github.event.client_payload.version }}
+#           echo "${{ toJson(github) }}" 
