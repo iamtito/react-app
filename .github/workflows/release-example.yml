@@ -9,7 +9,12 @@ on:
       - rcanary
       - rtrigger
   workflow_dispatch:
-    application:
+    inputs:
+      deploy:
+        description: 'Deploy to all env? Options: all, staging, prod'
+        required: true
+        default: ''
+      application:
           description: 'Deploy to a target application. Options, all, ms, gs, s. Default: all'
           required: true
           default: 'all'
