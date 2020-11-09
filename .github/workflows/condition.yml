@@ -27,7 +27,7 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        COMT: ${{ github.sha }} | cut -c 1-7 
+        COMT: ${{ github.sha }}
 
       with:
         tag_name: ${{ env.COMT }}
@@ -112,7 +112,7 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        COMT: echo ${{ github.sha }} | cut -c 1-7 
+        COMT: ${ $(echo ${{ github.sha }} | cut -c 1-7) }
 
       with:
         tag_name: ${{ env.COMT }}
