@@ -40,7 +40,7 @@ jobs:
     - run: echo "2"
       if: "!github.event_name"
     - run: echo "3"
-      if: github.event_name == "release|repository_dispatch"
+      if: github.event_name == release|repository_dispatch
     - run: echo "4"
       if: github.event_name == "release|repository_dispatch|workflow_dispatch"
     - run: echo "5"
