@@ -37,4 +37,6 @@ jobs:
         echo "${{ toJson(github) }}"
     - run: echo "all or tito"
       if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.user == 'tito') || (github.event_name == 'workflow_dispatch' && github.event.inputs.user == 'all')
-    
+    - run: echo "failure"
+      if: failure()
+    - run: echo "ploy"
