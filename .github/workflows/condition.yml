@@ -50,49 +50,49 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@master
     
-    - name: Show Popularity
-#       if: steps.tito.outputs.status == 'success'
-      id: popular
-      run: |
-        set -exv
-        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-        GIT_TAGS=$(git tag -l --sort=committerdate)  
-        TAGS=($GIT_TAGS)
-        export COMMIT_HASH=rc-$(git tag -l --sort=committerdate |tail -1 | cut -f2 -d"-")-$(git rev-parse HEAD | cut -c 1-7)
-        export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
-        echo "$STARS and ${{ steps.tito.outputs.status }}"
-        export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
-        #export COMMIT_HASHH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
-        #export STATET=success
-        echo "::set-env name=STARS::$STARS"
-        echo "::set-env name=COMMIT::$COMMIT"
-        echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
-        #echo "::set-env name=STATET::$STATET"
-        mkdir variable
-        echo $COMMIT_HASH > variables.txt
-        echo ${{ env.STATET }} >> variables.txt
-        if [ "${{ github.event_name }}" == "push" ]; then
-          echo "this is the shit"
-        fi
-    - name: check pre
-      run: |
-        echo "we have ${{ env.COMMIT_HASH }} or $COMMIT_HASH"
-#     - shell: bash
-#       if: failure()
+#     - name: Show Popularity
+# #       if: steps.tito.outputs.status == 'success'
+#       id: popular
+#       run: |
+#         set -exv
+#         git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+#         GIT_TAGS=$(git tag -l --sort=committerdate)  
+#         TAGS=($GIT_TAGS)
+#         export COMMIT_HASH=rc-$(git tag -l --sort=committerdate |tail -1 | cut -f2 -d"-")-$(git rev-parse HEAD | cut -c 1-7)
+#         export STARS=$(jq --raw-output .repository.stargazers "${{ github.event_path }}")
+#         echo "$STARS and ${{ steps.tito.outputs.status }}"
+#         export COMMIT=rc-${TAGS[0]}-$(jq --raw-output .head_commit.id "${{ github.event_path }}" | cut -c1-7)
+#         #export COMMIT_HASHH=$(jq --raw-output .release.target_commitish "${{ github.event_path }}" | cut -c1-7)
+#         #export STATET=success
+#         echo "::set-env name=STARS::$STARS"
+#         echo "::set-env name=COMMIT::$COMMIT"
+#         echo "::set-env name=COMMIT_HASH::$COMMIT_HASH"
+#         #echo "::set-env name=STATET::$STATET"
+#         mkdir variable
+#         echo $COMMIT_HASH > variables.txt
+#         echo ${{ env.STATET }} >> variables.txt
+#         if [ "${{ github.event_name }}" == "push" ]; then
+#           echo "this is the shit"
+#         fi
+#     - name: check pre
+#       run: |
+#         echo "we have ${{ env.COMMIT_HASH }} or $COMMIT_HASH"
+# #     - shell: bash
+# #       if: failure()
         
-    - name: Upload Envvars
-      uses: actions/upload-artifact@v1
-      with:
-        name: envvar
-        path: variables.txt
+#     - name: Upload Envvars
+#       uses: actions/upload-artifact@v1
+#       with:
+#         name: envvar
+#         path: variables.txt
         
-    - name: Using Payload To Run a step
-      run: |
-        echo "this **** $STARS **** was parsed"
-        echo "this **** $COMMIT **** was parsed"
-        echo "this **** $COMMIT_HASH **** was parsed"
-        cat variables.txt
-        echo "sussess" >> variables.txt
+#     - name: Using Payload To Run a step
+#       run: |
+#         echo "this **** $STARS **** was parsed"
+#         echo "this **** $COMMIT **** was parsed"
+#         echo "this **** $COMMIT_HASH **** was parsed"
+#         cat variables.txt
+#         echo "sussess" >> variables.txt
         
     - name: Create Release
       uses: actions/create-release@v1
@@ -100,8 +100,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 #         COMMIT: $COMMIT_HASH
       with:
-        tag_name: ${{ env.COMMIT_HASH }}
-        release_name: ${{ env.COMMIT_HASH }}
+        tag_name: $(echo "rc-$(git tag -l --sort=committerdate |tail -1 | cut -f2 -d"-")-$(git rev-parse HEAD | cut -c 1-7)")
+        release_name: $(echo "rc-$(git tag -l --sort=committerdate |tail -1 | cut -f2 -d"-")-$(git rev-parse HEAD | cut -c 1-7)")
 #         body: |
 #           Changes in this ${{ env.COMMIT_HASH }}
 #           - First Change ${{ env.COMMIT_HASH }}
