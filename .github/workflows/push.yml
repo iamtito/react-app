@@ -35,11 +35,13 @@ jobs:
   opt:
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ github.sha }} | cut -c 1-7
+        id: githash
       - name: release note
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_HASH: ${GITHUB_SHA::7}
+          COMMIT_HASH: ${{ steps.githash.outputs.stdout }}
         with:
           tag_name: "rc-${{ env.COMMIT_HASH }}"
           release_name: "rc-${{ env.COMMIT_HASH }}"
@@ -52,10 +54,9 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_HASH: 
         with:
-          tag_name: "rc-${GITHUB_SHA::8}}"
-          release_name: "rc-${GITHUB_SHA::8}"
+          tag_name: ${GITHUB_SHA:8}
+          release_name: ${GITHUB_SHA:8}
           draft: false
           prerelease: true
   jobler:
