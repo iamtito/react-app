@@ -32,6 +32,32 @@ on:
           default: 'all'
 
 jobs:
+  opt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: release note
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_HASH: ${{ github.sha }}
+        with:
+          tag_name: "rc-${{ env.COMMIT_HASH }}"
+          release_name: "rc-${{ env.COMMIT_HASH }}"
+          draft: false
+          prerelease: true
+  ot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: release note
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_HASH: $(echo ${{ github.sha }} | cut -c 1-7)
+        with:
+          tag_name: "rc-${{ env.COMMIT_HASH }}"
+          release_name: "rc-${{ env.COMMIT_HASH }}"
+          draft: false
+          prerelease: true
   jobler:
     runs-on: ubuntu-latest
     steps:
