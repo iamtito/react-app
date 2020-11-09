@@ -73,8 +73,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "rc-${{ steps.githas.outputs.githash }}"
-          release_name: "rc-${{ steps.githas.outputs.githash }}"
+          tag_name: "rc-${{ steps.githash.outputs.githash }}"
+          release_name: "rc-${{ steps.githash.outputs.githash }}"
           draft: false
           prerelease: true
   jobler:
