@@ -39,7 +39,7 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_HASH: ${{ github.sha }}
+          COMMIT_HASH: ${GITHUB_SHA::7}
         with:
           tag_name: "rc-${{ env.COMMIT_HASH }}"
           release_name: "rc-${{ env.COMMIT_HASH }}"
@@ -52,10 +52,10 @@ jobs:
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_HASH: $(echo ${{ github.sha }} | cut -c 1-7)
+          COMMIT_HASH: 
         with:
-          tag_name: "rc-${{ env.COMMIT_HASH }}"
-          release_name: "rc-${{ env.COMMIT_HASH }}"
+          tag_name: "rc-${GITHUB_SHA::8}}"
+          release_name: "rc-${GITHUB_SHA::8}"
           draft: false
           prerelease: true
   jobler:
