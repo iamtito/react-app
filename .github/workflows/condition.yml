@@ -98,10 +98,11 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#         COMMIT: $COMMIT_HASH
+        COMT: $(echo ${{ github.sha }} | cut -c 1-7 )
+
       with:
-        tag_name: $(echo ${{ github.sha }} | cut -c 1-7 )
-        release_name: $(echo ${{ github.sha }} | cut -c 1-7 )
+        tag_name: ${{ env.COMT }}
+        release_name: ${{ env.COMT }}
 #         body: |
 #           Changes in this ${{ env.COMMIT_HASH }}
 #           - First Change ${{ env.COMMIT_HASH }}
