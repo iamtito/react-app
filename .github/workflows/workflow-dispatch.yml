@@ -35,12 +35,6 @@ jobs:
     - name: Get Workflow payload
       run: |
         echo "${{ toJson(github) }}"
-    - run: echo "1"
-      if: github.event_name
-    - run: echo "2"
-      if: "!github.event_name"
-    - run: echo "3"
-      if: github.event_name || github.event_name == 'repository_dispatch' || github.event.inputs.user == 'tito' || github.event.inputs.user == 'all'
-    - run: echo "4"
-      if: github.event_name || (github.event_name == 'repository_dispatch' && github.event.inputs.user == 'tito') || (github.event_name == 'repository_dispatch' && github.event.inputs.user == 'all') || (github.event_name == 'workflow_dispatch' && github.event.inputs.user == 'tito') || (github.event_name == 'workflow_dispatch' && github.event.inputs.user == 'all')
+    - run: echo "all or tito"
+      if: (github.event_name && github.event.inputs.user == 'tito') || (github.event_name && github.event.inputs.user == 'all')
     
