@@ -40,5 +40,5 @@ jobs:
     - run: echo "2"
       if: "!github.event_name"
     - run: echo "3"
-      if: github.event.inputs.user == 'tito' || github.event.inputs.user == 'all'
+      if: github.event_name && (github.event.inputs.user == 'tito' || github.event.inputs.user == 'all')
     
