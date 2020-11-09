@@ -64,10 +64,10 @@ jobs:
   ot:
     runs-on: ubuntu-latest
     outputs:
-      githash: ${{ steps.githas.outputs.githash }}
+      githash: ${{ steps.githash.outputs.githash }}
     steps:
       - run: echo "::set-output name=githash::$(echo ${{ github.sha }} | cut -c 1-7)"
-#         id: githas
+        id: githash
       - name: release note
         uses: actions/create-release@v1
         env:
