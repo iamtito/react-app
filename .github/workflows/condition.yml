@@ -23,6 +23,20 @@ jobs:
         if [ "${{ github.event_name }}" == "push" ]; then
           echo "this is the shit"
         fi
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        COMT: ${{ github.sha }} | cut -c 1-7 
+
+      with:
+        tag_name: ${{ env.COMT }}
+        release_name: ${{ env.COMT }}
+#         body: |
+#           Changes in this ${{ env.COMMIT_HASH }}
+#           - First Change ${{ env.COMMIT_HASH }}
+        draft: false
+        prerelease: true
   build:
     runs-on: ubuntu-latest
     #if: github.event_name == 'label'
@@ -98,7 +112,7 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        COMT: $(echo ${{ github.sha }} | cut -c 1-7 )
+        COMT: echo ${{ github.sha }} | cut -c 1-7 
 
       with:
         tag_name: ${{ env.COMT }}
