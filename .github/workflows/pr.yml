@@ -102,3 +102,14 @@ jobs:
         export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
         echo $GITHUB_TAG
         
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmanzur/actions-set-secret@v2.0.2
+        with:
+          name: 'THE_VERSION'
+          value: 'Lorem ipsun dolor simit'
+          repository: iamtito/react-app
+          token: ${{ secrets.GIT_TOKEN }}
+          
+      - run: echo ${{ secrets.THE_VERSION }}
