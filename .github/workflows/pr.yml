@@ -113,3 +113,33 @@ jobs:
           token: ${{ secrets.GIT_TOKEN }}
           
       - run: echo ${{ secrets.THE_VERSION }}
+        
+  rec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmanzur/actions-set-secret@v2.0.2
+        with:
+          name: 'THE_VERSIONN'
+          value: ${GITHUB_REF/refs\/tags\/}
+          repository: iamtito/react-app
+          token: ${{ secrets.GIT_TOKEN }}
+          
+      - run: echo ${{ secrets.THE_VERSIONN }}
+        
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      githash: ${{ steps.githash.outputs.githash }}
+    steps:
+      - name: set githash
+        run: echo "::set-output name=githash::${GITHUB_REF/refs\/tags\/}"
+        id: githash
+        
+      - uses: hmanzur/actions-set-secret@v2.0.2
+        with:
+          name: 'VERSIONN'
+          value: '${{ steps.githas.outputs.githash }}'
+          repository: iamtito/react-app
+          token: ${{ secrets.GIT_TOKEN }}
+          
+      - run: echo ${{ secrets.VERSIONN }}
