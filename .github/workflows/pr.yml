@@ -3,6 +3,14 @@ name: pr
 on:
   release:
     types: [published]
+    
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Enter the build version"
+        required: true
+        default: "version"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -110,7 +118,7 @@ jobs:
         with:
           location: iamtito/react-app
           name: BROADCAST_FREQUENCY
-          value: 'Lorem ipsun dolor simit'
+          value: 'orem'
           pa_token: ${{ secrets.GIT_TOKEN }}
           
       - uses: hmanzur/actions-set-secret@v2.0.1
@@ -150,8 +158,20 @@ jobs:
       githash: ${{ steps.githash.outputs.githash }}
     steps:
       - name: set githash
-        run: echo "::set-output name=githash::${GITHUB_REF/refs\/tags\/}"
         id: githash
+        run: |
+          set -exv
+          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+            export version=${{ github.event.inputs.version }}
+          else
+            export version="${GITHUB_REF/refs\/tags\/}"
+          fi
+          
+          echo "::set-output name=githash::$version"
+        
+      - run: |
+          set -exv
+          echo ${{ steps.githas.outputs.githash }}
         
       - uses: gliech/create-github-secret-action@v1
         continue-on-error: true
