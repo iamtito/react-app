@@ -179,7 +179,7 @@ jobs:
           set -exv
           echo "${{ secrets.BROAD }}"
           mkdir ${{ secrets.BROAD }}
-          docker build -t tbola45:${{ secrets.BROAD }} .
+          docker build -t tbola45:${{ secrets.BROAD }} -f Dockerfile.dev .
           docker images
           
   broadcast_building:
@@ -190,7 +190,7 @@ jobs:
       - name: build
         run: |
           set -exv
-          docker build -t tbola45:${{ secrets.BROADCAST }} .
+          docker build -t tbola45:${{ secrets.BROADCAST }} -f Dockerfile.dev .
           docker images
 
   broadcasr_freq_build:
@@ -201,5 +201,5 @@ jobs:
       - name: build
         run: |
           set -exv
-          docker build -t tbola45:${{ secrets.BROADCAST_FREQUENCY }} .
+          docker build -t tbola45:${{ secrets.BROADCAST_FREQUENCY }} -f Dockerfile.dev .
           docker images
