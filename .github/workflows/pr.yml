@@ -164,10 +164,10 @@ jobs:
         with:
           location: iamtito/react-app
           name: BROAD
-          value: ${{ steps.githash.outputs.githash }}
+          value: "${{ steps.githash.outputs.githash }}"
           pa_token: ${{ secrets.GIT_TOKEN }}
 
-      - run: echo "${{ secrets.VERSIONN }} - ${{ secrets.BROAD }}"
+      - run: echo "${{ secrets.VERSIONN }} - ${{ secrets.BROAD }} - ${{ steps.githash.outputs.githash }}"
 
   broad_building:
     needs: [broad]
@@ -177,6 +177,8 @@ jobs:
       - name: build
         run: |
           set -exv
+          echo "${{ secrets.BROAD }}"
+          mkdir ${{ secrets.BROAD }}
           docker build -t tbola45:${{ secrets.BROAD }} .
           docker images
           
