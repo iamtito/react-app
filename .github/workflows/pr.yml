@@ -170,3 +170,36 @@ jobs:
           token: ${{ secrets.GIT_TOKEN }}
           
       - run: echo "${{ secrets.VERSIONN }} - ${{ secrets.BROAD }}"
+
+  building:
+    needs: [release]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          set -exv
+          docker build -t tbola45:${{ secrets.BROAD }} .
+          docker images
+          
+  building2:
+    needs: [rec]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          set -exv
+          docker build -t tbola45:${{ secrets.BROADCAST }} .
+          docker images
+
+  building3:
+    needs: [record]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          set -exv
+          docker build -t tbola45:${{ secrets.BROADCAST_FREQUENCY }} .
+          docker images
