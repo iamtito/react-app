@@ -151,20 +151,20 @@ jobs:
             export version="${GITHUB_REF/refs\/tags\/}"
           fi
           echo "${version}"
-          echo "::set-output name=githash::${version}"
+          echo "::set-output name=githash::$(echo "${version}")"
         
       - name: show it
         run: |
           set -exv
           echo "${version}"
-          echo "${{ steps.githas.outputs.githash }}"
+          echo "${{ steps.githash.outputs.githash }}"
         
       - uses: gliech/create-github-secret-action@v1
         continue-on-error: true
         with:
           location: iamtito/react-app
           name: BROAD
-          value: ${{ steps.githas.outputs.githash }}
+          value: ${{ steps.githash.outputs.githash }}
           pa_token: ${{ secrets.GIT_TOKEN }}
 
       - run: echo "${{ secrets.VERSIONN }} - ${{ secrets.BROAD }}"
