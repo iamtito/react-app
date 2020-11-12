@@ -52,65 +52,65 @@ jobs:
         echo "The matrix context is:"
         echo "${{ toJson(matrix) }}"
 
-  exitis:
-    if: "!github.event.release.prerelease"
-    runs-on: [ubuntu-latest]
-    steps:
-      - name: step1 
-        run: |
-          echo "chill pill"
+#   exitis:
+#     if: "!github.event.release.prerelease"
+#     runs-on: [ubuntu-latest]
+#     steps:
+#       - name: step1 
+#         run: |
+#           echo "chill pill"
           
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        path: main
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         path: main
         
-    - name: get tag
-      run: |
-        set -exv
-        export GG="${GITHUB_REF/refs\/tags\/}"
-        echo $GG
+#     - name: get tag
+#       run: |
+#         set -exv
+#         export GG="${GITHUB_REF/refs\/tags\/}"
+#         echo $GG
         
-    - uses: actions/checkout@v2
-      with:
-        repository: iamtito/bvify
-        path: 'bvify'
+#     - uses: actions/checkout@v2
+#       with:
+#         repository: iamtito/bvify
+#         path: 'bvify'
 
-    - name: Deploy
-      run: |
-        set -exv
-        export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
-        echo $GITHUB_TAG
+#     - name: Deploy
+#       run: |
+#         set -exv
+#         export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
+#         echo $GITHUB_TAG
         
-  ploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        path: main
-    - name: get tag
-      run: |
-        set -exv
-        export GG="${GITHUB_REF/refs\/tags\/}"
-        echo $GG
+#   ploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         path: main
+#     - name: get tag
+#       run: |
+#         set -exv
+#         export GG="${GITHUB_REF/refs\/tags\/}"
+#         echo $GG
         
-  loy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        repository: iamtito/bvify
-        path: 'bvify'
+#   loy:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         repository: iamtito/bvify
+#         path: 'bvify'
 
-    - name: Deploy
-      run: |
-        set -exv
-        export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
-        echo $GITHUB_TAG
+#     - name: Deploy
+#       run: |
+#         set -exv
+#         export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
+#         echo $GITHUB_TAG
         
-  record:
+  broadcasr_freq:
     runs-on: ubuntu-latest
     steps:
       - uses: gliech/create-github-secret-action@v1
@@ -118,20 +118,12 @@ jobs:
         with:
           location: iamtito/react-app
           name: BROADCAST_FREQUENCY
-          value: 'orem'
+          value: '1.2.3'
           pa_token: ${{ secrets.GIT_TOKEN }}
-          
-      - uses: hmanzur/actions-set-secret@v2.0.1
-        continue-on-error: true
-        with:
-          name: 'THE_VERSION'
-          value: 'Lorem ipsun dolor simit'
-          repository: iamtito/react-app
-          token: ${{ secrets.GIT_TOKEN }}
           
       - run: echo "${{ secrets.THE_VERSION }} - ${{ secrets.BROADCAST_FREQUENCY }}"
         
-  rec:
+  broadcast:
     runs-on: ubuntu-latest
     steps:
       - uses: gliech/create-github-secret-action@v1
@@ -142,17 +134,9 @@ jobs:
           value: ${GITHUB_REF/refs\/tags\/}
           pa_token: ${{ secrets.GIT_TOKEN }}
           
-      - uses: hmanzur/actions-set-secret@v2.0.1
-        continue-on-error: true
-        with:
-          name: 'THE_VERSIONN'
-          value: ${GITHUB_REF/refs\/tags\/}
-          repository: iamtito/react-app
-          token: ${{ secrets.GIT_TOKEN }}
-          
-      - run: echo "${{ secrets.THE_VERSIONN }} - ${{ secrets.BROADCAST }}"
+      - run: echo "${{ secrets.THE_VERSIONN }} - ${{ secrets.BROADCAST }} - ${GITHUB_REF/refs\/tags\/}"
         
-  release:
+  broad:
     runs-on: ubuntu-latest
     outputs:
       githash: ${{ steps.githash.outputs.githash }}
@@ -162,16 +146,18 @@ jobs:
         run: |
           set -exv
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            export version=${{ github.event.inputs.version }}
+            export version="${{ github.event.inputs.version }}"
           else
             export version="${GITHUB_REF/refs\/tags\/}"
           fi
-          
-          echo "::set-output name=githash::$version"
+          echo "${version}"
+          echo "::set-output name=githash::${version}"
         
-      - run: |
+      - name: show it
+        run: |
           set -exv
-          echo ${{ steps.githas.outputs.githash }}
+          echo "${version}"
+          echo "${{ steps.githas.outputs.githash }}"
         
       - uses: gliech/create-github-secret-action@v1
         continue-on-error: true
@@ -181,18 +167,10 @@ jobs:
           value: ${{ steps.githas.outputs.githash }}
           pa_token: ${{ secrets.GIT_TOKEN }}
 
-      - uses: hmanzur/actions-set-secret@v2.0.1
-        continue-on-error: true
-        with:
-          name: 'VERSIONN'
-          value: '${{ steps.githas.outputs.githash }}'
-          repository: iamtito/react-app
-          token: ${{ secrets.GIT_TOKEN }}
-          
       - run: echo "${{ secrets.VERSIONN }} - ${{ secrets.BROAD }}"
 
-  building:
-    needs: [release]
+  broad_building:
+    needs: [broad]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -202,8 +180,8 @@ jobs:
           docker build -t tbola45:${{ secrets.BROAD }} .
           docker images
           
-  building2:
-    needs: [rec]
+  broadcast_building:
+    needs: [broadcast]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -213,8 +191,8 @@ jobs:
           docker build -t tbola45:${{ secrets.BROADCAST }} .
           docker images
 
-  building3:
-    needs: [record]
+  broadcasr_freq_build:
+    needs: [broadcasr_freq]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
