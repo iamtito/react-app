@@ -89,28 +89,28 @@ jobs:
 #           EOF
 #           }
 #           echo $(generate_post_data)
-#   one:
-#     runs-on: ubuntu-latest
-#     steps:
+  payload:
+    runs-on: ubuntu-latest
+    steps:
     
-#     - name: pre
-#       if: github.event.release.name != 'rcanary' && !github.event.release.prerelease
-#       run: |
-#         echo "not canary atall"
-#     - name: testing this
-#       run: |
-#         set -exv
-#         echo ${{ github.event_type }}
-#         echo ${{ github.event.release.name }}
-#         echo ${{ github.event.release.body }}
-#         if [ ${{ github.event.release.name }} == 'canary' ]; then
-#         ##if [[ "${{ github.event.release.name }}" =~ *"anary"* ]]; then
-#           echo "this is canry"
-#          else
-#           echo "this is not a canary"
-#         fi
-#         echo "Release github event payload"
-#         echo "${{ toJson(github) }}" 
+    - name: pre
+      if: github.event.release.name != 'rcanary' && !github.event.release.prerelease
+      run: |
+        echo "not canary atall"
+    - name: testing this
+      run: |
+        set -exv
+        # echo ${{ github.event_type }}
+        # echo ${{ github.event.release.name }}
+        # echo ${{ github.event.release.body }}
+        # if [ ${{ github.event.release.name }} == 'canary' ]; then
+        ##if [[ "${{ github.event.release.name }}" =~ *"anary"* ]]; then
+        #   echo "this is canry"
+        #  else
+        #   echo "this is not a canary"
+        # fi
+        echo "Release github event payload"
+        echo "${{ toJson(github) }}" 
         
 #     - uses: actions/checkout@v2    
 #     - name: second
