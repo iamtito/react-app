@@ -28,7 +28,8 @@ jobs:
           set -exv
           export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
           export TAG=${{ github.event.release.tag_name }}
-          echo "${GITHUB_TAG} and $TAG"
+          export RELEASE_TAG=$GITHUB_TAG
+          echo "GITHUB_TAG=${GITHUB_TAG} and TAG=$TAG and then this {RELEASE_TAG}=${RELEASE_TAG} or RELEASE_TAG=$RELEASE_TAG"
       - run: echo "its me ms"
         if: github.event_name == 'release' || github.event_name == 'repository_dispatch' || github.event.inputs.application == 'ms' || github.event.inputs.application == 'all'
       - run: echo "its me gs"
