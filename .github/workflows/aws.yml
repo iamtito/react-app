@@ -23,3 +23,15 @@ jobs:
         run: |
           set -exv
           aws s3 ls
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+      - name: deploy
+        run: |
+          set -exv
+          npm install broken-link-checker -g
+
+          blc https://waitlist.qalort.com -ro
