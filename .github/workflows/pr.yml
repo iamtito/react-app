@@ -55,6 +55,7 @@ jobs:
         echo "The matrix context is:"
         echo "${{ toJson(matrix) }}"
         ls -larh
+        ls -larh .github/workflows/
 
 #   exitis:
 #     if: "!github.event.release.prerelease"
