@@ -10,6 +10,7 @@ on:
         description: "Enter the build version"
         required: true
         default: "version"
+        
 
 jobs:
   build:
@@ -18,6 +19,8 @@ jobs:
   
     - name: Checkout code
       uses: actions/checkout@master
+      with:
+        ref: github.event.inputs.version
     
     - name: Show Popularity
       id: popular
@@ -51,6 +54,7 @@ jobs:
         echo ""
         echo "The matrix context is:"
         echo "${{ toJson(matrix) }}"
+        ls -larh
 
 #   exitis:
 #     if: "!github.event.release.prerelease"
