@@ -20,7 +20,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@master
       with:
-        ref: github.event.inputs.version
+        ref: "${{github.event.inputs.version}}"
     
     - name: Show Popularity
       id: popular
