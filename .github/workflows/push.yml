@@ -88,6 +88,13 @@ jobs:
           release_name: "rc-${{ steps.githash.outputs.githash }}"
           draft: false
           prerelease: true
+      - name: fail
+        if: failure()
+        run: echo "failure"
+      - name: success
+        if: success()
+        run: echo "success"
+      
   jobler:
     runs-on: ubuntu-latest
     steps:
