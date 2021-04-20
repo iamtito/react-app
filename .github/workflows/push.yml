@@ -66,6 +66,7 @@ jobs:
     outputs:
       githash: ${{ steps.githash.outputs.githash }}
     steps:
+      - uses: actions/checkout@v2
       - name: set githash
         run: echo "::set-output name=githash::$(echo ${{ github.sha }} | cut -c 1-7)"
         id: githash
