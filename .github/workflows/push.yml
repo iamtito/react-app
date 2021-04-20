@@ -81,7 +81,7 @@ jobs:
             #echo $rc_status
             #export r_status=$(if ($(git cat-file -e rc-${{ github.sha }} 2> /dev/null)); then echo "exist"; else echo "nope"; fi)
             #echo "::set-output name=r_status::$(echo $r_status)"
-            echo "::set-output name=r_status::$(echo $(if !($(git cat-file -e rc-${{ github.sha }} 2> /dev/null)); then echo "nope"; fi)"
+            echo "::set-output name=r_status::$(echo $(if !($(git cat-file -e rc-${{ github.sha }} 2> /dev/null)); then echo "nope"; fi))"
       - run: echo "release candidate rc-${{ github.sha }} status is ${{ env.rc_status }}"
       - run: echo "Release candidate Status ${{ steps.r_status.outputs.r_status }}"
       - name: release note
