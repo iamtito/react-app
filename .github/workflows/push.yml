@@ -82,9 +82,9 @@ jobs:
             export r_status=$(if ($(git cat-file -e rc-${{ github.sha }} 2> /dev/null)); then echo "exist"; else echo "nope"; fi)
             echo "::set-output name=r_status::$(echo $r_status)"
       - run: echo "release candidate rc-${{ github.sha }} status is ${{ env.rc_status }}"
-      - run: echo "Release candidate Status ${{ steps.githash.outputs.rc_status }}"
+      - run: echo "Release candidate Status ${{ steps.r_status.outputs.r_status }}"
       - name: release note
-        if: steps.githash.outputs.r_status == 'nope'
+        if: steps.r_status.outputs.r_status == 'nope'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
