@@ -76,7 +76,10 @@ jobs:
       - run: echo "Release candidate Status ${{ steps.githash.outputs.rc-status }}"
       - name: Set the value
         id: r_status
-        run: echo "::set-output name=r_status::$(echo $(if !($(git cat-file -e rc-${{ steps.githash.outputs.githash }} 2> /dev/null)); then echo "nope"; fi))"
+        run: |
+          set -exv
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          echo "::set-output name=r_status::$(echo $(if !($(git cat-file -e rc-${{ steps.githash.outputs.githash }} 2> /dev/null)); then echo "nope"; fi))"
       - run: echo "release candidate rc-${{ steps.githash.outputs.githash }} status is ${{ env.rc_status }}"
       - run: echo "Release candidate Status ${{ steps.r_status.outputs.r_status }}"
       - name: release note
