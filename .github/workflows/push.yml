@@ -74,7 +74,7 @@ jobs:
         id: rc-status
       - run: echo "Release candidate Status ${{ steps.githash.outputs.rc-status }}"
       - name: release note
-        if: steps.githash.outputs.rc-status == 'nope'
+        if: steps.githash.outputs.rc-status == nope
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
