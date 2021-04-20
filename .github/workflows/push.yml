@@ -73,7 +73,7 @@ jobs:
         run: echo "::set-output name=rc-status::$(if ($(git cat-file -e rc-${{ github.sha }} 2> /dev/null)); then echo "exist"; else echo "nope"; fi)"
         id: rc-status
       - name: release note
-        if: steps.githash.outputs.rc-status == "nope"
+        if: steps.githash.outputs.rc-status == 'nope'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
