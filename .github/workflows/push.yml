@@ -89,10 +89,10 @@ jobs:
           draft: false
           prerelease: true
       - name: fail
-        if: failure()
+        if: failure() && steps.r_status.outputs.r_status == 'nope'
         run: echo "failure"
       - name: success
-        if: success()
+        if: success() && steps.r_status.outputs.r_status == 'nope'
         run: echo "success"
       
   jobler:
