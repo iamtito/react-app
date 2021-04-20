@@ -70,7 +70,7 @@ jobs:
         run: echo "::set-output name=githash::$(echo ${{ github.sha }} | cut -c 1-7)"
         id: githash
       - name: release candidate status
-        run: echo "::set-output name=rc-status::$(echo $(if ($(git cat-file -e rc-${{ github.sha }} 2> /dev/null)); then echo "exist"; else echo "nope"; fi))"
+        run: echo "::set-output name=rc-status::$(cat result | $(if ($(git cat-file -e rc-${{ github.sha }} 2> /dev/null)); then echo "exist"; else echo "nope"; fi))"
         id: rc-status
       - run: echo "Release candidate Status ${{ steps.githash.outputs.rc-status }}"
       - name: release note
