@@ -1,8 +1,8 @@
-name: Push Workflow
+name: Push Workflow Now
 
 on: 
-  push:
-    branches: master
+  push: 
+    #branches: master
 #   schedule: 
 #     - cron: '*/5 * * * *'
       
