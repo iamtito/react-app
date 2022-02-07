@@ -1,8 +1,10 @@
 name: pr
 
 on:
-  release:
-    types: [published]
+#   release:
+#     types: [published]
+  pull_request:
+    types: [merge,opened]
     
   workflow_dispatch:
     inputs:
@@ -23,6 +25,7 @@ jobs:
         ref: "${{github.event.inputs.version}}"
     
     - name: Show Popularity
+#       if: github.event_name
       id: popular
       run: |
         set -exv
@@ -115,96 +118,96 @@ jobs:
 #         export GITHUB_TAG="${GITHUB_REF/refs\/tags\/}"
 #         echo $GITHUB_TAG
         
-  broadcasr_freq:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: gliech/create-github-secret-action@v1
-        continue-on-error: true
-        with:
-          location: iamtito/react-app
-          name: BROADCAST_FREQUENCY
-          value: '1.2.3'
-          pa_token: ${{ secrets.GIT_TOKEN }}
+#   broadcasr_freq:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: gliech/create-github-secret-action@v1
+#         continue-on-error: true
+#         with:
+#           location: iamtito/react-app
+#           name: BROADCAST_FREQUENCY
+#           value: '1.2.3'
+#           pa_token: ${{ secrets.GIT_TOKEN }}
           
-      - run: echo "${{ secrets.THE_VERSION }} - ${{ secrets.BROADCAST_FREQUENCY }}"
+#       - run: echo "${{ secrets.THE_VERSION }} - ${{ secrets.BROADCAST_FREQUENCY }}"
         
-  broadcast:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: gliech/create-github-secret-action@v1
-        continue-on-error: true
-        with:
-          location: iamtito/react-app
-          name: BROADCAST
-          value: ${GITHUB_REF/refs\/tags\/}
-          pa_token: ${{ secrets.GIT_TOKEN }}
+#   broadcast:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: gliech/create-github-secret-action@v1
+#         continue-on-error: true
+#         with:
+#           location: iamtito/react-app
+#           name: BROADCAST
+#           value: ${GITHUB_REF/refs\/tags\/}
+#           pa_token: ${{ secrets.GIT_TOKEN }}
           
-      - run: echo "${{ secrets.THE_VERSIONN }} - ${{ secrets.BROADCAST }} - ${GITHUB_REF/refs\/tags\/}"
+#       - run: echo "${{ secrets.THE_VERSIONN }} - ${{ secrets.BROADCAST }} - ${GITHUB_REF/refs\/tags\/}"
         
-  broad:
-    runs-on: ubuntu-latest
-    outputs:
-      githash: ${{ steps.githash.outputs.githash }}
-    steps:
-      - name: set githash
-        id: githash
-        run: |
-          set -exv
-          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            export version="${{ github.event.inputs.version }}"
-          else
-            export version="${GITHUB_REF/refs\/tags\/}"
-          fi
-          echo "${version}"
-          echo "::set-output name=githash::$(echo "${version}")"
+#   broad:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       githash: ${{ steps.githash.outputs.githash }}
+#     steps:
+#       - name: set githash
+#         id: githash
+#         run: |
+#           set -exv
+#           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+#             export version="${{ github.event.inputs.version }}"
+#           else
+#             export version="${GITHUB_REF/refs\/tags\/}"
+#           fi
+#           echo "${version}"
+#           echo "::set-output name=githash::$(echo "${version}")"
         
-      - name: show it
-        run: |
-          set -exv
-          echo "${version}"
-          echo "${{ steps.githash.outputs.githash }}"
+#       - name: show it
+#         run: |
+#           set -exv
+#           echo "${version}"
+#           echo "${{ steps.githash.outputs.githash }}"
         
-      - uses: gliech/create-github-secret-action@v1
-        continue-on-error: true
-        with:
-          location: iamtito/react-app
-          name: BROAD
-          value: "${{ steps.githash.outputs.githash }}"
-          pa_token: ${{ secrets.GIT_TOKEN }}
+#       - uses: gliech/create-github-secret-action@v1
+#         continue-on-error: true
+#         with:
+#           location: iamtito/react-app
+#           name: BROAD
+#           value: "${{ steps.githash.outputs.githash }}"
+#           pa_token: ${{ secrets.GIT_TOKEN }}
 
-      - run: echo "${{ secrets.VERSIONN }} - ${{ secrets.BROAD }} - ${{ steps.githash.outputs.githash }}"
+#       - run: echo "${{ secrets.VERSIONN }} - ${{ secrets.BROAD }} - ${{ steps.githash.outputs.githash }}"
 
-  broad_building:
-    needs: [broad]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: build
-        run: |
-          set -exv
-          echo "${{ secrets.BROAD }}"
-          mkdir ${{ secrets.BROAD }}
-          docker build -t tbola45:${{ secrets.BROAD }} -f Dockerfile.dev .
-          docker images
+#   broad_building:
+#     needs: [broad]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: build
+#         run: |
+#           set -exv
+#           echo "${{ secrets.BROAD }}"
+#           mkdir ${{ secrets.BROAD }}
+#           docker build -t tbola45:${{ secrets.BROAD }} -f Dockerfile.dev .
+#           docker images
           
-  broadcast_building:
-    needs: [broadcast]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: build
-        run: |
-          set -exv
-          docker build -t tbola45:${{ secrets.BROADCAST }} -f Dockerfile.dev .
-          docker images
+#   broadcast_building:
+#     needs: [broadcast]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: build
+#         run: |
+#           set -exv
+#           docker build -t tbola45:${{ secrets.BROADCAST }} -f Dockerfile.dev .
+#           docker images
 
-  broadcasr_freq_build:
-    needs: [broadcasr_freq]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: build
-        run: |
-          set -exv
-          docker build -t tbola45:${{ secrets.BROADCAST_FREQUENCY }} -f Dockerfile.dev .
-          docker images
+#   broadcasr_freq_build:
+#     needs: [broadcasr_freq]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: build
+#         run: |
+#           set -exv
+#           docker build -t tbola45:${{ secrets.BROADCAST_FREQUENCY }} -f Dockerfile.dev .
+#           docker images
