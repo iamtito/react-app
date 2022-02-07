@@ -39,7 +39,7 @@ jobs:
         echo $GHASH
         echo "BELOW is the commit"
         echo $COMMIT
-        echo "******************************"
+        echo "*******************************"
         echo "The github context is:"
         echo "${{ toJson(github) }}"
         echo ""
