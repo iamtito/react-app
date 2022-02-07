@@ -61,8 +61,8 @@ jobs:
         ls -larh .github/workflows/
 
   exitis:
+    if: github.event.pull_request == 'merged'
 #     if: "!github.event.release.prerelease"
-    if: github.event.pull_request == "merged"
     runs-on: [ubuntu-latest]
     steps:
       - name: step1 
