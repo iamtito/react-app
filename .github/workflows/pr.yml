@@ -4,7 +4,7 @@ on:
 #   release:
 #     types: [published]
   pull_request:
-    types: [merge,opened]
+    types: [merged,opened]
     
   workflow_dispatch:
     inputs:
@@ -60,13 +60,14 @@ jobs:
         ls -larh
         ls -larh .github/workflows/
 
-#   exitis:
+  exitis:
+    if: github.event.pull_request == 'merged'
 #     if: "!github.event.release.prerelease"
-#     runs-on: [ubuntu-latest]
-#     steps:
-#       - name: step1 
-#         run: |
-#           echo "chill pill"
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: step1 
+        run: |
+          echo "chill pill"
           
 #   deploy:
 #     runs-on: ubuntu-latest
