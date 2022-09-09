@@ -34,6 +34,7 @@ on:
 jobs:
   opt:
     runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
     steps:
       - run: echo "set-output name=githash::$(echo ${{ github.sha }} | cut -c 1-7)"
         id: githash
@@ -49,6 +50,8 @@ jobs:
           prerelease: true
   tot:
     runs-on: ubuntu-latest
+    needs:
+      - opt
     outputs:
       githas: ${{ steps.githas.outputs.githas }}
     steps:
