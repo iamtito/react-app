@@ -34,8 +34,16 @@ on:
 jobs:
   opt:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    #if: github.event_name == 'workflow_dispatch'
     steps:
+      - name: skip-workflow
+        id: skip-workflow # id used for referencing step
+        if: github.event_name == 'workflow_dispatch'
+        uses: saulmaldonado/skip-workflow@v1
+        with:
+          phrase: '[skip-workflow]'
+          github-token: ${{ secrets.GIT_TOKEN }}
+          
       - run: echo "set-output name=githash::$(echo ${{ github.sha }} | cut -c 1-7)"
         id: githash
       - name: release note
