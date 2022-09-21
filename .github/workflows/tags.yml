@@ -3,7 +3,7 @@ name: Tags Trigger Workflow Now
 on: 
   push: 
     tags:
-      - "*lyme"
+      - "*lyme*"
       
   workflow_dispatch:
       inputs:
