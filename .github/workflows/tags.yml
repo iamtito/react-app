@@ -1,0 +1,21 @@
+name: Tags Trigger Workflow Now
+
+on: 
+  push: 
+    tags:
+      - "*lyme"
+      
+  workflow_dispatch:
+      inputs:
+        deploy:
+          description: 'Deploy to all env? Options: all, staging, prod'
+          required: true
+          default: "all"
+
+jobs:
+  opt:
+    runs-on: ubuntu-latest
+    #if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: skip-workflow
+        run: echo "hi"
