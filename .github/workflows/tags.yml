@@ -18,6 +18,7 @@ jobs:
     #if: github.event_name == 'workflow_dispatch'
     steps:
       - run: echo "${{ toJson(github) }}"
+      - run: echo "tag v${{ github.ref_name }} got tagged"
       - name: skip-workflow
         run: echo "hi"
       - uses: actions/checkout@v2
