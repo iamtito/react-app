@@ -17,5 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     #if: github.event_name == 'workflow_dispatch'
     steps:
+      - run: echo "${{ toJson(github) }}"
       - name: skip-workflow
         run: echo "hi"
+      - uses: actions/checkout@v2
+        if: github.event_name == 'push'
+      - uses: actions/checkout@v2
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          ref: ${{ github.event.inputs.branch }}
