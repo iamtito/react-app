@@ -4,6 +4,8 @@ on:
   push: 
     tags:
       - "*lyme*"
+      - "*time*"
+      - "*june*"
       
   workflow_dispatch:
       inputs:
@@ -27,3 +29,12 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         with:
           ref: ${{ github.event.inputs.branch }}
+      - name: time all
+        run: echo "hi time all"
+        if: github.ref_name == '*time*'
+      - name: time
+        run: echo "time"
+        if: github.ref_name == '*time'
+      - name: june
+        run: echo "hi jun"
+        if: github.ref_name == '*june'
