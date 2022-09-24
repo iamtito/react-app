@@ -34,7 +34,7 @@ jobs:
     steps:
       - run: echo "${{ toJson(github) }}"
       - run: |
-          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+          if ${{ github.event_name }} == 'workflow_dispatch' ; then
             for client in ${{ env.CLIENTS }}; do
               if [[ ${{ github.event.inputs.client }} == *"$client"* ]]; then
                 echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
@@ -82,8 +82,8 @@ jobs:
     name: John
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'john')  ||  endsWith(github.ref, 'all')
-    # needs:
-    #   - build
+    needs:
+      - build
     steps:
       - name: Run
         run: |
@@ -95,8 +95,8 @@ jobs:
     name: smith
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'smith')  || endsWith(github.ref, 'all')
-    # needs:
-    #   - build
+    needs:
+      - build
     steps:
       - name: Run
         run: |
@@ -107,8 +107,8 @@ jobs:
     name: check all
     runs-on: ubuntu-latest
     if: "${{ startsWith(github.ref, 'v[1-9].[1-9].[1-9]')}}"
-    # needs:
-    #   - build
+    needs:
+      - build
     steps:
       - name: Run
         run: |
