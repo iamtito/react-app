@@ -81,13 +81,10 @@ jobs:
               # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
               if ${{ !endsWith(github.ref, 'john') }} && ${{ !endsWith(github.ref, 'smith') }} && ${{ !endsWith(github.ref, 'aim') }}; then
                 echo "deploy $cl"
-              else
+              fi
                 # if [[ $version == *"$cl"* ]]; then
-                if [[ ${{ endsWith(github.ref, '"$cl"') }} ]]; then
-                  echo "deploying $version to $cl"
-                else
-                  echo "not deploying to $cl."
-                fi
+              if ${{ endsWith(github.ref, '"$cl"') }} ; then
+                echo "deploying $version to $cl"
               fi
             done
           fi
