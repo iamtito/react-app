@@ -50,18 +50,19 @@ jobs:
   #           docker build -t react-app:${{ github.event.inputs.client }} .
   #         fi
   
-  john:
-    name: John
+  john-all:
+    name: John all
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'v[*].[*]+.[*]+' }}
+    if: endsWith(github.ref, 'john')  || ( ${{ !endsWith(github.ref, 'smith')}} )
     # needs:
     #   - build
     steps:
       - name: Run
         run: |
           echo "hi john"
-  john2:
-    name: John2
+
+  john-only:
+    name: John Only
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'john')
     # needs:
@@ -70,6 +71,17 @@ jobs:
       - name: Run
         run: |
           echo "hi john2"
+
+  smith-all:
+    name: John all
+    runs-on: ubuntu-latest
+    if: endsWith(github.ref, 'smith')  || ( ${{ !endsWith(github.ref, 'smith')}} )
+    # needs:
+    #   - build
+    steps:
+      - name: Run
+        run: |
+          echo "hi smith"
   # john2:
   #   name: John2
   #   runs-on: ubuntu-latest
