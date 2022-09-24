@@ -106,8 +106,12 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
 
       - name: smith
-        if: ${{ github.event.release.name }} == "smith"
+        if: contains( github.ref, "smith" )
         run: echo "hi smith"
+
+      - name: wild smith
+        if: contains( github.ref, "*smith*" )
+        run: echo "hi wild smith"
 
       - name: john
         if: ${{ github.event.release.name }} == "john"
@@ -127,6 +131,10 @@ jobs:
       
       - name: 2nd not
         if: ${{ !contains(fromJson('["john", "smith"]'), github.ref) }}
+        run: echo "no john not smith"
+
+      - name: 2nd not
+        if: ${{ !contains(["john", "smith"], github.ref) }}
         run: echo "no john not smith"
 
       # - name: time all john 3
