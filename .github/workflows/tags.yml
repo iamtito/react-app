@@ -86,7 +86,7 @@ jobs:
                 # if [[ $version == *"$cl"* ]]; then
               echo "check if ${{ github.ref }} ends with $cl"
               # if [[ ${{ github.ref }} == *"$cl"* ]]; then
-              if endsWith(github.ref, $cl) ; then
+              if endsWith(github.ref, '$cl') ; then
                 echo "deploying $version to $cl"
               fi
             done
