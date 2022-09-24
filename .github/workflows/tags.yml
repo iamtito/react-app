@@ -136,7 +136,7 @@ jobs:
   smith-all:
     name: smith
     runs-on: ubuntu-latest
-    # if: endsWith(github.ref, 'smith')  || endsWith(github.ref, 'all')
+    if: endsWith(github.ref, 'smith')  || endsWith(github.ref, 'all')
     needs: build
     steps:
       - name: Run
@@ -148,7 +148,7 @@ jobs:
   checker-all:
     name: check all
     runs-on: ubuntu-latest
-    if: "${{ startsWith(github.ref, 'v[1-9].[1-9].[1-9]')}}"
+    # if: "${{ startsWith(github.ref, 'v[1-9].[1-9].[1-9]')}}"
     needs:
       - build
     steps:
