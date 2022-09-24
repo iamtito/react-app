@@ -113,9 +113,9 @@ jobs:
         run: echo "hi time all"
         if: ${{ github.ref_name }} == "*john"
 
-      - name: time all john 3
-        run: echo "hi time all"
-        if: github.ref_name == "*john"
+      # - name: time all john 3
+      #   run: echo "hi time all"
+      #   if: github.ref_name == "*john"
 
       - name: time all john 4
         run: echo "hi time all"
