@@ -59,6 +59,7 @@ jobs:
     steps:
       - name: Run
         run: |
+          set -exv
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
             if [ ${{ github.event.inputs.client }} == 'all' ]; then
               ## We obtain the list of client from the env we specified in env
@@ -74,7 +75,7 @@ jobs:
 
           if [ ${{ github.event_name }} == 'push' ]; then
             clients="${{ env.CLIENTS }}"
-            tag="${{ github.ref_name }}"
+            version="${{ github.ref_name }}"
             for client in $clients; do
               if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
                 echo "deploy $client"
