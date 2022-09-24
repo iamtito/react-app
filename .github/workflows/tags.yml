@@ -28,6 +28,28 @@ env:
   ACTION_URL: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}/checks"
 
 jobs:
+  first-job:
+    runs-on: ubuntu-latest  
+    steps:
+    - id: identify
+      run: |
+        # use bash variable expression to get the substring
+        export GIT_PR_SHA="${{ github.sha }}"
+        export GIT_PR_SHA_SHORT="${GIT_PR_SHA:0:10}"
+
+        echo "::set-output name=git_pr_sha::${GIT_PR_SHA}"
+        echo "::set-output name=git_pr_sha_short::${GIT_PR_SHA_SHORT}"
+    outputs:
+      git_pr_sha: ${{ steps.identify.outputs.git_pr_sha }}
+      git_pr_sha_short: ${{ steps.identify.outputs.git_pr_sha_short }}
+
+  second-job:
+    needs: first-job
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "${{ needs.first-job.outputs.git_pr_sha }}"
+        echo "${{ needs.first-job.outputs.git_pr_sha_short }}"
   build:
     runs-on: ubuntu-latest
     #if: github.event_name == 'workflow_dispatch'
