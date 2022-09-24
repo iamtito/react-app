@@ -76,7 +76,7 @@ jobs:
   checker-all:
     name: check all
     runs-on: ubuntu-latest
-    if: "${{ startWith(github.ref, 'v[1-9].[1-9].[1-9]')}}"
+    if: "${{ contains(github.ref, 'v[1-9].[1-9].[1-9]')}}"
     # needs:
     #   - build
     steps:
