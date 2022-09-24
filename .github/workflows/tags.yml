@@ -78,7 +78,7 @@ jobs:
             for client in $clients; do
               # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
               # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
-              if [[ ${{ !endsWith(github.ref, 'john') }} ]] && [[ ${{ !endsWith(github.ref, 'smith') }} ]] && [[ ${{ !endsWith(github.ref, 'aim') }} ]]; then
+              if [[ [[ ${{ !endsWith(github.ref, 'john') }} ]] && [[ ${{ !endsWith(github.ref, 'smith') }} ]] && [[ ${{ !endsWith(github.ref, 'aim') }} ]] ]]; then
                 echo "deploy $client"
               else
                 # if [[ $version == *"$client"* ]]; then
