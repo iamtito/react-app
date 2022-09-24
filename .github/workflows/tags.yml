@@ -3,9 +3,9 @@ name: Tags Trigger Workflow Now
 on: 
   push: 
     tags:
-      - "*lyme*"
-      - "*time*"
-      - "*june*"
+      - "*john"
+      - "*aim"
+      - "*smith"
       
   workflow_dispatch:
       inputs:
@@ -13,8 +13,44 @@ on:
           description: 'Deploy to all env? Options: all, staging, prod'
           required: true
           default: "all"
+        client:
+          description: 'select client.'
+          required: true
+          default: 'all' 
+          type: choice
+          options:
+          - all
+          - john
+          - smith
+          - aim
+
+env:
+  CLIENTS: "john,smith,aim"
+  ACTION_URL: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}/checks"
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    #if: github.event_name == 'workflow_dispatch'
+    steps:
+      - run: echo "${{ toJson(github) }}"
+      - uses: actions/checkout@v2
+
+      - name: Build and push
+        if: github.event_name == 'push'
+        run: docker build -t react-app:${{ github.ref_name }} .
+
+      - name: Build and Push Container
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          if [ ${{ github.event.inputs.client }} == 'all' ]; then
+            clients="${{ env.CLIENTS }}"
+            for client in ${clients//,/ }; do
+              docker build -t react-app:$client .
+            done
+          else            
+            docker build -t react-app:${{ github.event.inputs.client }} .
+          fi
   opt:
     runs-on: ubuntu-latest
     #if: github.event_name == 'workflow_dispatch'

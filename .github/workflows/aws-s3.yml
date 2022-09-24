@@ -2,7 +2,7 @@ name: List AWS S3 buckets
 on: 
   push:
     branches:
-      - master
+      - masterr
     paths-ignore:
       - '.github/**'
 
