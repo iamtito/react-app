@@ -83,7 +83,7 @@ jobs:
                 echo "deploy $cl"
               fi
                 # if [[ $version == *"$cl"* ]]; then
-              if ${{ endsWith(github.ref, '"$cl"') }} ; then
+              if ${{ endsWith(github.ref, 'john') }} ; then
                 echo "deploying $version to $cl"
               fi
             done
