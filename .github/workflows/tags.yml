@@ -63,13 +63,23 @@ jobs:
   john2:
     name: John2
     runs-on: ubuntu-latest
-    if: github.ref == v[12].[0-9]+.[0-9]+
+    if: endsWith(github.ref, 'john')
     # needs:
     #   - build
     steps:
       - name: Run
         run: |
           echo "hi john2"
+  # john2:
+  #   name: John2
+  #   runs-on: ubuntu-latest
+  #   if: endsWith(github.ref, 'john') && 
+  #   # needs:
+  #   #   - build
+  #   steps:
+  #     - name: Run
+  #       run: |
+  #         echo "hi john2"
 
   dp:
     runs-on: ubuntu-latest
