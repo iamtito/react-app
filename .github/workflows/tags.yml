@@ -65,7 +65,18 @@ jobs:
   smith-all:
     name: smith
     runs-on: ubuntu-latest
-    if: endsWith(github.ref, 'smith')  || ( ${{ !endsWith(github.ref, 'smith')}} )
+    if: endsWith(github.ref, 'smith')  || ( ${{ !endsWith(github.ref, 'john')}} )
+    # needs:
+    #   - build
+    steps:
+      - name: Run
+        run: |
+          echo "hi smith"
+
+  checker-all:
+    name: smith
+    runs-on: ubuntu-latest
+    if: "${{ contains(github.ref, 'v[1-9].[1-9].[1-9]')}}"
     # needs:
     #   - build
     steps:
