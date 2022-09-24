@@ -36,12 +36,15 @@ jobs:
         # use bash variable expression to get the substring
         export GIT_PR_SHA="male"
         export GIT_PR_SHA_SHORT="female"
+        export TAGS=${{ github.ref_name }}
 
         echo "::set-output name=git_pr_sha::${GIT_PR_SHA}"
         echo "::set-output name=git_pr_sha_short::${GIT_PR_SHA_SHORT}"
+        echo "::set-output name=tags::${TAGS}"
     outputs:
       git_pr_sha: ${{ steps.identify.outputs.git_pr_sha }}
       git_pr_sha_short: ${{ steps.identify.outputs.git_pr_sha_short }}
+      tags: ${{ steps.identify.outputs.tags }}
 
   second-job:
     needs: first-job
@@ -50,6 +53,7 @@ jobs:
     - run: |
         echo "${{ needs.first-job.outputs.git_pr_sha }}"
         echo "${{ needs.first-job.outputs.git_pr_sha_short }}"
+        echo "${{ needs.first-job.outputs.tags }}"
   build:
     runs-on: ubuntu-latest
     #if: github.event_name == 'workflow_dispatch'
@@ -90,6 +94,7 @@ jobs:
           # if ${{ !endsWith(github.ref, 'john') }} && ${{ !endsWith(github.ref, 'smith') }} && ${{ !endsWith(github.ref, 'aim') }}; then
           #   echo "deploying $version to all environment"
           # fi
+          echo "${{ needs.first-job.outputs.tags }}"
       - name: Build
         run: echo "we are building $VERSION"
 
