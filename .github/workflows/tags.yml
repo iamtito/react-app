@@ -58,7 +58,7 @@ jobs:
     steps:
       - name: Run
         run: |
-          set -exv
+          # set -exv
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
             if [ ${{ github.event.inputs.client }} == 'all' ]; then
               ## We obtain the list of client from the env we specified in env
