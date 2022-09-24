@@ -1,11 +1,12 @@
 name: Tags Trigger Workflow Now
 
 on: 
-  push: 
-    tags:
-      - "*john"
-      - "*aim"
-      - "*smith"
+  push: tags
+    # tags:
+    #   - "*"
+    #   - "*john"
+    #   - "*aim"
+    #   - "*smith"
       
   workflow_dispatch:
       inputs:
