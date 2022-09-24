@@ -54,50 +54,52 @@ jobs:
         echo "${{ needs.first-job.outputs.git_pr_sha }}"
         echo "${{ needs.first-job.outputs.git_pr_sha_short }}"
         echo "${{ needs.first-job.outputs.tags }}"
+  
   build:
     runs-on: ubuntu-latest
     #if: github.event_name == 'workflow_dispatch'
     steps:
-      - run: echo "${{ toJson(github) }}"
-      - id: tags
-        run: |
-          # set -exv
-          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            echo "manual flow"
-            clients="${{ env.CLIENTS }}"
-            for client in $clients; do
-              if [ ${{ github.event.inputs.client }} == *"$client"* ]; then
-                echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
-                # echo "$VERSION set"
-              fi
-            done
-          fi
+    # - run: echo "${{ toJson(github) }}"
+    - id: tags
+      run: |
+        # set -exv
+        if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+          echo "manual flow"
+          clients="${{ env.CLIENTS }}"
+          for client in $clients; do
+            if [ ${{ github.event.inputs.client }} == *"$client"* ]; then
+              echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
+              # echo "$VERSION set"
+            fi
+          done
+        fi
 
-          if [ ${{ github.event_name }} == 'release' ]; then
-            echo "release flow"
-            for client in ${{ env.CLIENTS }}; do
-              if [[ ${{ github.ref_name }} == *"$client"* ]]; then
-                echo "VERSION=$client-latest" >> $GITHUB_ENV
-                # echo "$VERSION set"
-              fi
-            done
-          fi
+        if [ ${{ github.event_name }} == 'release' ]; then
+          echo "release flow"
+          for client in ${{ env.CLIENTS }}; do
+            if [[ ${{ github.ref_name }} == *"$client"* ]]; then
+              echo "VERSION=$client-latest" >> $GITHUB_ENV
+              # echo "$VERSION set"
+            fi
+          done
+        fi
 
-          echo "$VERSION set"
-          export tags="$VERSION"
+        echo "$VERSION set"
 
-          echo "::set-output name=tags::${tags}"
+        export TAGS=$VERSION
+        echo "$TAGS is the tag"
 
-          # if [ ${{ github.event.inputs.client }} == 'john' ]
-          #   echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
+        echo "::set-output name=tags::${TAGS}"
 
-          # if ${{ !endsWith(github.ref, 'john') }} && ${{ !endsWith(github.ref, 'smith') }} && ${{ !endsWith(github.ref, 'aim') }}; then
-          #   echo "deploying $version to all environment"
-          # fi
-          echo "${{ needs.first-job.outputs.tags }}"
-      - name: Build
-        run: echo "we are building $VERSION"
+        # if [ ${{ github.event.inputs.client }} == 'john' ]
+        #   echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
 
+        # if ${{ !endsWith(github.ref, 'john') }} && ${{ !endsWith(github.ref, 'smith') }} && ${{ !endsWith(github.ref, 'aim') }}; then
+        #   echo "deploying $version to all environment"
+        # fi
+        echo "${{ needs.first-job.outputs.tags }}"
+    - name: Build
+      run: echo "we are building $VERSION"
     outputs:
       tags: ${{ steps.tags.outputs.tags }}
   #     - uses: actions/checkout@v2
