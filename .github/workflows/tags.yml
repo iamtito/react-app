@@ -122,11 +122,11 @@ jobs:
         run: echo "hi wild john"
 
       - name: not john
-        if: ${{ !contains( github.ref, "john" ) }}
+        if: ${{ !contains( github.ref, '"john"' ) }}
         run: echo "not john"
 
       - name: wild not john
-        if: ${{ !contains( github.ref, "*john*" ) }}
+        if: ${{ !contains( github.ref, '"*john*"' ) }}
         run: echo "not wild john"
 
       # - name: john
