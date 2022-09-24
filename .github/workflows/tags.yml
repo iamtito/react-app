@@ -149,8 +149,7 @@ jobs:
     name: check all
     runs-on: ubuntu-latest
     # if: "${{ startsWith(github.ref, 'v[1-9].[1-9].[1-9]')}}"
-    needs:
-      - build
+    needs: build
     steps:
       - name: Run
         run: |
