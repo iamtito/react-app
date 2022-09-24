@@ -24,7 +24,7 @@ on:
 
 env:
   CLIENTS: "john smith aim"
-  VERSION: "latest"
+  # VERSION: "latest"
   ACTION_URL: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}/checks"
 
 jobs:
