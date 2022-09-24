@@ -34,25 +34,29 @@ jobs:
     steps:
       - run: echo "${{ toJson(github) }}"
       - run: |
+          set -exv
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
-            echo "hi"
+            echo "manual flow"
             clients="${{ env.CLIENTS }}"
             for client in $clients; do
               if [ ${{ github.event.inputs.client }} == *"$client"* ]; then
                 echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
-                echo "$VERSION set"
+                # echo "$VERSION set"
               fi
             done
           fi
 
           if [ ${{ github.event_name }} == 'release' ]; then
+            echo "release flow"
             for client in ${{ env.CLIENTS }}; do
               if [[ ${{ github.ref_name }} == *"$client"* ]]; then
                 echo "VERSION=$client-latest" >> $GITHUB_ENV
-                echo "$VERSION set"
+                # echo "$VERSION set"
               fi
             done
           fi
+
+          echo "$VERSION set"
 
           # if [ ${{ github.event.inputs.client }} == 'john' ]
           #   echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
