@@ -76,10 +76,13 @@ jobs:
             clients="${{ env.CLIENTS }}"
             version="${{ github.ref_name }}"
             for client in $clients; do
-              if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
+              # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
+              # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
+              if [[ ${{ !endsWith(github.ref, 'john') }} ]] && [[ ${{ !endsWith(github.ref, 'smith') }} ]] | [[ ${{ !endsWith(github.ref, 'aim') }} ]]; then
                 echo "deploy $client"
               else
-                if [[ $version == *"$client"* ]]; then
+                # if [[ $version == *"$client"* ]]; then
+                if [[ ${{ endsWith(github.ref, '"$client"') }} ]]; then
                   echo "deploying $version to $client"
                 else
                   echo "not deploying to $client."
@@ -106,28 +109,14 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
 
       - name: smith
-        if: contains( github.ref, '"smith"' )
+        if: endsWith(github.ref, 'smith')
         run: echo "hi smith"
 
-      - name: wild smith
-        if: contains( github.ref, '"*smith*"' )
-        run: echo "hi wild smith"
 
       - name: john
-        if: contains( github.ref, '"john"' )
+        if: endsWith(github.ref, 'john')
         run: echo "hi john"
 
-      - name: wild john
-        if: contains( github.ref, '"*john*"' )
-        run: echo "hi wild john"
-
-      - name: not john
-        if: ${{ !contains( github.ref, '"john"' ) }}
-        run: echo "not john"
-
-      - name: wild not john
-        if: ${{ !contains( github.ref, '"*john*"' ) }}
-        run: echo "not wild john"
 
       # - name: john
       #   if: ${{ github.event.release.name }} == "john"
