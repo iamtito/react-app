@@ -51,7 +51,7 @@ jobs:
   #         fi
   
   john-all:
-    name: John all
+    name: John
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'john')  || ( ${{ !endsWith(github.ref, 'smith')}} )
     # needs:
@@ -61,19 +61,9 @@ jobs:
         run: |
           echo "hi john"
 
-  john-only:
-    name: John Only
-    runs-on: ubuntu-latest
-    if: endsWith(github.ref, 'john')
-    # needs:
-    #   - build
-    steps:
-      - name: Run
-        run: |
-          echo "hi john2"
 
   smith-all:
-    name: smith all
+    name: smith
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'smith')  || ( ${{ !endsWith(github.ref, 'smith')}} )
     # needs:
