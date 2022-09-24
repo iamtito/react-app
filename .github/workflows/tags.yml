@@ -76,17 +76,14 @@ jobs:
             clients="${{ env.CLIENTS }}"
             version="${{ github.ref_name }}"
             for cl in $clients; do
-              echo "checking $cl"
-              export cl=$cl
-              # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
-              # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
+              # echo "checking $cl"
+              # export cl=$cl
+
               if ${{ !endsWith(github.ref, 'john') }} && ${{ !endsWith(github.ref, 'smith') }} && ${{ !endsWith(github.ref, 'aim') }}; then
-                echo "deploy $cl"
+                echo "deploying $version to $cl"
               fi
-                # if [[ $version == *"$cl"* ]]; then
-              echo "check if ${{ github.ref }} ends with $cl"
+
               if [[ ${{ github.ref }} == *"$cl"* ]]; then
-              # if ${{ endsWith(github.ref, '"$cl"') }} ; then
                 echo "deploying $version to $cl"
               fi
             done
