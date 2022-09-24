@@ -111,7 +111,7 @@ jobs:
 
       - name: time all john 2
         run: echo "hi time all"
-        if: ${{ github.ref_name }} == "*john"
+        if: "*john" == ${{ github.ref_name }}
 
       # - name: time all john 3
       #   run: echo "hi time all"
