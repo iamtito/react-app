@@ -106,19 +106,19 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
 
       - name: smith
-        if: contains( github.ref, "smith" )
+        if: contains( github.ref, '"smith"' )
         run: echo "hi smith"
 
       - name: wild smith
-        if: contains( github.ref, "*smith*" )
+        if: contains( github.ref, '"*smith*"' )
         run: echo "hi wild smith"
 
       - name: john
-        if: contains( github.ref, "john" )
+        if: contains( github.ref, '"john"' )
         run: echo "hi john"
 
       - name: wild john
-        if: contains( github.ref, "*john*" )
+        if: contains( github.ref, '"*john*"' )
         run: echo "hi wild john"
 
       - name: not john
