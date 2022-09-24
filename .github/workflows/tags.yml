@@ -122,7 +122,7 @@ jobs:
         run: echo "hi john test"
 
       - name: john not
-        if: ! endsWith(github.ref, 'john')
+        if: !endsWith(github.ref, 'john')
         run: echo "hi time all"
 
       # - name: time all john 3
