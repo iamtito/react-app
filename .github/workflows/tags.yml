@@ -121,9 +121,13 @@ jobs:
         if: endsWith(github.ref, 'john')
         run: echo "hi john test"
 
-      - name: john not
-        if: !endsWith(github.ref, 'john')
-        run: echo "hi time all"
+      - name: 1st not
+        if: ${{ !endsWith(github.ref, 'john') }}
+        run: echo "no john"
+      
+      - name: 2nd not
+        if: ${{ !contains(fromJson('["john", "smith"]'), github.ref) }}
+        run: echo "no john not smith"
 
       # - name: time all john 3
       #   run: echo "hi time all"
