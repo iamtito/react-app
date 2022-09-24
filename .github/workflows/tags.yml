@@ -93,10 +93,13 @@ jobs:
     steps:
       - run: echo "${{ toJson(github) }}"
       - run: echo "tag v${{ github.ref_name }} got tagged"
+
       - name: skip-workflow
         run: echo "hi"
+
       - uses: actions/checkout@v2
         if: github.event_name == 'push'
+
       - uses: actions/checkout@v2
         if: github.event_name == 'workflow_dispatch'
         with:
@@ -104,7 +107,19 @@ jobs:
 
       - name: time all
         run: echo "hi time all"
-        if: "${{ github.ref_name }}" == "*john"
+        if: ${{ github.ref_name }} == *john
+
+      - name: time all john 2
+        run: echo "hi time all"
+        if: ${{ github.ref_name }} == "*john"
+
+      - name: time all john 3
+        run: echo "hi time all"
+        if: github.ref_name == "*john"
+
+      - name: time all john 4
+        run: echo "hi time all"
+        if: github.ref_name == '*john'
 
       - name: time
         run: echo "smith"
