@@ -23,7 +23,7 @@ on:
           - aim
 
 env:
-  CLIENTS: "john,smith,aim"
+  CLIENTS: "john smith aim"
   ACTION_URL: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}/checks"
 
 jobs:
@@ -76,6 +76,7 @@ jobs:
             clients="${{ env.CLIENTS }}"
             version="${{ github.ref_name }}"
             for cl in $clients; do
+              echo "checking $cl"
               # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
               # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
               if ${{ !endsWith(github.ref, 'john') }} && ${{ !endsWith(github.ref, 'smith') }} && ${{ !endsWith(github.ref, 'aim') }}; then
