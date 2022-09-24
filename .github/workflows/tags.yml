@@ -51,6 +51,42 @@ jobs:
           else            
             docker build -t react-app:${{ github.event.inputs.client }} .
           fi
+  dp:
+    runs-on: ubuntu-latest
+    #if: github.event_name == 'workflow_dispatch'
+    needs:
+      - build
+    steps:
+      - name: Run
+        run: |
+          if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
+            if [ ${{ github.event.inputs.client }} == 'all' ]; then
+              ## We obtain the list of client from the env we specified in env
+              clients="${{ env.CLIENTS }}"
+              for client in ${clients//,/ }; do
+                echo "NAMESPACE=${{ github.event.inputs.client }}" >> $GITHUB_ENV
+                echo "$NAMESPACE"
+              done
+            else        
+              echo "run it $NAMESPACE"
+            fi
+          fi
+
+          if [ ${{ github.event_name }} == 'push' ]; then
+            clients="${{ env.CLIENTS }}"
+            tag="${{ github.ref_name }}"
+            for client in $clients; do
+              if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
+                echo "deploy $client"
+              else
+                if [[ $version == *"$client"* ]]; then
+                  echo "deploying $version to $client"
+                else
+                  echo "not deploying to $client."
+                fi
+              fi
+            done
+          fi
   opt:
     runs-on: ubuntu-latest
     #if: github.event_name == 'workflow_dispatch'
