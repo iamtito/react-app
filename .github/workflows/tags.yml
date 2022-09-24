@@ -33,7 +33,8 @@ jobs:
     #if: github.event_name == 'workflow_dispatch'
     steps:
       - run: echo "${{ toJson(github) }}"
-      - run: |
+      - id: tags
+        run: |
           # set -exv
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]; then
             echo "manual flow"
@@ -57,6 +58,9 @@ jobs:
           fi
 
           echo "$VERSION set"
+          export TAGS="$VERSION"
+
+          echo "::set-output name=tags::${TAGS}"
 
           # if [ ${{ github.event.inputs.client }} == 'john' ]
           #   echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
@@ -66,6 +70,9 @@ jobs:
           # fi
       - name: Build
         run: echo "we are building $VERSION"
+
+    outputs:
+      tags: ${{ steps.tags.outputs.tags }}
   #     - uses: actions/checkout@v2
 
   #     - name: Build and push
@@ -94,7 +101,8 @@ jobs:
       - name: Run
         run: |
           echo "hi john"
-          echo "we are building $VERSION"
+          echo "${{ needs.build.outputs.tags }}"
+          echo "we are building ${{ needs.build.outputs.tags }}"
 
 
   smith-all:
@@ -107,7 +115,8 @@ jobs:
       - name: Run
         run: |
           echo "hi smith"
-          echo "we are building $VERSION"
+          echo "${{ needs.build.outputs.tags }}"
+          echo "we are building ${{ needs.build.outputs.tags }}"
 
   checker-all:
     name: check all
@@ -119,7 +128,8 @@ jobs:
       - name: Run
         run: |
           echo "hi smith"
-          echo "we are building $VERSION"
+          echo "${{ needs.build.outputs.tags }}"
+          echo "we are building ${{ needs.build.outputs.tags }}"
   # john2:
   #   name: John2
   #   runs-on: ubuntu-latest
