@@ -124,8 +124,7 @@ jobs:
     name: John
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'john')  ||  endsWith(github.ref, 'all')
-    needs:
-      - build
+    needs: build
     steps:
       - name: Run
         run: |
@@ -137,9 +136,8 @@ jobs:
   smith-all:
     name: smith
     runs-on: ubuntu-latest
-    if: endsWith(github.ref, 'smith')  || endsWith(github.ref, 'all')
-    needs:
-      - build
+    # if: endsWith(github.ref, 'smith')  || endsWith(github.ref, 'all')
+    needs: build
     steps:
       - name: Run
         run: |
