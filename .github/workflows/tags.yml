@@ -73,7 +73,7 @@ jobs:
           echo "hi john2"
 
   smith-all:
-    name: John all
+    name: smith all
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'smith')  || ( ${{ !endsWith(github.ref, 'smith')}} )
     # needs:
