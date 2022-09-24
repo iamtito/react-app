@@ -27,33 +27,34 @@ env:
   ACTION_URL: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}/checks"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    #if: github.event_name == 'workflow_dispatch'
-    steps:
-      - run: echo "${{ toJson(github) }}"
-      - uses: actions/checkout@v2
+  # build:
+  #   runs-on: ubuntu-latest
+  #   #if: github.event_name == 'workflow_dispatch'
+  #   steps:
+  #     - run: echo "${{ toJson(github) }}"
+  #     - uses: actions/checkout@v2
 
-      - name: Build and push
-        if: github.event_name == 'release'
-        run: docker build -t react-app:${{ github.ref_name }} .
+  #     - name: Build and push
+  #       if: github.event_name == 'release'
+  #       run: docker build -t react-app:${{ github.ref_name }} .
 
-      - name: Build and Push Container
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          if [ ${{ github.event.inputs.client }} == 'all' ]; then
-            clients="${{ env.CLIENTS }}"
-            for client in ${clients//,/ }; do
-              docker build -t react-app:$client .
-            done
-          else            
-            docker build -t react-app:${{ github.event.inputs.client }} .
-          fi
+  #     - name: Build and Push Container
+  #       if: github.event_name == 'workflow_dispatch'
+  #       run: |
+  #         if [ ${{ github.event.inputs.client }} == 'all' ]; then
+  #           clients="${{ env.CLIENTS }}"
+  #           for client in ${clients//,/ }; do
+  #             docker build -t react-app:$client .
+  #           done
+  #         else            
+  #           docker build -t react-app:${{ github.event.inputs.client }} .
+  #         fi
+  
   dp:
     runs-on: ubuntu-latest
     #if: github.event_name == 'workflow_dispatch'
-    needs:
-      - build
+    # needs:
+    #   - build
     steps:
       - name: Run
         run: |
@@ -100,12 +101,15 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         with:
           ref: ${{ github.event.inputs.branch }}
+
       - name: time all
         run: echo "hi time all"
-        if: github.ref_name == '*time*'
+        if: "${{ github.ref_name }}" == "*john"
+
       - name: time
-        run: echo "time"
-        if: github.ref_name == '*time'
+        run: echo "smith"
+        if: github.ref_name == '*smith'
+
       - name: june
-        run: echo "hi jun"
-        if: github.ref_name == '*june'
+        run: echo "hi aim"
+        if: github.ref_name == '*aim'
