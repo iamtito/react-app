@@ -77,6 +77,7 @@ jobs:
             version="${{ github.ref_name }}"
             for cl in $clients; do
               echo "checking $cl"
+              export cl=$cl
               # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
               # if [[ $version != *"john"* ]] && [[ $version != *"smith"* ]] && [[ $version != *"aim"* ]]; then
               if ${{ !endsWith(github.ref, 'john') }} && ${{ !endsWith(github.ref, 'smith') }} && ${{ !endsWith(github.ref, 'aim') }}; then
