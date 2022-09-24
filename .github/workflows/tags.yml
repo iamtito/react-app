@@ -38,7 +38,7 @@ jobs:
             echo "hi"
             clients="${{ env.CLIENTS }}"
             for client in $clients; do
-              if [[ ${{ github.event.inputs.client }} == *"$client"* ]]; then
+              if [ ${{ github.event.inputs.client }} == *"$client"* ]; then
                 echo "VERSION=${{ github.event.inputs.client }}-latest" >> $GITHUB_ENV
                 echo "$VERSION set"
               fi
