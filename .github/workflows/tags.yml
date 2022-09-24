@@ -105,13 +105,25 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - name: time all
-        run: echo "hi time all"
-        if: ${{ github.ref_name }} == *john
+      - name: smith
+        if: ${{ github.event.release.name }} == "smith"
+        run: echo "hi smith"
 
-      - name: time all john 2
+      - name: john
+        if: ${{ github.event.release.name }} == "john"
+        run: echo "hi john"
+
+      - name: john
+        if: ${{ github.event.release.name }} == "john"
+        run: echo "hi john"
+
+      - name: john test
+        if: endsWith(github.ref, 'john')
+        run: echo "hi john test"
+
+      - name: john not
+        if: ! endsWith(github.ref, 'john')
         run: echo "hi time all"
-        if: "*john" == ${{ github.ref_name }}
 
       # - name: time all john 3
       #   run: echo "hi time all"
