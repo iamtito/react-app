@@ -114,41 +114,53 @@ jobs:
         run: echo "hi wild smith"
 
       - name: john
-        if: ${{ github.event.release.name }} == "john"
+        if: contains( github.ref, "john" )
         run: echo "hi john"
 
-      - name: john
-        if: ${{ github.event.release.name }} == "john"
-        run: echo "hi john"
+      - name: wild john
+        if: contains( github.ref, "*john*" )
+        run: echo "hi wild john"
 
-      - name: john test
-        if: endsWith(github.ref, 'john')
-        run: echo "hi john test"
+      - name: not john
+        if: ${{ !contains( github.ref, "john" ) }}
+        run: echo "not john"
 
-      - name: 1st not
-        if: ${{ !endsWith(github.ref, 'john') }}
-        run: echo "no john"
+      - name: wild not john
+        if: ${{ !contains( github.ref, "*john*" ) }}
+        run: echo "not wild john"
+
+      # - name: john
+      #   if: ${{ github.event.release.name }} == "john"
+      #   run: echo "hi john"
+
+      # - name: john test
+      #   if: endsWith(github.ref, 'john')
+      #   run: echo "hi john test"
+
+      # - name: 1st not
+      #   if: ${{ !endsWith(github.ref, 'john') }}
+      #   run: echo "no john"
       
-      - name: 2nd not
-        if: ${{ !contains(fromJson('["john", "smith"]'), github.ref) }}
-        run: echo "no john not smith"
+      # - name: 2nd not
+      #   if: ${{ !contains(fromJson('["john", "smith"]'), github.ref) }}
+      #   run: echo "no john not smith"
 
-      - name: 2nd not
-        if: ${{ !contains(["john", "smith"], github.ref) }}
-        run: echo "no john not smith"
+      # - name: 2nd not
+      #   if: ${{ !contains(["john", "smith"], github.ref) }}
+      #   run: echo "no john not smith"
 
-      # - name: time all john 3
+      # # - name: time all john 3
+      # #   run: echo "hi time all"
+      # #   if: github.ref_name == "*john"
+
+      # - name: time all john 4
       #   run: echo "hi time all"
-      #   if: github.ref_name == "*john"
+      #   if: github.ref_name == '*john'
 
-      - name: time all john 4
-        run: echo "hi time all"
-        if: github.ref_name == '*john'
+      # - name: time
+      #   run: echo "smith"
+      #   if: github.ref_name == '*smith'
 
-      - name: time
-        run: echo "smith"
-        if: github.ref_name == '*smith'
-
-      - name: june
-        run: echo "hi aim"
-        if: github.ref_name == '*aim'
+      # - name: june
+      #   run: echo "hi aim"
+      #   if: github.ref_name == '*aim'
