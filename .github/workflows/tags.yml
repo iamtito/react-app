@@ -123,7 +123,7 @@ jobs:
   john-all:
     name: John
     runs-on: ubuntu-latest
-    if:  ${{ github.event.inputs.client }}  == 'john' || ${{ github.event.inputs.client }}  == 'all'
+    if:  (${{ github.event.inputs.client }}  == 'john') || (${{ github.event.inputs.client }}  == 'all')
     needs: build
     steps:
       - name: Run
@@ -136,7 +136,7 @@ jobs:
   smith-all:
     name: smith
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.client }}  == 'smith' || ${{ github.event.inputs.client }}  == 'all'
+    if: (${{ github.event.inputs.client }}  == 'smith') || (${{ github.event.inputs.client }}  == 'all')
     needs: build
     steps:
       - name: Run
