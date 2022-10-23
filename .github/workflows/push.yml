@@ -6,7 +6,7 @@ on:
       - '*feature*'
 #   schedule: 
 #     - cron: '*/5 * * * *'
-      
+    
   workflow_dispatch:
       inputs:
         deploy:
@@ -126,7 +126,8 @@ jobs:
 
   feature:
     runs-on: ubuntu-latest
-    if: github.ref_name == '*feature*'
+    # if: github.ref_name == '*feature*'
+    if: contains(github.ref_name, 'feature')
     steps:
       - run: echo ${{ github.event.sender.login }}
       - name: runit
