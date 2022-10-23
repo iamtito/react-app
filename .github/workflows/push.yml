@@ -124,6 +124,19 @@ jobs:
       - run: echo "its me crons"
         if: github.event_name == 'push' || github.event.inputs.application == 'crons' || github.event.inputs.application == 'all'
 
+  feature:
+    runs-on: ubuntu-latest
+    if: github.ref_name == '*feature*'
+    steps:
+      - run: echo ${{ github.event.sender.login }}
+      - name: runit
+        run: |
+          export Actor="${{ github.event.sender.login }}"
+          echo "$Actor --"
+          echo "${Actor} **"
+      - run: echo "${{ github.ref_name }}"
+      - run: echo "${{ toJson(github) }}"
+
 #   test:
 #    runs-on: ubuntu-latest
 #    continue-on-error: true
