@@ -6,7 +6,7 @@ on:
       - '*feature*'
 #   schedule: 
 #     - cron: '*/5 * * * *'
-      
+    
   workflow_dispatch:
       inputs:
         deploy:
