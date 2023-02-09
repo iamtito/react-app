@@ -12,9 +12,9 @@ on:
       - 'dev'
       - 'test'
       - 'master'
-    types:
-      - opened
-      - edited
+    # types:
+    #   - opened
+    #   - edited
     
   workflow_dispatch:
       inputs:
