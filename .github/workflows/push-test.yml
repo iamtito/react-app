@@ -1,0 +1,36 @@
+name: Test Push Workflow Feature
+
+on: 
+  push: 
+    branches: 
+      - 'dev'
+      - 'test'
+      - 'master'
+    
+  workflow_dispatch:
+      inputs:
+        env:
+          description: 'Deploy to all env?'
+          required: true
+          default: "all"
+          type: choice
+          options:
+          - dev
+          - test
+          - master
+
+jobs:
+  opt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set env
+        run: |
+          if ${{ github.ref == 'ref/heads/dev' }} || ${{ github.event.inputs.env == 'dev'}}; then
+            echo "Dev it is"
+          elif ${{ github.ref == 'ref/heads/test' }} || ${{ github.event.inputs.env == 'test'}}; then
+            echo "Test it is"
+          elif ${{ github.ref == 'ref/heads/main' }} || ${{ github.event.inputs.env == 'main'}}; then
+            echo "master it is"
+          fi
+
+          
