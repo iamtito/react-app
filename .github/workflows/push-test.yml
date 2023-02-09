@@ -28,11 +28,11 @@ jobs:
       - run: echo "${{ toJson(github) }}"
       - name: set env
         run: |
-          if ${{ github.ref == 'ref/heads/dev' }} || ${{ github.event.inputs.env == 'dev'}}; then
+          if ${{ github.ref == 'refs/heads/dev' }} || ${{ github.event.inputs.env == 'dev'}}; then
             echo "Dev it is"
-          elif ${{ github.ref == 'ref/heads/test' }} || ${{ github.event.inputs.env == 'test'}}; then
+          elif ${{ github.ref == 'refs/heads/test' }} || ${{ github.event.inputs.env == 'test'}}; then
             echo "Test it is"
-          elif ${{ github.ref == 'ref/heads/master' }} || ${{ github.event.inputs.env == 'master'}}; then
+          elif ${{ github.ref == 'refs/heads/master' }} || ${{ github.event.inputs.env == 'master'}}; then
             echo "master it is"
           fi
 
