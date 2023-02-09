@@ -6,7 +6,7 @@ on:
   #     - 'dev'
   #     - 'test'
   #     - 'master'
-  ###
+  ######
 
   pull_request:
     branches: 
