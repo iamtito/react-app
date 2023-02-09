@@ -23,6 +23,9 @@ jobs:
   opt:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "${{ github.ref_name }}"
+      - run: echo "${{ github.ref }}"
+      - run: echo "${{ toJson(github) }}"
       - name: set env
         run: |
           if ${{ github.ref == 'ref/heads/dev' }} || ${{ github.event.inputs.env == 'dev'}}; then
