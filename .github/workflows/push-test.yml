@@ -15,7 +15,7 @@ on:
     # types:
     #   - opened
     #   - edited
-    ###########
+    ################
     
   workflow_dispatch:
       inputs:
