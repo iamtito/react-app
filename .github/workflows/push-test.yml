@@ -1,7 +1,8 @@
 name: Test Push Workflow Feature
 
 on: 
-  
+
+#####
   # push: 
   #   branches: 
   #     - 'dev'
@@ -38,11 +39,11 @@ jobs:
       - run: echo "${{ toJson(github) }}"
       - name: set env
         run: |
-          if ${{ github.ref == 'refs/heads/dev' }} || ${{ github.event.inputs.env == 'dev'}}; then
+          if ${{ github.base_ref == 'dev' }} || ${{ github.ref == 'refs/heads/dev' }} || ${{ github.event.inputs.env == 'dev'}}; then
             echo "Dev it is"
-          elif ${{ github.ref == 'refs/heads/test' }} || ${{ github.event.inputs.env == 'test'}}; then
+          elif ${{ github.base_ref == 'test' }} || ${{ github.ref == 'refs/heads/test' }} || ${{ github.event.inputs.env == 'test'}}; then
             echo "Test it is"
-          elif ${{ github.ref == 'refs/heads/master' }} || ${{ github.event.inputs.env == 'master'}}; then
+          elif ${{ github.base_ref == 'master' }} || ${{ github.ref == 'refs/heads/master' }} || ${{ github.event.inputs.env == 'master'}}; then
             echo "master it is"
           fi
 
