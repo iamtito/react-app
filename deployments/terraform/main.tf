@@ -1,7 +1,7 @@
 provider "aws" {
     region = "us-east-1"
 }
-
+###
 resource "aws_instance" "flex" {
     ami                          = "ami-0c94855ba95c71c99"
     associate_public_ip_address  = true
