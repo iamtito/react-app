@@ -135,7 +135,7 @@ jobs:
           echo "$Actor --"
           echo "${Actor} **"
       - run: echo "${{ toJson(github) }}"
-      - run: echo "Event Ref: ${{ github.event.ref_name }}"
+      - run: echo "Event Ref ${{ github.event.ref_name }}"
       - run: echo "its me ms"
         if: github.event_name == 'push' || github.event.inputs.application == 'ms' || github.event.inputs.application == 'all'
       - run: echo "its me gs"
