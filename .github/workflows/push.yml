@@ -86,6 +86,9 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
 
+      - name: Echo Tags
+        run: echo ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
+        
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
@@ -117,6 +120,9 @@ jobs:
           images: ${{ github.repository }}
           tags: |
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
+
+      - name: Echo Tags
+        run: echo ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -171,6 +177,9 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=sha
+      
+      - name: Echo Tags
+        run: echo ${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
