@@ -84,7 +84,7 @@ jobs:
         with:
           images: ${{ github.repository }}
           tags: |
-            type=sha,format=short,prefix=
+            type=semver,pattern={{major}}.{{minor}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -110,6 +110,21 @@ jobs:
           echo "::set-output name=r_status::$(echo $(if !($(git cat-file -e rc-${{ steps.githash.outputs.githash }} 2> /dev/null)); then echo "nope"; fi))"
       - run: echo "release candidate rc-${{ steps.githash.outputs.githash }} status is ${{ env.rc_status }}"
       - run: echo "Release candidate Status ${{ steps.r_status.outputs.r_status }}"
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ github.repository }}
+          tags: |
+            type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       - name: release note
         if: steps.r_status.outputs.r_status == 'nope'
         uses: actions/create-release@v1
