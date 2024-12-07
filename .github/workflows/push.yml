@@ -159,6 +159,26 @@ jobs:
         if: github.event_name == 'push' || github.event.inputs.application == 'gs' || github.event.inputs.application == 'all'
       - run: echo "its me crons"
         if: github.event_name == 'push' || github.event.inputs.application == 'crons' || github.event.inputs.application == 'all'
+      - uses: actions/checkout@v2
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ github.repository }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
   feature:
     runs-on: ubuntu-latest
