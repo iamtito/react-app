@@ -66,6 +66,8 @@ jobs:
     outputs:
       githas: ${{ steps.githas.outputs.githas }}
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
       - run: echo "::set-output name=githas::$(echo ${{ github.sha }} | cut -c 1-7)"
         id: githas
       - run: echo ${{ toJson(steps.githas.outputs) }}
