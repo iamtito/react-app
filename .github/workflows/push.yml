@@ -1,4 +1,4 @@
-name: Push Workflow Now
+name: Push Workflow Now 
 
 on: 
   push: 
