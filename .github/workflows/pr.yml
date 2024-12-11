@@ -6,6 +6,9 @@ on:
   pull_request:
     types: [merged,opened]
     
+  pull_request_review_comment:
+    types: [created, deleted]
+    
   workflow_dispatch:
     inputs:
       version:
